@@ -180,8 +180,15 @@
         </div>
 
         <!-- Live Distance Alert Box -->
-        <div id="userDistanceAlert" class="alert alert-info py-2 px-3 mb-3 d-none border-info rounded-3 small">
-            <i class="bi bi-compass-fill me-2 text-primary"></i> <span id="distanceText"></span>
+        <div id="userDistanceAlert" class="alert alert-dark bg-slate-800 border border-slate-700 py-2 px-3 mb-3 d-none rounded-3 small text-white shadow-xs d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <div>
+                <i class="bi bi-compass-fill me-2 text-warning"></i> <span id="distanceText"></span>
+            </div>
+            <div>
+                <button type="button" class="btn btn-sm btn-outline-warning fw-bold px-2 py-1" id="saveDefaultHomeBtn" onclick="saveCurrentSpotAsDefault()" style="font-size: 0.78rem;">
+                    📌 Save as My Default Location
+                </button>
+            </div>
         </div>
 
         <!-- AI Safe Route & Navigation Widget (USP) -->
@@ -1017,6 +1024,17 @@
 
             const handleFallbackIpLocation = function(reason) {
                 console.warn("GPS fallback triggered:", reason);
+                const savedSpotRaw = localStorage.getItem('safora_user_saved_spot');
+                if (savedSpotRaw) {
+                    try {
+                        const savedSpot = JSON.parse(savedSpotRaw);
+                        if (savedSpot.lat && savedSpot.lng) {
+                            handleSuccess(savedSpot.lat, savedSpot.lng, 15, "Your Saved Custom Spot");
+                            return;
+                        }
+                    } catch(e) {}
+                }
+
                 fetch('https://ipapi.co/json/')
                     .then(res => res.json())
                     .then(data => {
@@ -1334,6 +1352,40 @@
 
         if (typeof renderMapData === 'function') {
             renderMapData(filteredIncidents, initialSafePlaces);
+        }
+    };
+
+    window.saveCurrentSpotAsDefault = function() {
+        if (!userLat || !userLng) {
+            SaforaAlert.fire({
+                icon: 'warning',
+                title: 'No Location Selected',
+                text: 'Please track your location or drag the blue pin to your home/street first!',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+
+        const savedData = {
+            lat: userLat,
+            lng: userLng,
+            timestamp: new Date().toISOString()
+        };
+
+        localStorage.setItem('safora_user_saved_spot', JSON.stringify(savedData));
+
+        SaforaAlert.fire({
+            icon: 'success',
+            title: '📍 Default Spot Saved!',
+            text: `Your exact spot (${userLat.toFixed(4)}, ${userLng.toFixed(4)}) has been saved! Safora will now automatically lock onto this exact spot on your device every time.`,
+            confirmButtonText: 'Awesome!',
+            confirmButtonColor: '#10b981'
+        });
+
+        const btn = document.getElementById('saveDefaultHomeBtn');
+        if (btn) {
+            btn.className = "btn btn-sm btn-success fw-bold px-2 py-1";
+            btn.innerHTML = '✔ Default Spot Saved';
         }
     };
 
