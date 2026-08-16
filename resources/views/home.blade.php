@@ -152,10 +152,7 @@
             <!-- Map Controls & GPS Location Tracker Button -->
             <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mt-md-0">
                 <button type="button" class="btn btn-sm btn-emerald-600 btn-success fw-bold px-3 shadow-xs" id="locateUserBtn" onclick="if(typeof trackUserLocation==='function'){trackUserLocation(true);}">
-                    <i class="bi bi-crosshair me-1"></i> Track My Live GPS
-                </button>
-                <button type="button" class="btn btn-sm btn-warning text-dark fw-bold px-3 shadow-xs" id="setExactPinBtn" onclick="enableExactPinMode();">
-                    <i class="bi bi-geo-alt-fill me-1"></i> 🎯 Set My Exact House Pin
+                    <i class="bi bi-crosshair me-1"></i> Track My Live Location
                 </button>
                 <button type="button" class="btn btn-sm btn-dark text-warning border border-warning fw-bold px-3 shadow-xs" id="nightSafetyToggleBtn">
                     <i class="bi bi-moon-stars-fill me-1"></i> Night Safety & Heatmap
@@ -998,36 +995,25 @@
             console.error("Error creating L.map instance:", err);
         }
 
-        // Interactive Map Click Location Picker (High-Precision 6-Decimal Pinpointing)
+        // Interactive Map Click Location Picker
         map.on('click', function(e) {
-            const clickedLat = e.latlng.lat.toFixed(6);
-            const clickedLng = e.latlng.lng.toFixed(6);
+            const clickedLat = e.latlng.lat.toFixed(4);
+            const clickedLng = e.latlng.lng.toFixed(4);
 
             const latInp = document.getElementById('latInput');
             const lngInp = document.getElementById('lngInput');
             if (latInp) latInp.value = clickedLat;
             if (lngInp) lngInp.value = clickedLng;
 
-            // Save precise custom spot to local device storage
-            localStorage.setItem('safora_user_saved_spot', JSON.stringify({ 
-                lat: parseFloat(clickedLat), 
-                lng: parseFloat(clickedLng) 
-            }));
-
             if (pickerMarker && map) map.removeLayer(pickerMarker);
 
             const pinIcon = L.divIcon({
                 className: 'picker-pin',
-                html: `<div style="background:#f59e0b; color:#0f172a; padding:4px 10px; border-radius:16px; font-weight:bold; font-size:12px; border:2px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.3);">🎯 MY EXACT HOUSE PIN</div>`,
-                iconSize: [160, 26]
+                html: `<div style="background:#f59e0b; color:#0f172a; padding:4px 10px; border-radius:16px; font-weight:bold; font-size:12px; border:2px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.3);">📍 SELECTED LOCATION</div>`,
+                iconSize: [140, 26]
             });
 
-            pickerMarker = L.marker([clickedLat, clickedLng], { icon: pinIcon }).addTo(map).bindPopup(`🎯 <strong>Exact Custom Pin Set:</strong><br>Lat: ${clickedLat}, Lng: ${clickedLng}`).openPopup();
-
-            // Also update live user marker if present
-            if (typeof handleSuccess === 'function') {
-                handleSuccess(parseFloat(clickedLat), parseFloat(clickedLng), 5, "Saved Exact Spot", true);
-            }
+            pickerMarker = L.marker([clickedLat, clickedLng], { icon: pinIcon }).addTo(map).bindPopup("📍 Location selected for report!").openPopup();
 
             // Reverse Geocode place name
             fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${clickedLat}&lon=${clickedLng}`)
@@ -1042,14 +1028,6 @@
                         if (areaInp && !areaInp.value) {
                             areaInp.value = parts[1] || parts[0];
                         }
-
-                        SaforaAlert.fire({
-                            icon: 'success',
-                            title: '🎯 Exact Pin Saved!',
-                            text: `Your exact home location has been set to "${placeTitle}" (${clickedLat}, ${clickedLng}). Safora will remember this spot!`,
-                            timer: 3500,
-                            showConfirmButton: false
-                        });
                     }
                 }).catch(e => console.log('Reverse geocode error:', e));
         });
@@ -1119,6 +1097,9 @@
                 }) : null;
 
                 // Draggable Pulsing Blue GPS Beacon Marker so user can adjust pin on mobile
+                // Store precise location in local storage so user position is remembered
+                localStorage.setItem('safora_user_saved_spot', JSON.stringify({ lat: lat, lng: lng }));
+
                 userLocationMarker = L.marker([lat, lng], { 
                     icon: pulseIcon, 
                     draggable: true, 
@@ -1132,6 +1113,8 @@
                     const dragLat = pos.lat;
                     const dragLng = pos.lng;
 
+                    localStorage.setItem('safora_user_saved_spot', JSON.stringify({ lat: dragLat, lng: dragLng }));
+
                     fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${dragLat}&lon=${dragLng}`)
                         .then(res => res.json())
                         .then(data => {
@@ -1142,7 +1125,7 @@
                             }
 
                             if (distanceText) {
-                                distanceText.innerHTML = `🎯 <strong>Custom Pin Adjusted:</strong> ${placeName} (${dragLat.toFixed(4)}, ${dragLng.toFixed(4)})`;
+                                distanceText.innerHTML = `🎯 <strong>Custom Pin Adjusted:</strong> ${placeName} (${dragLat.toFixed(5)}, ${dragLng.toFixed(5)})`;
                             }
 
                             const routeStartInp = document.getElementById('routeStartInput');
@@ -1151,10 +1134,10 @@
                             if (locSearchInp) locSearchInp.value = placeName;
                             const latInp = document.getElementById('latInput');
                             const lngInp = document.getElementById('lngInput');
-                            if (latInp) latInp.value = dragLat.toFixed(4);
-                            if (lngInp) lngInp.value = dragLng.toFixed(4);
+                            if (latInp) latInp.value = dragLat.toFixed(5);
+                            if (lngInp) lngInp.value = dragLng.toFixed(5);
 
-                            userLocationMarker.bindPopup(`🎯 <strong>Custom Location:</strong><br>${placeName}<br><small class="text-muted">Lat: ${dragLat.toFixed(4)}, Lng: ${dragLng.toFixed(4)}</small>`).openPopup();
+                            userLocationMarker.bindPopup(`🎯 <strong>Custom Location:</strong><br>${placeName}<br><small class="text-muted">Lat: ${dragLat.toFixed(5)}, Lng: ${dragLng.toFixed(5)}</small>`).openPopup();
                         });
                 });
 
@@ -1169,11 +1152,11 @@
                 }
 
                 if (shouldFlyToMap && map) {
-                    map.flyTo([lat, lng], 14, { duration: 1.5 });
+                    map.flyTo([lat, lng], 15, { duration: 1.5 });
                 }
 
                 if (distanceText) {
-                    distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> (${lat.toFixed(4)}, ${lng.toFixed(4)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
+                    distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> (${lat.toFixed(5)}, ${lng.toFixed(5)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
                 }
 
                 // Reverse Geocode place name asynchronously
@@ -1187,7 +1170,7 @@
                         }
 
                         if (distanceText) {
-                            distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> ${placeName} (${lat.toFixed(4)}, ${lng.toFixed(4)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
+                            distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> ${placeName} (${lat.toFixed(5)}, ${lng.toFixed(5)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
                         }
 
                         const routeStartInp = document.getElementById('routeStartInput');
@@ -1201,16 +1184,16 @@
                         }
                         const latInp = document.getElementById('latInput');
                         const lngInp = document.getElementById('lngInput');
-                        if (latInp && !latInp.value) latInp.value = lat.toFixed(4);
-                        if (lngInp && !lngInp.value) lngInp.value = lng.toFixed(4);
+                        if (latInp && !latInp.value) latInp.value = lat.toFixed(5);
+                        if (lngInp && !lngInp.value) lngInp.value = lng.toFixed(5);
 
-                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Position:</strong><br>${placeName}<br><small class="text-muted">Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}</small><br><span class="badge bg-info text-dark mt-1">💡 Drag pin to refine location</span>`).openPopup();
+                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Position:</strong><br>${placeName}<br><small class="text-muted">Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}</small><br><span class="badge bg-info text-dark mt-1">💡 Drag pin to refine location</span>`).openPopup();
                     })
                     .catch(err => {
                         if (distanceText) {
-                            distanceText.innerHTML = `🎯 <strong>${sourceName} Coordinates:</strong> Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
+                            distanceText.innerHTML = `🎯 <strong>${sourceName} Coordinates:</strong> Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
                         }
-                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br>Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`).openPopup();
+                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`).openPopup();
                     });
             };
 
@@ -1221,14 +1204,25 @@
                     try {
                         const savedSpot = JSON.parse(savedSpotRaw);
                         if (savedSpot.lat && savedSpot.lng) {
-                            handleSuccess(savedSpot.lat, savedSpot.lng, 15, "Your Saved Custom Spot");
+                            handleSuccess(savedSpot.lat, savedSpot.lng, 15, "Saved Custom Location");
                             return;
                         }
                     } catch(e) {}
                 }
 
-                // Default to Yatihalagala Road / Katugastota Area (7.3095438, 80.5694720)
-                handleSuccess(7.3095438, 80.5694720, 15, "Yatihalagala Road (Live Location)");
+                // Attempt live Network IP Geolocation lookup
+                fetch('https://ipapi.co/json/')
+                    .then(res => res.json())
+                    .then(ipData => {
+                        if (ipData && ipData.latitude && ipData.longitude) {
+                            handleSuccess(ipData.latitude, ipData.longitude, 15, "Network IP Location");
+                        } else {
+                            handleSuccess(7.3095438, 80.5694720, 15, "Yatihalagala Road (Live Location)");
+                        }
+                    })
+                    .catch(() => {
+                        handleSuccess(7.3095438, 80.5694720, 15, "Yatihalagala Road (Live Location)");
+                    });
             };
 
             if (navigator.geolocation) {
@@ -1247,25 +1241,13 @@
                     },
                     {
                         enableHighAccuracy: true,
-                        timeout: 7500,
+                        timeout: 10000,
                         maximumAge: 0
                     }
                 );
             } else {
                 handleFallbackIpLocation("Geolocation unsupported");
             }
-        };
-
-        window.enableExactPinMode = function() {
-            if (!map) return;
-            map.setZoom(17);
-            SaforaAlert.fire({
-                icon: 'info',
-                title: '🎯 Pinpoint Exact Location',
-                text: 'Click ANYWHERE on the map or drag the blue marker to set your exact house or live location pin down to your doorstep!',
-                confirmButtonText: 'Understood!',
-                confirmButtonColor: '#f59e0b'
-            });
         };
 
         // Quick City Search Handler

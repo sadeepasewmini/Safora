@@ -1458,19 +1458,30 @@
             let defaultLat = 7.3095438;
             let defaultLng = 80.5694720;
 
+            const savedSpotRaw = localStorage.getItem('safora_user_saved_spot');
+            if (savedSpotRaw) {
+                try {
+                    const savedSpot = JSON.parse(savedSpotRaw);
+                    if (savedSpot.lat && savedSpot.lng) {
+                        defaultLat = savedSpot.lat;
+                        defaultLng = savedSpot.lng;
+                    }
+                } catch(e) {}
+            }
+
             // Trigger instant broadcast modal immediately so user never hangs waiting for GPS
             triggerSosBroadcast(defaultLat, defaultLng);
 
-            // Concurrently refine with live GPS coordinates if available (3s timeout for HTTP IP connections)
+            // Concurrently refine with high-accuracy device GPS coordinates
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
                         triggerSosBroadcast(position.coords.latitude, position.coords.longitude);
                     },
                     function(error) {
-                        console.warn("GPS lookup timeout/blocked on HTTP IP, fallback coordinates used:", error.message);
+                        console.warn("GPS lookup fallback used:", error.message);
                     },
-                    { timeout: 3000, maximumAge: 60000, enableHighAccuracy: false }
+                    { timeout: 5000, maximumAge: 0, enableHighAccuracy: true }
                 );
             }
         }
