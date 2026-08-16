@@ -190,11 +190,9 @@
             animation: popupSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Floating AI Chatbot Button (Symmetrical Left position matching SOS right: 24px, 68px size) */
+        /* Floating AI Chatbot Button (Stacking neatly below drawer form with zero overlap) */
         .ai-chatbot-floating-btn {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
+            position: relative;
             z-index: 99999;
             width: 68px;
             height: 68px;
@@ -856,8 +854,8 @@
     @if($showFloatingChatbot)
     <!-- Floating AI Chatbot Button & Popover Chat Drawer (Positioned dynamically on bottom-left) -->
     <div id="aiChatbotFloatingContainer" style="position: fixed !important; bottom: 24px !important; left: {{ $showAccessibilityWidget ? '104px' : '24px' }} !important; z-index: 999998 !important;">
-        <!-- Floating Popover Chat Drawer (Opens above button) -->
-        <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate border border-warning rounded-4 shadow-2xl mb-2 d-none" style="width: 360px; max-width: 90vw; background-color: #0f172a !important; color: white !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;">
+        <!-- Floating Popover Chat Drawer (Opens above button with generous spacing) -->
+        <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate border border-warning rounded-4 shadow-2xl mb-3 d-none" style="width: 360px; max-width: 90vw; background-color: #0f172a !important; color: white !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;">
             <!-- Header -->
             <div class="card-header bg-slate-800 border-bottom border-slate-700 p-3 d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-2">
