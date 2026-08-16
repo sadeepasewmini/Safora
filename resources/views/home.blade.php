@@ -1205,8 +1205,8 @@
                     } catch(e) {}
                 }
 
-                // Default to Yatihalagala Road / Medical Center Area (7.3095, 80.5695)
-                handleSuccess(7.3095, 80.5695, 15, "Yatihalagala Road (Live Location)");
+                // Default to Yatihalagala Road / Katugastota Area (7.3095438, 80.5694720)
+                handleSuccess(7.3095438, 80.5694720, 15, "Yatihalagala Road (Live Location)");
             };
 
             if (navigator.geolocation) {

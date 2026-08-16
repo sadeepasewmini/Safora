@@ -1454,9 +1454,9 @@
         }
 
         function executeSosTrigger() {
-            // Default fallback location: Yatihalagala Road / Medical Center Area (7.3095, 80.5695)
-            let defaultLat = 7.3095;
-            let defaultLng = 80.5695;
+            // Default fallback location: Yatihalagala Road / Katugastota Area (7.3095438, 80.5694720)
+            let defaultLat = 7.3095438;
+            let defaultLng = 80.5694720;
 
             // Trigger instant broadcast modal immediately so user never hangs waiting for GPS
             triggerSosBroadcast(defaultLat, defaultLng);
