@@ -555,11 +555,13 @@
                 <span class="fw-extrabold text-white" style="letter-spacing: -0.5px;">SAFORA<span class="text-warning">.LK</span></span>
             </a>
             
-            <button class="navbar-toggler border-0 p-2 rounded-3 bg-slate-800 border-slate-700" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+            <!-- Mobile Offcanvas Trigger Button (Slides in from side) -->
+            <button class="navbar-toggler border-0 p-2 rounded-3 bg-slate-800 border-slate-700 shadow-sm d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavOffcanvas" aria-controls="mobileNavOffcanvas" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navMenu">
+            <!-- Desktop Header Menu (lg screens) -->
+            <div class="collapse navbar-collapse d-none d-lg-flex" id="navMenu">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom" href="{{ route('home') }}"><i class="bi bi-house-door me-2 text-warning"></i> Home</a>
@@ -573,34 +575,34 @@
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom" href="{{ route('home') }}#safePlacesSection"><i class="bi bi-hospital me-2 text-emerald-400"></i> Safe Places</a>
                     </li>
-                    <li class="nav-item my-1 my-lg-0">
-                        <button type="button" class="btn btn-sm btn-outline-warning text-warning px-3 py-2 ms-lg-2 rounded-3 w-100-mobile" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal">
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-sm btn-outline-warning text-warning px-3 py-2 ms-lg-2 rounded-3" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal">
                             <i class="bi bi-telephone-plus me-1"></i> SOS Contacts
                         </button>
                     </li>
 
                     @auth
-                        <li class="nav-item ms-lg-3 my-1 my-lg-0">
-                            <a class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2 me-lg-2 w-100-mobile" href="{{ route('dashboard') }}">
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2 me-lg-2" href="{{ route('dashboard') }}">
                                 <i class="bi bi-speedometer2 me-1"></i> Dashboard ({{ ucfirst(Auth::user()->role) }})
                             </a>
                         </li>
-                        <li class="nav-item my-1 my-lg-0">
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline w-100">
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-sm btn-outline-light px-3 py-2 w-100-mobile">
+                                <button type="submit" class="btn btn-sm btn-outline-light px-3 py-2">
                                     <i class="bi bi-box-arrow-right me-1"></i> Logout
                                 </button>
                             </form>
                         </li>
                     @else
-                        <li class="nav-item ms-lg-3 my-1 my-lg-0">
-                            <a class="btn btn-sm btn-warning text-dark fw-bold px-4 py-2 me-lg-2 w-100-mobile" href="{{ route('login') }}">
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-sm btn-warning text-dark fw-bold px-4 py-2 me-lg-2" href="{{ route('login') }}">
                                 <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
                             </a>
                         </li>
-                        <li class="nav-item my-1 my-lg-0">
-                            <a class="btn btn-sm btn-outline-light px-3 py-2 w-100-mobile" href="{{ route('register') }}">
+                        <li class="nav-item">
+                            <a class="btn btn-sm btn-outline-light px-3 py-2" href="{{ route('register') }}">
                                 <i class="bi bi-person-plus me-1"></i> Register
                             </a>
                         </li>
@@ -609,6 +611,57 @@
             </div>
         </div>
     </nav>
+
+    <!-- Sleek Mobile Offcanvas Side Navigation Drawer (Slides in smoothly from Right) -->
+    <div class="offcanvas offcanvas-end text-bg-dark border-start border-slate-800 d-lg-none" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavOffcanvasLabel" style="background-color: #0f172a !important; width: 310px; max-width: 88vw;">
+        <div class="offcanvas-header border-bottom border-slate-800 py-3 px-4" style="background-color: #0b1120 !important;">
+            <h5 class="offcanvas-title fw-bold text-white d-flex align-items-center gap-2" id="mobileNavOffcanvasLabel">
+                <span class="fw-extrabold text-white" style="letter-spacing: -0.5px;">SAFORA<span class="text-warning">.LK</span></span>
+            </h5>
+            <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-4 d-flex flex-column justify-content-between">
+            <div class="d-flex flex-column gap-2.5">
+                <a class="nav-link p-3 rounded-3 text-white fw-semibold d-flex align-items-center gap-3 border border-slate-700 shadow-xs" style="background-color: #1e293b;" href="{{ route('home') }}" data-bs-dismiss="offcanvas">
+                    <i class="bi bi-house-door-fill text-warning fs-5"></i> Home
+                </a>
+                <a class="nav-link p-3 rounded-3 text-white fw-semibold d-flex align-items-center gap-3 border border-slate-700 shadow-xs" style="background-color: #1e293b;" href="{{ route('home') }}#mapSection" data-bs-dismiss="offcanvas">
+                    <i class="bi bi-map-fill text-info fs-5"></i> Safety Map
+                </a>
+                <a class="nav-link p-3 rounded-3 text-white fw-semibold d-flex align-items-center gap-3 border border-slate-700 shadow-xs" style="background-color: #1e293b;" href="{{ route('home') }}#reportSection" data-bs-dismiss="offcanvas">
+                    <i class="bi bi-plus-circle-fill text-danger fs-5"></i> Report Hazard
+                </a>
+                <a class="nav-link p-3 rounded-3 text-white fw-semibold d-flex align-items-center gap-3 border border-slate-700 shadow-xs" style="background-color: #1e293b;" href="{{ route('home') }}#safePlacesSection" data-bs-dismiss="offcanvas">
+                    <i class="bi bi-hospital-fill text-emerald-400 fs-5"></i> Safe Places
+                </a>
+            </div>
+
+            <div class="d-flex flex-column gap-2 pt-4 border-top border-slate-800 mt-auto">
+                <button type="button" class="btn btn-outline-warning text-warning fw-bold py-2.5 rounded-3 w-100 shadow-xs" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal" data-bs-dismiss="offcanvas">
+                    <i class="bi bi-telephone-plus me-2"></i> SOS Contacts
+                </button>
+
+                @auth
+                    <a class="btn btn-warning text-dark fw-bold py-2.5 rounded-3 w-100 shadow-xs" href="{{ route('dashboard') }}">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard ({{ ucfirst(Auth::user()->role) }})
+                    </a>
+                    <form action="{{ route('logout') }}" method="POST" class="w-100">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-light fw-semibold py-2.5 rounded-3 w-100 shadow-xs">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </button>
+                    </form>
+                @else
+                    <a class="btn btn-warning text-dark fw-bold py-2.5 rounded-3 w-100 shadow-xs" href="{{ route('login') }}">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
+                    </a>
+                    <a class="btn btn-outline-light fw-semibold py-2.5 rounded-3 w-100 shadow-xs" href="{{ route('register') }}">
+                        <i class="bi bi-person-plus me-2"></i> Register
+                    </a>
+                @endauth
+            </div>
+        </div>
+    </div>
 
     <!-- Global Alert Notifications -->
     <div class="container mt-3">
