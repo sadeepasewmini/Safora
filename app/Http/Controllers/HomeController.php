@@ -142,12 +142,17 @@ class HomeController extends Controller
 
                 if ($response->successful()) {
                     $json = $response->json();
-                    $botReply = $json['candidates'][0]['content']['parts'][0]['text'] ?? null;
-                    if (!empty($botReply)) {
+                    $rawText = $json['candidates'][0]['content']['parts'][0]['text'] ?? null;
+                    if (!empty($rawText)) {
+                        // Parse Gemini markdown to clean HTML for visual brilliance
+                        $formattedText = preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', $rawText);
+                        $formattedText = preg_replace('/^\*\s+(.*)$/m', '• $1', $formattedText);
+                        $formattedText = nl2br($formattedText);
+
                         return response()->json([
                             'status' => 'success',
                             'source' => 'gemini_api',
-                            'reply' => nl2br(e($botReply))
+                            'reply' => $formattedText
                         ]);
                     }
                 }
@@ -170,8 +175,8 @@ class HomeController extends Controller
         $q = strtolower(trim($inputStr));
 
         // Greetings & Introductions
-        if (str_contains($q, 'hi') || str_contains($q, 'hello') || str_contains($q, 'ayubowan') || str_contains($q, 'hey') || str_contains($q, 'good morning') || str_contains($q, 'good evening')) {
-            return "👋 <strong>Ayubowan! Welcome to Safora AI Assistant.</strong><br>I am your 24/7 Sri Lanka Travel & Safety Companion. How can I help you today? You can ask me about:<br>• Emergency Hotlines (119, 1990, 1985, 1938)<br>• Safe Places & Tourist Destinations (Colombo, Kandy, Galle, Sigiriya, Ella)<br>• First Aid & Travel Precautions<br>• Weather, Road & Wildlife Safety";
+        if (str_contains($q, 'hi') || str_contains($q, 'hello') || str_contains($q, 'ayubowan') || str_contains($q, 'hey') || str_contains($q, 'good morning') || str_contains($q, 'good evening') || str_contains($q, 'kohomada') || str_contains($q, 'subha') || str_contains($q, 'sthuthi') || str_contains($q, 'wada karanne')) {
+            return "👋 <strong>Ayubowan! Welcome to Safora AI Assistant. / ආයුබෝවන්!</strong><br>I am your 24/7 Sri Lanka Travel & Safety Companion. How can I help you today? You can ask me about:<br>• Emergency Hotlines (Police 119, Ambulance 1990, Wildlife 1985, Women Protection 1938)<br>• Safe Places & Tourist Destinations (Colombo, Kandy, Galle, Sigiriya, Ella)<br>• First Aid & Travel Precautions<br>• Weather, Road & Wildlife Safety";
         }
 
         // Who are you / Platform Info
