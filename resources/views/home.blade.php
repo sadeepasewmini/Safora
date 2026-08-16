@@ -1077,7 +1077,12 @@
                         const routeStartInp = document.getElementById('routeStartInput');
                         if (routeStartInp) routeStartInp.value = placeName;
                     } else {
-                        alert("City not found in Sri Lanka. Please check spelling.");
+                        SaforaAlert.fire({
+                            icon: 'warning',
+                            title: 'City Not Found',
+                            text: 'City not found in Sri Lanka. Please check spelling (e.g. Kandy, Galle, Colombo).',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 })
                 .catch(err => console.error("City search error:", err))
@@ -1435,7 +1440,13 @@
                 if (modal) modal.hide();
             }
 
-            alert(`✅ Thank you! Your ${stars}-Star community safety review has been published.\n\nLighting Quality: ${lighting}\nFeedback: "${comment}"`);
+            SaforaAlert.fire({
+                icon: 'success',
+                title: 'Review Published!',
+                text: `Thank you! Your ${stars}-Star community safety review has been published.\nLighting Quality: ${lighting}\nFeedback: "${comment}"`,
+                confirmButtonText: 'Great!',
+                confirmButtonColor: '#10b981'
+            });
         });
     }
 
@@ -1555,12 +1566,22 @@
             }, function(err) {
                 btn.innerHTML = `<i class="bi bi-crosshair me-1"></i> Track My Live Location`;
                 btn.disabled = false;
-                alert("⚠️ Unable to access high-accuracy GPS. Please check browser location permissions.");
+                SaforaAlert.fire({
+                    icon: 'warning',
+                    title: 'GPS Access Issue',
+                    text: 'Unable to access high-accuracy GPS. Please check browser location permissions.',
+                    confirmButtonText: 'OK'
+                });
             }, gpsOptions);
         } else {
             btn.innerHTML = `<i class="bi bi-crosshair me-1"></i> Track My Live Location`;
             btn.disabled = false;
-            alert("Geolocation is not supported by your browser.");
+            SaforaAlert.fire({
+                icon: 'error',
+                title: 'Geolocation Unsupported',
+                text: 'Geolocation is not supported by your browser.',
+                confirmButtonText: 'OK'
+            });
         }
     });
     }
@@ -1620,15 +1641,30 @@
                     });
 
                     pickerMarker = L.marker([lat, lng], { icon: pinIcon }).addTo(map).bindPopup(`📍 <strong>${place.display_name}</strong>`).openPopup();
-                    alert(`✅ Found place: "${place.display_name.substring(0, 45)}...". Coordinates updated on map!`);
+                    SaforaAlert.fire({
+                        icon: 'success',
+                        title: 'Location Pinpointed!',
+                        text: `Found place: "${place.display_name.substring(0, 45)}...". Coordinates updated on map!`,
+                        confirmButtonText: 'OK'
+                    });
                 } else {
-                    alert("No matching place found in Sri Lanka. Please try typing a broader city or landmark name.");
+                    SaforaAlert.fire({
+                        icon: 'warning',
+                        title: 'Location Not Found',
+                        text: 'No matching place found in Sri Lanka. Please try typing a broader city or landmark name.',
+                        confirmButtonText: 'OK'
+                    });
                 }
             })
             .catch(err => {
                 btn.innerHTML = origText;
                 btn.disabled = false;
-                alert("Location search error. Please check your internet connection.");
+                SaforaAlert.fire({
+                    icon: 'error',
+                    title: 'Search Error',
+                    text: 'Location search error. Please check your internet connection.',
+                    confirmButtonText: 'OK'
+                });
             });
     };
 
@@ -1711,7 +1747,13 @@
         .then(res => res.json())
         .then(data => {
             if (data.status === 'success') {
-                alert(`✅ ${data.message}\nNew Credibility Rating: ${data.credibility_score}% (${data.credibility_label})`);
+                SaforaAlert.fire({
+                    icon: 'success',
+                    title: 'Vote Recorded!',
+                    text: `${data.message}\nNew Credibility Rating: ${data.credibility_score}% (${data.credibility_label})`,
+                    confirmButtonText: 'Great!',
+                    confirmButtonColor: '#10b981'
+                });
                 // Trigger quick refresh
                 fetch("{{ route('api.live-map-data') }}")
                     .then(res => res.json())
@@ -2115,14 +2157,24 @@
                 }
 
                 if (!startLoc) {
-                    alert(`Could not pinpoint start location '${startVal}'. Please try typing 'Peradeniya' or 'Kandy'.`);
+                    SaforaAlert.fire({
+                        icon: 'warning',
+                        title: 'Start Location Alert',
+                        text: `Could not pinpoint start location '${startVal}'. Please try typing 'Peradeniya' or 'Kandy'.`,
+                        confirmButtonText: 'OK'
+                    });
                     btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
                     btn.disabled = false;
                     return;
                 }
 
                 if (!destLoc) {
-                    alert(`Could not pinpoint destination '${destVal}'. Please try typing 'Kandy Clock Tower' or 'Kandy'.`);
+                    SaforaAlert.fire({
+                        icon: 'warning',
+                        title: 'Destination Alert',
+                        text: `Could not pinpoint destination '${destVal}'. Please try typing 'Kandy Clock Tower' or 'Kandy'.`,
+                        confirmButtonText: 'OK'
+                    });
                     btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
                     btn.disabled = false;
                     return;

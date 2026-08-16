@@ -1265,7 +1265,17 @@
                 }
             }
             localStorage.setItem('safora_emergency_contacts', JSON.stringify(contacts));
-            alert("✅ Emergency Contacts Saved Successfully!\nWhen you press the Red SOS Button, live GPS location WhatsApp & SMS alerts will be broadcasted to these contacts.");
+            if (typeof SaforaAlert !== 'undefined' && SaforaAlert) {
+                SaforaAlert.fire({
+                    icon: 'success',
+                    title: 'Emergency Contacts Saved!',
+                    text: 'When you press the Red SOS Button, live GPS location WhatsApp & SMS alerts will be broadcasted to these saved contacts.',
+                    confirmButtonText: 'Great!',
+                    confirmButtonColor: '#10b981'
+                });
+            } else {
+                alert("✅ Emergency Contacts Saved Successfully!");
+            }
             const modalEl = document.getElementById('emergencyContactsModal');
             const modal = bootstrap.Modal.getInstance(modalEl);
             if (modal) modal.hide();
@@ -1480,7 +1490,12 @@
             speechSw.addEventListener('change', function() {
                 speechEnabled = this.checked;
                 if (speechEnabled) {
-                    alert('🔊 Voice Speech Reader Enabled! Click or hover over text to hear audio descriptions.');
+                    if (typeof SaforaToast !== 'undefined' && SaforaToast) {
+                        SaforaToast.fire({
+                            icon: 'info',
+                            title: '🔊 Voice Speech Reader Enabled! Hover or click text to hear audio.'
+                        });
+                    }
                     const msg = new SpeechSynthesisUtterance("Voice Speech Reader Enabled on Safora Platform");
                     window.speechSynthesis.speak(msg);
                 }
