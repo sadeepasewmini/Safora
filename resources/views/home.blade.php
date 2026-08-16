@@ -60,7 +60,7 @@
 
             <!-- Right Column: Live Safety Status Radar Console -->
             <div class="col-lg-5" data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
-                <div class="card card-pro border-0 text-white p-4 shadow-2xl card-animate animate-hero-float" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 16px;">
+                <div class="card card-pro border-0 text-white p-4 shadow-2xl card-animate" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 16px;">
                     
                     <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom border-slate-800">
                         <div>
