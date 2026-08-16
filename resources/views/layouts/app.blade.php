@@ -1309,34 +1309,72 @@
             return p;
         }
 
-        // Emergency SOS Listener with Instant WhatsApp & SMS Broadcast
+        // Emergency SOS Listener with Instant WhatsApp & SMS Broadcast (SweetAlert2 Pop-up Confirmation)
         const sosTriggerBtn = document.getElementById('sosTriggerBtn');
         if (sosTriggerBtn) {
             sosTriggerBtn.addEventListener('click', function(e) {
                 if (e) e.preventDefault();
-                if (confirm("🚨 EMERGENCY SOS DISTRESS SIGNAL\n\nAre you sure you want to broadcast an instant Emergency SOS alert with your live GPS location to Police & WhatsApp Emergency Contacts?")) {
-                    
-                    // Default fallback location (Colombo Central default)
-                    let defaultLat = 6.9271;
-                    let defaultLng = 79.8612;
-
-                    // Trigger instant broadcast modal immediately so user never hangs waiting for GPS
-                    triggerSosBroadcast(defaultLat, defaultLng);
-
-                    // Concurrently refine with live GPS coordinates if available (3s timeout for HTTP IP connections)
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(
-                            function(position) {
-                                triggerSosBroadcast(position.coords.latitude, position.coords.longitude);
-                            },
-                            function(error) {
-                                console.warn("GPS lookup timeout/blocked on HTTP IP, fallback coordinates used:", error.message);
-                            },
-                            { timeout: 3000, maximumAge: 60000, enableHighAccuracy: false }
-                        );
+                
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: '🚨 EMERGENCY SOS DISTRESS SIGNAL',
+                        html: `
+                            <div class="p-2 text-start">
+                                <p class="fs-6 fw-semibold text-danger mb-2">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i> Are you sure you want to broadcast an Emergency SOS alert?
+                                </p>
+                                <p class="small text-slate-300 mb-0">
+                                    This will instantly dispatch your live GPS location to Police Authorities & broadcast WhatsApp/SMS alerts to your emergency contacts.
+                                </p>
+                            </div>
+                        `,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#dc2626',
+                        cancelButtonColor: '#475569',
+                        confirmButtonText: '🚨 YES, BROADCAST SOS NOW',
+                        cancelButtonText: 'Cancel',
+                        background: '#0f172a',
+                        color: '#ffffff',
+                        customClass: {
+                            popup: 'border border-danger rounded-4 shadow-2xl',
+                            confirmButton: 'btn btn-danger fw-bold px-4 py-2 rounded-3 fs-6 shadow-sm',
+                            cancelButton: 'btn btn-secondary fw-bold px-4 py-2 rounded-3 fs-6 me-2'
+                        },
+                        buttonsStyling: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            executeSosTrigger();
+                        }
+                    });
+                } else {
+                    if (confirm("🚨 EMERGENCY SOS DISTRESS SIGNAL\n\nAre you sure you want to broadcast an instant Emergency SOS alert with your live GPS location to Police & WhatsApp Emergency Contacts?")) {
+                        executeSosTrigger();
                     }
                 }
             });
+        }
+
+        function executeSosTrigger() {
+            // Default fallback location (Colombo Central default)
+            let defaultLat = 6.9271;
+            let defaultLng = 79.8612;
+
+            // Trigger instant broadcast modal immediately so user never hangs waiting for GPS
+            triggerSosBroadcast(defaultLat, defaultLng);
+
+            // Concurrently refine with live GPS coordinates if available (3s timeout for HTTP IP connections)
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        triggerSosBroadcast(position.coords.latitude, position.coords.longitude);
+                    },
+                    function(error) {
+                        console.warn("GPS lookup timeout/blocked on HTTP IP, fallback coordinates used:", error.message);
+                    },
+                    { timeout: 3000, maximumAge: 60000, enableHighAccuracy: false }
+                );
+            }
         }
 
         function triggerSosBroadcast(lat, lng) {
