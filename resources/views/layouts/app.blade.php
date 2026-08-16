@@ -854,48 +854,55 @@
     @if($showFloatingChatbot)
     <!-- Floating AI Chatbot Button & Popover Chat Drawer (Positioned dynamically on bottom-left) -->
     <div id="aiChatbotFloatingContainer" style="position: fixed !important; bottom: 24px !important; left: {{ $showAccessibilityWidget ? '104px' : '24px' }} !important; z-index: 999998 !important;">
-        <!-- Floating Popover Chat Drawer (Opens above button with generous spacing) -->
-        <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate border border-warning rounded-4 shadow-2xl mb-3 d-none" style="width: 360px; max-width: 90vw; background-color: #0f172a !important; color: white !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;">
+        <!-- Floating Popover Chat Drawer (Ultra-Professional Glassmorphic Design) -->
+        <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate border-0 rounded-4 shadow-2xl mb-3 d-none overflow-hidden" style="width: 380px; max-width: 92vw; background: rgba(15, 23, 42, 0.96) !important; backdrop-filter: blur(20px); border: 1px solid rgba(245, 158, 11, 0.4) !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85) !important;">
             <!-- Header -->
-            <div class="card-header bg-slate-800 border-bottom border-slate-700 p-3 d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center gap-2">
-                    <img src="/images/ai-avatar.png" alt="Safora AI" class="rounded-circle border border-warning shadow-sm" style="width: 40px; height: 40px; object-fit: cover;">
+            <div class="card-header bg-slate-900 border-bottom border-slate-800 p-3 d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2.5">
+                    <div class="position-relative">
+                        <img src="/images/ai-avatar.png" alt="Safora AI" class="rounded-circle border border-warning shadow" style="width: 42px; height: 42px; object-fit: cover;">
+                        <span class="position-absolute bottom-0 end-0 bg-success border border-dark rounded-circle" style="width: 10px; height: 10px;"></span>
+                    </div>
                     <div>
-                        <h6 class="fw-bold mb-0 text-white">Safora AI Safety Assistant</h6>
-                        <small class="text-emerald-400 d-flex align-items-center gap-1" style="font-size: 0.72rem;">
-                            <span class="spinner-grow spinner-grow-sm text-success" style="width: 6px; height: 6px;"></span> 24/7 Live AI Assistant
+                        <h6 class="fw-bold mb-0 text-white brand-font d-flex align-items-center gap-1.5" style="font-size: 0.95rem;">
+                            Safora AI Companion <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">PRO</span>
+                        </h6>
+                        <small class="text-emerald-400 d-flex align-items-center gap-1" style="font-size: 0.72rem; font-weight: 500;">
+                            <span class="spinner-grow spinner-grow-sm text-success" style="width: 6px; height: 6px;"></span> 24/7 Sri Lanka Emergency AI
                         </small>
                     </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white" id="closeAiChatbotFloatingBtn" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white opacity-75" id="closeAiChatbotFloatingBtn" aria-label="Close"></button>
             </div>
 
             <!-- Quick Chips (Wrapped cleanly so all features are 100% visible) -->
-            <div class="p-2 bg-slate-900 border-bottom border-slate-800 d-flex flex-wrap gap-1.5">
-                <button type="button" class="btn btn-xs btn-outline-warning text-nowrap rounded-pill px-2.5 py-1" style="font-size: 0.72rem;" onclick="sendGlobalQuickPrompt('What is the emergency hotline for ambulance?')">🚑 Ambulance</button>
-                <button type="button" class="btn btn-xs btn-outline-info text-nowrap rounded-pill px-2.5 py-1" style="font-size: 0.72rem;" onclick="sendGlobalQuickPrompt('Where is the nearest safe place in Colombo?')">📍 Safe Places</button>
-                <button type="button" class="btn btn-xs btn-outline-danger text-nowrap rounded-pill px-2.5 py-1" style="font-size: 0.72rem;" onclick="sendGlobalQuickPrompt('How to send emergency SOS distress signal?')">🚨 SOS Guide</button>
-                <button type="button" class="btn btn-xs btn-outline-light text-nowrap rounded-pill px-2.5 py-1" style="font-size: 0.72rem;" onclick="sendGlobalQuickPrompt('What to do during wild elephant encounter?')">🐘 Elephants</button>
-                <button type="button" class="btn btn-xs btn-outline-warning text-nowrap rounded-pill px-2.5 py-1" style="font-size: 0.72rem;" onclick="sendGlobalQuickPrompt('How do I report harassment zone?')">📝 Report</button>
+            <div class="p-2.5 bg-slate-950 border-bottom border-slate-800 d-flex flex-wrap gap-1.5">
+                <button type="button" class="btn btn-xs btn-outline-warning text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(245,158,11,0.35);" onclick="sendGlobalQuickPrompt('What is the emergency hotline for ambulance?')">🚑 Ambulance (1990)</button>
+                <button type="button" class="btn btn-xs btn-outline-info text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(56,189,248,0.35);" onclick="sendGlobalQuickPrompt('Where is the nearest safe place in Colombo?')">📍 Safe Places</button>
+                <button type="button" class="btn btn-xs btn-outline-danger text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(239,68,68,0.35);" onclick="sendGlobalQuickPrompt('How to send emergency SOS distress signal?')">🚨 SOS Guide</button>
+                <button type="button" class="btn btn-xs btn-outline-light text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(255,255,255,0.25);" onclick="sendGlobalQuickPrompt('What to do during wild elephant encounter?')">🐘 Elephants (1985)</button>
+                <button type="button" class="btn btn-xs btn-outline-warning text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(245,158,11,0.35);" onclick="sendGlobalQuickPrompt('How do I report harassment zone?')">📝 Report Hazard</button>
             </div>
 
             <!-- Messages Body -->
-            <div id="globalAiChatMessages" class="p-3 overflow-y-auto" style="height: 300px; background-color: #0b1329;">
-                <div class="d-flex gap-2 mb-3">
-                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning flex-shrink-0" style="width: 30px; height: 30px; object-fit: cover;">
-                    <div class="p-2.5 rounded-3 bg-slate-800 text-white border border-slate-700 shadow-sm" style="max-width: 85%;">
-                        <div class="fw-bold text-warning small mb-1">Safora AI Assistant</div>
-                        <p class="mb-0" style="font-size: 0.8rem;">Ayubowan! 👋 Ask me anything about Sri Lanka emergency numbers (119, 1990, 1985, 1938), safe places, or travel safety tips!</p>
+            <div id="globalAiChatMessages" class="p-3 overflow-y-auto" style="height: 310px; background-color: #0b1329; scrollbar-width: thin;">
+                <div class="d-flex gap-2.5 mb-3">
+                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning shadow-sm flex-shrink-0" style="width: 32px; height: 32px; object-fit: cover;">
+                    <div class="p-3 text-white shadow-lg" style="max-width: 86%; background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 18px 18px 18px 4px;">
+                        <div class="fw-bold text-warning small mb-1 d-flex align-items-center gap-1" style="font-size: 0.75rem; letter-spacing: 0.3px;">
+                            <i class="bi bi-robot"></i> Safora AI Safety Companion
+                        </div>
+                        <p class="mb-0 lh-base" style="font-size: 0.84rem;">Ayubowan! 👋 Ask me anything about Sri Lanka emergency numbers (119, 1990, 1985, 1938), safe places, or travel safety tips!</p>
                     </div>
                 </div>
             </div>
 
             <!-- Input Box -->
-            <div class="card-footer bg-slate-800 border-top border-slate-700 p-2">
-                <form id="globalAiChatForm" onsubmit="handleGlobalAiChatSubmit(event)" class="d-flex gap-1.5">
-                    <input type="text" id="globalAiChatInput" class="form-control form-control-sm bg-slate-900 text-white border-slate-700 px-3 py-2 rounded-3" placeholder="Ask AI Safety Assistant..." required autocomplete="off">
-                    <button type="submit" class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2 rounded-3">
-                        <i class="bi bi-send-fill"></i>
+            <div class="card-footer bg-slate-900 border-top border-slate-800 p-2.5">
+                <form id="globalAiChatForm" onsubmit="handleGlobalAiChatSubmit(event)" class="d-flex align-items-center gap-2">
+                    <input type="text" id="globalAiChatInput" class="form-control form-control-sm bg-slate-950 text-white border-slate-700 px-3 py-2.5 rounded-pill" placeholder="Ask AI Safety Assistant..." required autocomplete="off" style="font-size: 0.85rem;">
+                    <button type="submit" class="btn btn-warning text-dark fw-bold rounded-circle p-0 d-flex align-items-center justify-content-center flex-shrink-0 shadow" style="width: 38px; height: 38px;">
+                        <i class="bi bi-send-fill" style="font-size: 0.9rem;"></i>
                     </button>
                 </form>
             </div>
@@ -974,65 +981,31 @@
         </div>
     </div>
 
-    <!-- Instant Emergency SOS Broadcast Modal (Ultra-Professional Dark Executive Styling) -->
+    <!-- Instant Emergency SOS Broadcast Modal -->
     <div class="modal fade" id="sosBroadcastModal" tabindex="-1" aria-labelledby="sosBroadcastModalLabel" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content text-white border-0 shadow-2xl overflow-hidden" style="background-color: #0f172a !important; border: 2px solid #ef4444 !important; border-radius: 20px !important; box-shadow: 0 25px 50px rgba(239, 68, 68, 0.35) !important;">
-                
-                <!-- Modal Header -->
-                <div class="modal-header border-0 p-4 d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important;">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-white bg-opacity-20 rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
-                            <i class="bi bi-shield-exclamation text-white fs-4 animate-sos-pulse"></i>
-                        </div>
-                        <div>
-                            <h5 class="modal-title fw-bold text-white text-uppercase tracking-wide mb-0" id="sosBroadcastModalLabel">
-                                Emergency SOS Broadcast Activated
-                            </h5>
-                            <small class="text-white text-opacity-80 d-flex align-items-center gap-1" style="font-size: 0.75rem;">
-                                <span class="spinner-grow spinner-grow-sm text-white" style="width: 6px; height: 6px;"></span> Safora 24/7 Security Network Dispatch
-                            </small>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close btn-close-white opacity-100" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-slate-950 text-white border border-danger shadow-lg" style="border-width: 2px !important;">
+                <div class="modal-header border-bottom border-danger bg-danger text-white">
+                    <h5 class="modal-title fw-bold text-uppercase" id="sosBroadcastModalLabel">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Emergency SOS Broadcast Activated
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body p-4 text-center" style="background-color: #0b1329 !important;">
+                <div class="modal-body p-4 text-center">
+                    <div class="spinner-grow text-danger mb-3" role="status" style="width: 3rem; height: 3rem;"></div>
+                    <h5 class="fw-bold text-white mb-1">🚨 Live Distress Signal Sent to Authorities!</h5>
+                    <p class="small text-slate-300 mb-3" id="sosGpsStatusText">Broadcasting your exact GPS coordinates to Police Authorities & Emergency Network...</p>
                     
-                    <!-- Radar Pulsing Shield Icon (Replaces plain pink circle) -->
-                    <div class="d-inline-flex align-items-center justify-content-center mb-3 p-3 rounded-circle" style="width: 80px; height: 80px; background: rgba(239, 68, 68, 0.15); border: 2px solid #ef4444; box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);">
-                        <i class="bi bi-shield-lock-fill text-danger display-6 animate-sos-pulse"></i>
-                    </div>
-
-                    <h4 class="fw-bold text-white mb-2">🚨 Live Distress Signal Sent to Authorities!</h4>
-                    
-                    <div class="alert bg-slate-900 border border-slate-700 rounded-3 p-3 mb-4 shadow-sm text-start">
-                        <div class="d-flex align-items-center gap-2 mb-1">
-                            <span class="spinner-grow spinner-grow-sm text-success" style="width: 8px; height: 8px;"></span>
-                            <span class="fw-bold text-emerald-400 small text-uppercase">Dispatch Status:</span>
-                        </div>
-                        <p class="small text-white mb-0" id="sosGpsStatusText">Broadcasting exact GPS coordinates to Police Authorities & Emergency Network...</p>
-                    </div>
-
-                    <!-- Live GPS Link Box -->
-                    <div class="p-3 bg-slate-900 rounded-3 border border-warning border-opacity-40 mb-4 text-start shadow-sm">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="small text-warning fw-bold"><i class="bi bi-geo-alt-fill me-1"></i> Live GPS Location Link:</span>
-                            <span class="badge bg-warning text-dark fw-bold">Live Coordinates</span>
-                        </div>
-                        <div class="p-2.5 bg-slate-950 rounded-3 border border-slate-800">
-                            <a id="sosLiveMapUrl" href="#" target="_blank" class="small text-info text-break text-decoration-none fw-semibold d-inline-block">
-                                <i class="bi bi-box-arrow-up-right me-1"></i> Generating live Google Maps link...
-                            </a>
-                        </div>
+                    <div class="p-3 bg-slate-900 rounded-3 border border-slate-800 mb-4 text-start">
+                        <div class="small text-warning fw-bold mb-1"><i class="bi bi-geo-alt-fill me-1"></i> Live GPS Location Link:</div>
+                        <a id="sosLiveMapUrl" href="#" target="_blank" class="small text-info text-break text-decoration-none fw-semibold">Generating live Google Maps link...</a>
                     </div>
 
                     <!-- Instant WhatsApp Broadcast Section -->
-                    <div class="card bg-slate-900 border-success border-opacity-60 p-3.5 mb-3 text-start shadow-sm">
-                        <div class="d-flex align-items-center justify-content-between mb-2.5">
-                            <span class="fw-bold text-success"><i class="bi bi-whatsapp me-2 fs-5"></i> Direct WhatsApp Emergency Broadcast:</span>
-                            <span class="badge bg-success text-white fw-bold px-3 py-1.5 rounded-pill">Instant Dispatch</span>
+                    <div class="card bg-slate-900 border-success border-opacity-50 p-3 mb-3 text-start">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="fw-bold text-success small"><i class="bi bi-whatsapp me-1"></i> Direct WhatsApp Broadcast:</span>
+                            <span class="badge bg-success text-dark fw-bold">Instant Dispatch</span>
                         </div>
                         <div id="whatsappContactsButtonsList" class="d-grid gap-2">
                             <!-- Populated dynamically via JS -->
@@ -1040,10 +1013,10 @@
                     </div>
 
                     <!-- Offline SMS Emergency Broadcast Section -->
-                    <div class="card bg-slate-900 border-info border-opacity-60 p-3.5 mb-4 text-start shadow-sm">
-                        <div class="d-flex align-items-center justify-content-between mb-2.5">
-                            <span class="fw-bold text-info"><i class="bi bi-chat-text-fill me-2 fs-5"></i> Offline SMS Emergency Broadcast:</span>
-                            <span class="badge bg-info text-dark fw-bold px-3 py-1.5 rounded-pill">Offline Gateway</span>
+                    <div class="card bg-slate-900 border-info border-opacity-50 p-3 mb-3 text-start">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="fw-bold text-info small"><i class="bi bi-chat-text-fill me-1"></i> Offline SMS Emergency Broadcast:</span>
+                            <span class="badge bg-info text-dark fw-bold">Offline Gateway</span>
                         </div>
                         <div id="smsContactsButtonsList" class="d-grid gap-2">
                             <!-- Populated dynamically via JS -->
@@ -1051,23 +1024,18 @@
                     </div>
 
                     <!-- Direct Emergency Hotlines -->
-                    <div class="p-3 bg-slate-900 rounded-3 border border-slate-800">
-                        <div class="small text-slate-400 fw-semibold mb-2">DIRECT NATIONAL EMERGENCY HOTLINES:</div>
-                        <div class="d-flex flex-wrap justify-content-center gap-2">
-                            <a href="tel:119" class="btn btn-danger fw-bold px-4 py-2 rounded-3 shadow-sm">
-                                <i class="bi bi-telephone-fill me-1"></i> Call 119 Police Hotline
-                            </a>
-                            <a href="tel:1990" class="btn btn-warning text-dark fw-bold px-4 py-2 rounded-3 shadow-sm">
-                                <i class="bi bi-hospital-fill me-1"></i> Call 1990 Ambulance
-                            </a>
-                        </div>
+                    <div class="d-flex justify-content-center gap-2 mt-2">
+                        <a href="tel:119" class="btn btn-sm btn-outline-danger fw-bold px-3">
+                            <i class="bi bi-telephone-fill me-1"></i> Call 119 Police
+                        </a>
+                        <a href="tel:1990" class="btn btn-sm btn-outline-warning text-warning fw-bold px-3">
+                            <i class="bi bi-hospital-fill me-1"></i> Call 1990 Ambulance
+                        </a>
                     </div>
                 </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer border-top border-slate-800 bg-slate-950 justify-content-between p-3">
-                    <span class="small text-slate-300"><i class="bi bi-shield-check text-success me-1"></i> Safora Encrypted Dispatch System</span>
-                    <button type="button" class="btn btn-sm btn-outline-light px-4 rounded-pill fw-semibold" data-bs-dismiss="modal">Close Window</button>
+                <div class="modal-footer border-top border-slate-800 bg-slate-900 justify-content-between">
+                    <span class="small text-slate-400"><i class="bi bi-shield-check me-1"></i> Safora 24/7 Safety Network</span>
+                    <button type="button" class="btn btn-sm btn-secondary px-4" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -1206,22 +1174,24 @@
             const container = document.getElementById('globalAiChatMessages');
             if (!container) return;
             const msgDiv = document.createElement('div');
-            msgDiv.className = 'd-flex gap-2 mb-3 ' + (sender === 'user' ? 'justify-content-end' : '');
+            msgDiv.className = 'd-flex gap-2.5 mb-3 ' + (sender === 'user' ? 'justify-content-end' : '');
 
             if (sender === 'bot') {
                 msgDiv.innerHTML = `
-                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning flex-shrink-0" style="width: 28px; height: 28px; object-fit: cover;">
-                    <div class="p-2.5 rounded-3 bg-slate-800 text-white border border-slate-700 shadow-sm" style="max-width: 85%;">
-                        <div class="fw-bold text-warning small mb-1" style="font-size: 0.75rem;">Safora AI Assistant</div>
-                        <div class="small" style="font-size: 0.8rem;">${text}</div>
+                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning shadow-sm flex-shrink-0" style="width: 32px; height: 32px; object-fit: cover;">
+                    <div class="p-3 text-white shadow-lg" style="max-width: 86%; background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 18px 18px 18px 4px;">
+                        <div class="fw-bold text-warning small mb-1 d-flex align-items-center gap-1" style="font-size: 0.75rem; letter-spacing: 0.3px;">
+                            <i class="bi bi-robot"></i> Safora AI Safety Companion
+                        </div>
+                        <div class="lh-base" style="font-size: 0.84rem;">${text}</div>
                     </div>
                 `;
             } else {
                 msgDiv.innerHTML = `
-                    <div class="p-2.5 rounded-3 bg-warning text-dark fw-semibold shadow-sm" style="max-width: 85%; font-size: 0.8rem;">
+                    <div class="p-3 text-dark fw-semibold shadow-lg" style="max-width: 86%; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 18px 18px 4px 18px; font-size: 0.84rem; line-height: 1.45;">
                         ${text}
                     </div>
-                    <div class="p-1.5 bg-slate-700 text-white rounded-circle fw-bold fs-6 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 28px; height: 28px; font-size: 0.85rem;">👤</div>
+                    <div class="p-1 bg-slate-800 text-warning rounded-circle fw-bold border border-warning d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 32px; height: 32px; font-size: 0.9rem;">👤</div>
                 `;
             }
 
@@ -1444,7 +1414,7 @@
                     const waBtn = document.createElement('a');
                     waBtn.href = waUrl;
                     waBtn.target = '_blank';
-                    waBtn.className = 'btn btn-success fw-bold d-flex align-items-center justify-content-between px-3.5 py-2.5 rounded-3 shadow-md border border-emerald-400 text-white';
+                    waBtn.className = 'btn btn-success btn-sm fw-bold d-flex align-items-center justify-content-between px-3 py-2.5 rounded-3 shadow-sm';
                     waBtn.innerHTML = `<span><i class="bi bi-whatsapp me-2 fs-5"></i> Broadcast WhatsApp to <strong>${c.name}</strong> (${c.phone})</span> <i class="bi bi-box-arrow-up-right"></i>`;
                     waListContainer.appendChild(waBtn);
                 }
@@ -1453,8 +1423,8 @@
                 if (smsListContainer) {
                     const smsBtn = document.createElement('a');
                     smsBtn.href = smsUrl;
-                    smsBtn.className = 'btn btn-outline-info text-info fw-bold d-flex align-items-center justify-content-between px-3.5 py-2.5 rounded-3 shadow-sm bg-slate-900 border-info';
-                    smsBtn.innerHTML = `<span><i class="bi bi-chat-dots-fill me-2 fs-5"></i> Send Offline SMS to <strong>${c.name}</strong> (${c.phone})</span> <i class="bi bi-send-fill"></i>`;
+                    smsBtn.className = 'btn btn-outline-info text-info btn-sm fw-bold d-flex align-items-center justify-content-between px-3 py-2 rounded-3 shadow-sm';
+                    smsBtn.innerHTML = `<span><i class="bi bi-chat-dots-fill me-2"></i> Send Offline SMS to <strong>${c.name}</strong> (${c.phone})</span> <i class="bi bi-send-fill"></i>`;
                     smsListContainer.appendChild(smsBtn);
                 }
             });
