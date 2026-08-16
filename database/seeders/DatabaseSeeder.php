@@ -148,9 +148,23 @@ class DatabaseSeeder extends Seeder
 
         Incident::create([
             'user_id' => $publicUser->id,
+            'category_id' => $categoryModels['Suspicious Activity']->id,
+            'title' => 'Suspicious vehicle lurking near Yatihalagala School',
+            'description' => 'Unregistered van parked near school gate during evening dismissal hours.',
+            'latitude' => 7.3095,
+            'longitude' => 80.5695,
+            'address' => 'Yatihalagala Road, Katugastota',
+            'area_name' => 'Katugastota',
+            'severity' => 'medium',
+            'status' => 'pending',
+            'views_count' => 62,
+        ]);
+
+        Incident::create([
+            'user_id' => $publicUser->id,
             'category_id' => $categoryModels['Leopard Sighting']->id,
             'title' => 'Leopard spotted near tea estate boundary',
-            'description' => 'Local villagers reported a adult leopard near the forest buffer line in Hatton.',
+            'description' => 'Local villagers reported an adult leopard near the forest buffer line in Hatton.',
             'latitude' => 6.8924,
             'longitude' => 80.5968,
             'address' => 'Norwood Estate, Hatton',
@@ -159,6 +173,36 @@ class DatabaseSeeder extends Seeder
             'status' => 'verified',
             'verified_by' => $moderator->id,
             'views_count' => 310,
+        ]);
+
+        Incident::create([
+            'user_id' => $publicUser->id,
+            'category_id' => $categoryModels['Fallen Trees']->id,
+            'title' => 'Tree Fallen on Peradeniya Main Road',
+            'description' => 'Large banyan tree branch cleared by RDA emergency team.',
+            'latitude' => 7.2642,
+            'longitude' => 80.5930,
+            'address' => 'Peradeniya Road, Kandy',
+            'area_name' => 'Peradeniya',
+            'severity' => 'medium',
+            'status' => 'resolved',
+            'resolved_by' => $authority->id,
+            'views_count' => 180,
+        ]);
+
+        Incident::create([
+            'user_id' => $publicUser->id,
+            'category_id' => $categoryModels['Road Accident']->id,
+            'title' => 'False Alarm / Duplicate Traffic Accident Report',
+            'description' => 'Report submitted with incorrect coordinates and fake image.',
+            'latitude' => 6.9271,
+            'longitude' => 79.8612,
+            'address' => 'Galle Road, Colombo',
+            'area_name' => 'Colombo',
+            'severity' => 'low',
+            'status' => 'rejected',
+            'moderator_notes' => 'Flagged as duplicate fake report by Safety Moderator',
+            'views_count' => 12,
         ]);
 
         // 4. Safe Places
