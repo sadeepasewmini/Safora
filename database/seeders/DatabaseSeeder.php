@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Create Default System Users (Admin, Moderator, Authority, Public Users)
+        // 1. Create System Users (Admins, Moderators, Authorities, Citizens)
         $admin = User::create([
-            'name' => 'System Admin',
+            'name' => 'Master System Admin',
             'email' => 'admin@safora.lk',
             'phone' => '0771234567',
             'role' => 'admin',
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $moderator = User::create([
-            'name' => 'Safety Moderator',
+            'name' => 'Safety Review Moderator',
             'email' => 'moderator@safora.lk',
             'phone' => '0777654321',
             'role' => 'moderator',
@@ -41,6 +41,14 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password123'),
         ]);
 
+        $authorityKandy = User::create([
+            'name' => 'Kandy Central Police Station',
+            'email' => 'kandy_police@safora.lk',
+            'phone' => '0812222222',
+            'role' => 'authority',
+            'password' => Hash::make('password123'),
+        ]);
+
         $publicUser = User::create([
             'name' => 'Kavindu Perera',
             'email' => 'user@safora.lk',
@@ -49,10 +57,18 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password123'),
         ]);
 
-        $publicUser2 = User::create([
+        $anusha = User::create([
             'name' => 'Anusha Perera',
             'email' => 'anusha@safora.lk',
             'phone' => '0781122334',
+            'role' => 'public_user',
+            'password' => Hash::make('password123'),
+        ]);
+
+        $sanduni = User::create([
+            'name' => 'Sanduni Silva',
+            'email' => 'sanduni@safora.lk',
+            'phone' => '0759988776',
             'role' => 'public_user',
             'password' => Hash::make('password123'),
         ]);
@@ -94,8 +110,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // 3. Sample Incidents (Comprehensive Sri Lanka Locations)
-        // 🟢 Verified Incidents
+        // 3. Incidents Across Sri Lanka (Pending, Verified, Resolved, Rejected)
         Incident::create([
             'user_id' => $publicUser->id,
             'category_id' => $categoryModels['Elephant Crossing']->id,
@@ -112,7 +127,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Incident::create([
-            'user_id' => $publicUser->id,
+            'user_id' => $anusha->id,
             'category_id' => $categoryModels['Crocodile Sighting']->id,
             'title' => 'Crocodile spotted near Bentota Riverbank',
             'description' => 'Large mugger crocodile seen resting on the grassy bank near local bathing spot.',
@@ -127,7 +142,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Incident::create([
-            'user_id' => $publicUser->id,
+            'user_id' => $sanduni->id,
             'category_id' => $categoryModels['Harassment Zone']->id,
             'title' => 'Poorly lit walkway near Fort Station',
             'description' => 'Streetlights non-functional for past 3 days. Frequent harassment reported by evening commuters.',
@@ -141,37 +156,6 @@ class DatabaseSeeder extends Seeder
             'views_count' => 210,
         ]);
 
-        Incident::create([
-            'user_id' => $publicUser2->id,
-            'category_id' => $categoryModels['Leopard Sighting']->id,
-            'title' => 'Leopard spotted near tea estate boundary',
-            'description' => 'Local villagers reported an adult leopard near the forest buffer line in Hatton.',
-            'latitude' => 6.8924,
-            'longitude' => 80.5968,
-            'address' => 'Norwood Estate, Hatton',
-            'area_name' => 'Hatton',
-            'severity' => 'high',
-            'status' => 'verified',
-            'verified_by' => $moderator->id,
-            'views_count' => 310,
-        ]);
-
-        Incident::create([
-            'user_id' => $publicUser2->id,
-            'category_id' => $categoryModels['Harassment Zone']->id,
-            'title' => 'Unlit alleyway near Peradeniya Campus Gate',
-            'description' => 'Dark stretch of road behind student lodgings. Needs immediate streetlight repair.',
-            'latitude' => 7.2560,
-            'longitude' => 80.5975,
-            'address' => 'Galaha Road, Peradeniya',
-            'area_name' => 'Peradeniya',
-            'severity' => 'medium',
-            'status' => 'verified',
-            'verified_by' => $moderator->id,
-            'views_count' => 175,
-        ]);
-
-        // 🟡 Pending Incidents
         Incident::create([
             'user_id' => $publicUser->id,
             'category_id' => $categoryModels['Flood Warning']->id,
@@ -187,7 +171,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Incident::create([
-            'user_id' => $publicUser2->id,
+            'user_id' => $anusha->id,
             'category_id' => $categoryModels['Suspicious Activity']->id,
             'title' => 'Suspicious vehicle lurking near Yatihalagala School',
             'description' => 'Unregistered van parked near school gate during evening dismissal hours.',
@@ -202,21 +186,21 @@ class DatabaseSeeder extends Seeder
 
         Incident::create([
             'user_id' => $publicUser->id,
-            'category_id' => $categoryModels['Landslide Risk']->id,
-            'title' => 'Minor mudslide warning on Ramboda Pass',
-            'description' => 'Loose rocks and mud falling near slope turn 4. Drivers advised caution.',
-            'latitude' => 7.0425,
-            'longitude' => 80.6972,
-            'address' => 'A5 Highway, Ramboda Pass',
-            'area_name' => 'Ramboda',
+            'category_id' => $categoryModels['Leopard Sighting']->id,
+            'title' => 'Leopard spotted near tea estate boundary',
+            'description' => 'Local villagers reported an adult leopard near the forest buffer line in Hatton.',
+            'latitude' => 6.8924,
+            'longitude' => 80.5968,
+            'address' => 'Norwood Estate, Hatton',
+            'area_name' => 'Hatton',
             'severity' => 'high',
-            'status' => 'pending',
-            'views_count' => 88,
+            'status' => 'verified',
+            'verified_by' => $moderator->id,
+            'views_count' => 310,
         ]);
 
-        // 🔵 Resolved Incidents
         Incident::create([
-            'user_id' => $publicUser->id,
+            'user_id' => $anusha->id,
             'category_id' => $categoryModels['Fallen Trees']->id,
             'title' => 'Tree Fallen on Peradeniya Main Road',
             'description' => 'Large banyan tree branch cleared by RDA emergency team.',
@@ -226,28 +210,12 @@ class DatabaseSeeder extends Seeder
             'area_name' => 'Peradeniya',
             'severity' => 'medium',
             'status' => 'resolved',
-            'resolved_by' => $authority->id,
+            'resolved_by' => $authorityKandy->id,
             'views_count' => 180,
         ]);
 
         Incident::create([
-            'user_id' => $publicUser2->id,
-            'category_id' => $categoryModels['Wild Boar Attack']->id,
-            'title' => 'Wild Boar herd dispersed from Katugastota residential area',
-            'description' => 'Wildlife officers successfully guided wild boars back to sanctuary boundary.',
-            'latitude' => 7.3120,
-            'longitude' => 80.6180,
-            'address' => 'Katugastota North, Kandy',
-            'area_name' => 'Katugastota',
-            'severity' => 'medium',
-            'status' => 'resolved',
-            'resolved_by' => $authority->id,
-            'views_count' => 134,
-        ]);
-
-        // 🔴 Rejected Incidents
-        Incident::create([
-            'user_id' => $publicUser->id,
+            'user_id' => $sanduni->id,
             'category_id' => $categoryModels['Road Accident']->id,
             'title' => 'False Alarm / Duplicate Traffic Accident Report',
             'description' => 'Report submitted with incorrect coordinates and fake image.',
@@ -257,26 +225,40 @@ class DatabaseSeeder extends Seeder
             'area_name' => 'Colombo',
             'severity' => 'low',
             'status' => 'rejected',
-            'moderator_notes' => 'Flagged as duplicate fake report by Safety Moderator',
+            'moderator_notes' => 'Flagged as duplicate fake report by Safety Review Moderator',
             'views_count' => 12,
         ]);
 
         Incident::create([
-            'user_id' => $publicUser2->id,
-            'category_id' => $categoryModels['Theft / Snatching']->id,
-            'title' => 'Unverified Purse Snatching Report in Pettah',
-            'description' => 'No matching evidence found upon police verification.',
-            'latitude' => 6.9380,
-            'longitude' => 79.8550,
-            'address' => 'Main Street, Pettah',
-            'area_name' => 'Pettah',
-            'severity' => 'low',
-            'status' => 'rejected',
-            'moderator_notes' => 'Spam report flagged by system filter',
-            'views_count' => 8,
+            'user_id' => $anusha->id,
+            'category_id' => $categoryModels['Harassment Zone']->id,
+            'title' => 'Unlit corridor near Peradeniya Campus Boarding Area',
+            'description' => 'Dark stretch of road behind medical center requires immediate streetlight installation.',
+            'latitude' => 7.3090,
+            'longitude' => 80.5690,
+            'address' => 'Yatihalagala Medical Center Lane, Kandy',
+            'area_name' => 'Katugastota',
+            'severity' => 'medium',
+            'status' => 'pending',
+            'views_count' => 74,
         ]);
 
-        // 4. Safe Places & Havens Across Sri Lanka
+        Incident::create([
+            'user_id' => $publicUser->id,
+            'category_id' => $categoryModels['Landslide Risk']->id,
+            'title' => 'Minor Earth Slip on Ella Pass Highway',
+            'description' => 'Loose rocks sliding near turn 4. RDA road sign posted.',
+            'latitude' => 6.8667,
+            'longitude' => 81.0466,
+            'address' => 'Ella-Wellawaya Pass',
+            'area_name' => 'Ella',
+            'severity' => 'high',
+            'status' => 'verified',
+            'verified_by' => $moderator->id,
+            'views_count' => 240,
+        ]);
+
+        // 4. Safe Places & Havens
         SafePlace::create([
             'name' => 'Habarana Police Station',
             'type' => 'police',
@@ -285,39 +267,6 @@ class DatabaseSeeder extends Seeder
             'latitude' => 8.0360,
             'longitude' => 80.7530,
             'phone' => '066-2270222',
-            'is_24_7' => true,
-        ]);
-
-        SafePlace::create([
-            'name' => 'Katugastota Police Station',
-            'type' => 'police',
-            'address' => 'Kurunegala Road, Katugastota',
-            'area_name' => 'Katugastota',
-            'latitude' => 7.3140,
-            'longitude' => 80.6210,
-            'phone' => '081-2492222',
-            'is_24_7' => true,
-        ]);
-
-        SafePlace::create([
-            'name' => 'Peradeniya Teaching Hospital',
-            'type' => 'hospital',
-            'address' => 'Galaha Junction, Peradeniya',
-            'area_name' => 'Peradeniya',
-            'latitude' => 7.2595,
-            'longitude' => 80.5950,
-            'phone' => '081-2388001',
-            'is_24_7' => true,
-        ]);
-
-        SafePlace::create([
-            'name' => 'Yatihalagala Medical Center & Safe Haven',
-            'type' => 'hospital',
-            'address' => 'Yatihalagala Road, Katugastota',
-            'area_name' => 'Yatihalagala',
-            'latitude' => 7.3095,
-            'longitude' => 80.5695,
-            'phone' => '081-2244555',
             'is_24_7' => true,
         ]);
 
@@ -351,6 +300,17 @@ class DatabaseSeeder extends Seeder
             'latitude' => 7.2906,
             'longitude' => 80.6337,
             'phone' => '081-2222261',
+            'is_24_7' => true,
+        ]);
+
+        SafePlace::create([
+            'name' => 'Peradeniya Teaching Hospital & Emergency Clinic',
+            'type' => 'hospital',
+            'address' => 'Gaborone Road, Peradeniya',
+            'area_name' => 'Peradeniya',
+            'latitude' => 7.2612,
+            'longitude' => 80.5925,
+            'phone' => '081-2388000',
             'is_24_7' => true,
         ]);
 
@@ -409,14 +369,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         SosRequest::create([
-            'user_id' => $publicUser2->id,
+            'user_id' => $anusha->id,
             'user_name' => 'Anusha Perera',
             'user_phone' => '0781122334',
             'latitude' => 7.3095,
             'longitude' => 80.5695,
-            'address' => 'Yatihalagala Medical Area',
-            'status' => 'active',
-            'notes' => 'Emergency SOS distress broadcasted from Yatihalagala Road',
+            'address' => 'Yatihalagala Medical Center, Kandy',
+            'status' => 'resolved',
+            'notes' => 'Resolved by Police Dispatcher',
         ]);
     }
 }
