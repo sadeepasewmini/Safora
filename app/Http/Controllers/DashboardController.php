@@ -103,16 +103,20 @@ class DashboardController extends Controller
         }
 
         $pendingIncidents = Incident::with(['category', 'user', 'images'])->where('status', 'pending')->latest()->get();
-        $recentVerified = Incident::with(['category', 'user'])->where('status', 'verified')->latest()->take(10)->get();
+        $recentVerified = Incident::with(['category', 'user'])->where('status', 'verified')->latest()->get();
+        $rejectedIncidents = Incident::with(['category', 'user'])->where('status', 'rejected')->latest()->get();
+        $resolvedIncidents = Incident::with(['category', 'user'])->where('status', 'resolved')->latest()->get();
         $alerts = Alert::latest()->get();
 
         $stats = [
             'pending' => count($pendingIncidents),
-            'verified' => Incident::where('status', 'verified')->count(),
-            'rejected' => Incident::where('status', 'rejected')->count(),
+            'verified' => count($recentVerified),
+            'resolved' => count($resolvedIncidents),
+            'rejected' => count($rejectedIncidents),
+            'total' => Incident::count(),
         ];
 
-        return view('dashboards.moderator', compact('pendingIncidents', 'recentVerified', 'alerts', 'stats'));
+        return view('dashboards.moderator', compact('pendingIncidents', 'recentVerified', 'rejectedIncidents', 'resolvedIncidents', 'alerts', 'stats'));
     }
 
     // 🚔 3. AUTHORITY DASHBOARD (Police / Emergency Response)
