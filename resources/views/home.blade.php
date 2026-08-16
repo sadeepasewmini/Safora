@@ -890,7 +890,22 @@
                 distanceText.innerHTML = '⌛ Scanning GPS Satellite Signal for your device location...';
             }
 
+            const resetBtnState = function(success = true) {
+                if (locateBtn) {
+                    if (success) {
+                        locateBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Live GPS Active';
+                        locateBtn.className = "btn btn-sm btn-success fw-bold px-3 shadow-xs";
+                    } else {
+                        locateBtn.innerHTML = '<i class="bi bi-crosshair me-1"></i> Track My Live Location';
+                        locateBtn.className = "btn btn-sm btn-emerald-600 btn-success fw-bold px-3 shadow-xs";
+                    }
+                    locateBtn.disabled = false;
+                }
+            };
+
             const handleSuccess = function(lat, lng, accuracy, sourceName = "Live Device GPS") {
+                resetBtnState(true);
+
                 if (userLocationMarker && map) map.removeLayer(userLocationMarker);
                 if (userLocationCircle && map) map.removeLayer(userLocationCircle);
 
@@ -948,7 +963,11 @@
                     map.flyTo([lat, lng], 14, { duration: 1.5 });
                 }
 
-                // Reverse Geocode place name using Nominatim API
+                if (distanceText) {
+                    distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> (${lat.toFixed(4)}, ${lng.toFixed(4)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
+                }
+
+                // Reverse Geocode place name asynchronously
                 fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
                     .then(res => res.json())
                     .then(data => {
@@ -983,12 +1002,6 @@
                             distanceText.innerHTML = `🎯 <strong>${sourceName} Coordinates:</strong> Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
                         }
                         userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br>Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`).openPopup();
-                    })
-                    .finally(() => {
-                        if (locateBtn) {
-                            locateBtn.innerHTML = '<i class="bi bi-crosshair me-1"></i> Track My Live Location';
-                            locateBtn.disabled = false;
-                        }
                     });
             };
 
@@ -1010,17 +1023,23 @@
             };
 
             if (navigator.geolocation) {
+                const timeoutId = setTimeout(() => {
+                    handleFallbackIpLocation("GPS Request Timeout (Fast Fallback)");
+                }, 3500);
+
                 navigator.geolocation.getCurrentPosition(
                     function(pos) {
+                        clearTimeout(timeoutId);
                         handleSuccess(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy, "Live Device GPS");
                     },
                     function(err) {
+                        clearTimeout(timeoutId);
                         handleFallbackIpLocation(err.message || "GPS Permission Denied");
                     },
                     {
                         enableHighAccuracy: true,
-                        timeout: 5000,
-                        maximumAge: 10000
+                        timeout: 3000,
+                        maximumAge: 5000
                     }
                 );
             } else {
@@ -1539,51 +1558,10 @@
     const locateUserBtnEl = document.getElementById('locateUserBtn');
     if (locateUserBtnEl) {
         locateUserBtnEl.addEventListener('click', function() {
-        const btn = this;
-        btn.innerHTML = `<i class="bi bi-arrow-repeat spin me-1"></i> Acquiring High-Accuracy GPS...`;
-        btn.disabled = true;
-
-        if (navigator.geolocation) {
-            const gpsOptions = {
-                enableHighAccuracy: true,
-                timeout: 15000,
-                maximumAge: 0
-            };
-
-            navigator.geolocation.getCurrentPosition(function(pos) {
-                btn.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> Live GPS Active`;
-                btn.className = "btn btn-sm btn-success fw-bold px-3 shadow-xs";
-                btn.disabled = false;
-
-                updateUserGpsPosition(pos, true);
-
-                // Start continuous live position watching
-                if (!watchId) {
-                    watchId = navigator.geolocation.watchPosition(function(latestPos) {
-                        updateUserGpsPosition(latestPos, false);
-                    }, function(err){}, gpsOptions);
-                }
-            }, function(err) {
-                btn.innerHTML = `<i class="bi bi-crosshair me-1"></i> Track My Live Location`;
-                btn.disabled = false;
-                SaforaAlert.fire({
-                    icon: 'warning',
-                    title: 'GPS Access Issue',
-                    text: 'Unable to access high-accuracy GPS. Please check browser location permissions.',
-                    confirmButtonText: 'OK'
-                });
-            }, gpsOptions);
-        } else {
-            btn.innerHTML = `<i class="bi bi-crosshair me-1"></i> Track My Live Location`;
-            btn.disabled = false;
-            SaforaAlert.fire({
-                icon: 'error',
-                title: 'Geolocation Unsupported',
-                text: 'Geolocation is not supported by your browser.',
-                confirmButtonText: 'OK'
-            });
-        }
-    });
+            if (typeof window.trackUserLocation === 'function') {
+                window.trackUserLocation(true);
+            }
+        });
     }
 
     function calculateDistanceKm(lat1, lon1, lat2, lon2) {
