@@ -1054,31 +1054,35 @@
         </div>
     </div>
 
-    <!-- Instant Emergency SOS Broadcast Modal -->
+    <!-- Instant Emergency SOS Broadcast Modal (Ultra-Professional Dark Glassmorphism Design) -->
     <div class="modal fade" id="sosBroadcastModal" tabindex="-1" aria-labelledby="sosBroadcastModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-slate-950 text-white border border-danger shadow-lg" style="border-width: 2px !important;">
-                <div class="modal-header border-bottom border-danger bg-danger text-white">
-                    <h5 class="modal-title fw-bold text-uppercase" id="sosBroadcastModalLabel">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Emergency SOS Broadcast Activated
+            <div class="modal-content safora-glass-drawer border border-danger shadow-2xl overflow-hidden" style="background-color: #0b1329 !important; color: #ffffff !important; border-color: rgba(220, 38, 38, 0.6) !important;">
+                <!-- Header -->
+                <div class="modal-header border-bottom border-danger p-3" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important;">
+                    <h5 class="modal-title fw-bold text-uppercase text-white font-outfit d-flex align-items-center gap-2" id="sosBroadcastModalLabel" style="font-size: 1.05rem;">
+                        <i class="bi bi-exclamation-triangle-fill fs-5 animate-sos-pulse text-warning"></i> Emergency SOS Broadcast Activated
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 text-center">
-                    <div class="spinner-grow text-danger mb-3" role="status" style="width: 3rem; height: 3rem;"></div>
-                    <h5 class="fw-bold text-white mb-1">🚨 Live Distress Signal Sent to Authorities!</h5>
-                    <p class="small text-slate-300 mb-3" id="sosGpsStatusText">Broadcasting your exact GPS coordinates to Police Authorities & Emergency Network...</p>
+
+                <!-- Body -->
+                <div class="modal-body p-4 text-center" style="background-color: #0b1329 !important; color: #ffffff !important;">
+                    <div class="spinner-grow text-danger mb-3" role="status" style="width: 3.2rem; height: 3.2rem;"></div>
+                    <h5 class="fw-bold text-white mb-1 font-outfit">🚨 Live Distress Signal Sent to Authorities!</h5>
+                    <p class="small text-slate-300 mb-3" id="sosGpsStatusText" style="color: #cbd5e1 !important;">Broadcasting your exact GPS coordinates to Police Authorities & Emergency Network...</p>
                     
-                    <div class="p-3 bg-slate-900 rounded-3 border border-slate-800 mb-4 text-start">
-                        <div class="small text-warning fw-bold mb-1"><i class="bi bi-geo-alt-fill me-1"></i> Live GPS Location Link:</div>
+                    <!-- Live GPS Link Box -->
+                    <div class="p-3 rounded-3 mb-4 text-start" style="background-color: #0f172a !important; border: 1px solid rgba(245, 158, 11, 0.3) !important;">
+                        <div class="small text-warning fw-bold mb-1 d-flex align-items-center gap-1.5"><i class="bi bi-geo-alt-fill text-danger fs-6"></i> Live GPS Location Link:</div>
                         <a id="sosLiveMapUrl" href="#" target="_blank" class="small text-info text-break text-decoration-none fw-semibold">Generating live Google Maps link...</a>
                     </div>
 
-                    <!-- Instant WhatsApp Broadcast Section -->
-                    <div class="card bg-slate-900 border-success border-opacity-50 p-3 mb-3 text-start">
+                    <!-- Direct WhatsApp Broadcast Section -->
+                    <div class="card p-3 mb-3 text-start shadow-sm" style="background-color: #0f172a !important; border: 1px solid rgba(16, 185, 129, 0.35) !important;">
                         <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="fw-bold text-success small"><i class="bi bi-whatsapp me-1"></i> Direct WhatsApp Broadcast:</span>
-                            <span class="badge bg-success text-dark fw-bold">Instant Dispatch</span>
+                            <span class="fw-bold text-emerald-400 small"><i class="bi bi-whatsapp me-1 text-success fs-6"></i> Direct WhatsApp Broadcast:</span>
+                            <span class="badge bg-success text-dark fw-bold px-2.5 py-1">Instant Dispatch</span>
                         </div>
                         <div id="whatsappContactsButtonsList" class="d-grid gap-2">
                             <!-- Populated dynamically via JS -->
@@ -1086,10 +1090,10 @@
                     </div>
 
                     <!-- Offline SMS Emergency Broadcast Section -->
-                    <div class="card bg-slate-900 border-info border-opacity-50 p-3 mb-3 text-start">
+                    <div class="card p-3 mb-3 text-start shadow-sm" style="background-color: #0f172a !important; border: 1px solid rgba(59, 130, 246, 0.35) !important;">
                         <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="fw-bold text-info small"><i class="bi bi-chat-text-fill me-1"></i> Offline SMS Emergency Broadcast:</span>
-                            <span class="badge bg-info text-dark fw-bold">Offline Gateway</span>
+                            <span class="fw-bold text-info small"><i class="bi bi-chat-text-fill me-1 text-info fs-6"></i> Offline SMS Emergency Broadcast:</span>
+                            <span class="badge bg-info text-dark fw-bold px-2.5 py-1">Offline Gateway</span>
                         </div>
                         <div id="smsContactsButtonsList" class="d-grid gap-2">
                             <!-- Populated dynamically via JS -->
@@ -1097,18 +1101,20 @@
                     </div>
 
                     <!-- Direct Emergency Hotlines -->
-                    <div class="d-flex justify-content-center gap-2 mt-2">
-                        <a href="tel:119" class="btn btn-sm btn-outline-danger fw-bold px-3">
-                            <i class="bi bi-telephone-fill me-1"></i> Call 119 Police
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+                        <a href="tel:119" class="btn btn-sm btn-danger text-white fw-bold px-3.5 py-2 rounded-3 shadow-sm d-flex align-items-center gap-1.5">
+                            <i class="bi bi-telephone-fill"></i> Call 119 Police
                         </a>
-                        <a href="tel:1990" class="btn btn-sm btn-outline-warning text-warning fw-bold px-3">
-                            <i class="bi bi-hospital-fill me-1"></i> Call 1990 Ambulance
+                        <a href="tel:1990" class="btn btn-sm btn-warning text-dark fw-bold px-3.5 py-2 rounded-3 shadow-sm d-flex align-items-center gap-1.5">
+                            <i class="bi bi-hospital-fill"></i> Call 1990 Ambulance
                         </a>
                     </div>
                 </div>
-                <div class="modal-footer border-top border-slate-800 bg-slate-900 justify-content-between">
-                    <span class="small text-slate-400"><i class="bi bi-shield-check me-1"></i> Safora 24/7 Safety Network</span>
-                    <button type="button" class="btn btn-sm btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+
+                <!-- Footer -->
+                <div class="modal-footer p-3 border-top border-slate-800 justify-content-between" style="background-color: #090d16 !important;">
+                    <span class="small text-slate-400" style="color: #94a3b8 !important;"><i class="bi bi-shield-check text-emerald-400 me-1"></i> Safora 24/7 Safety Network</span>
+                    <button type="button" class="btn btn-sm btn-outline-light px-3 rounded-3" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -1485,7 +1491,8 @@
                     const waBtn = document.createElement('a');
                     waBtn.href = waUrl;
                     waBtn.target = '_blank';
-                    waBtn.className = 'btn btn-success btn-sm fw-bold d-flex align-items-center justify-content-between px-3 py-2.5 rounded-3 shadow-sm';
+                    waBtn.className = 'btn btn-sm text-white fw-bold d-flex align-items-center justify-content-between px-3.5 py-2.5 rounded-3 shadow-sm border-0';
+                    waBtn.style.cssText = 'background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important; transition: transform 0.2s ease;';
                     waBtn.innerHTML = `<span><i class="bi bi-whatsapp me-2 fs-5"></i> Broadcast WhatsApp to <strong>${c.name}</strong> (${c.phone})</span> <i class="bi bi-box-arrow-up-right"></i>`;
                     waListContainer.appendChild(waBtn);
                 }
@@ -1494,8 +1501,9 @@
                 if (smsListContainer) {
                     const smsBtn = document.createElement('a');
                     smsBtn.href = smsUrl;
-                    smsBtn.className = 'btn btn-outline-info text-info btn-sm fw-bold d-flex align-items-center justify-content-between px-3 py-2 rounded-3 shadow-sm';
-                    smsBtn.innerHTML = `<span><i class="bi bi-chat-dots-fill me-2"></i> Send Offline SMS to <strong>${c.name}</strong> (${c.phone})</span> <i class="bi bi-send-fill"></i>`;
+                    smsBtn.className = 'btn btn-sm text-white fw-bold d-flex align-items-center justify-content-between px-3.5 py-2.5 rounded-3 shadow-sm border-0';
+                    smsBtn.style.cssText = 'background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important; transition: transform 0.2s ease;';
+                    smsBtn.innerHTML = `<span><i class="bi bi-chat-dots-fill me-2 fs-6"></i> Send Offline SMS to <strong>${c.name}</strong> (${c.phone})</span> <i class="bi bi-send-fill"></i>`;
                     smsListContainer.appendChild(smsBtn);
                 }
             });
@@ -1520,7 +1528,7 @@
             .then(data => {
                 const statusEl = document.getElementById('sosGpsStatusText');
                 if (statusEl) {
-                    statusEl.innerHTML = `✅ Live GPS Dispatch Recorded in Safora Database (SOS ID: #${data.sos_id}). Police Authorities Notified!`;
+                    statusEl.innerHTML = `<span class="text-emerald-400 fw-bold" style="color: #34d399 !important;"><i class="bi bi-check-circle-fill me-1"></i> Live GPS Dispatch Recorded in Safora Database (SOS ID: #${data.sos_id}). Police Authorities Notified!</span>`;
                 }
             })
             .catch(err => {
