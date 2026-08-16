@@ -1143,7 +1143,7 @@
             showGlobalTypingIndicator();
 
             try {
-                const response = await fetch('/ai/chat', {
+                const response = await fetch("{{ route('ai.chat') }}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
