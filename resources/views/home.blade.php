@@ -1035,7 +1035,7 @@
             if (navigator.geolocation) {
                 const timeoutId = setTimeout(() => {
                     handleFallbackIpLocation("GPS Request Timeout (Fast Fallback)");
-                }, 3500);
+                }, 8000);
 
                 navigator.geolocation.getCurrentPosition(
                     function(pos) {
@@ -1048,8 +1048,8 @@
                     },
                     {
                         enableHighAccuracy: true,
-                        timeout: 3000,
-                        maximumAge: 5000
+                        timeout: 7500,
+                        maximumAge: 0
                     }
                 );
             } else {
