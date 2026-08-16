@@ -174,8 +174,8 @@ class HomeController extends Controller
     {
         $q = strtolower(trim($inputStr));
 
-        // Greetings & Introductions
-        if (str_contains($q, 'hi') || str_contains($q, 'hello') || str_contains($q, 'ayubowan') || str_contains($q, 'hey') || str_contains($q, 'good morning') || str_contains($q, 'good evening') || str_contains($q, 'kohomada') || str_contains($q, 'subha') || str_contains($q, 'sthuthi') || str_contains($q, 'wada karanne')) {
+        // Greetings & Introductions (using word boundary so 'hi' doesn't match inside 'highway')
+        if (preg_match('/\b(hi|hello|hey|ayubowan|good morning|good evening|kohomada|subha|sthuthi)\b/i', $q)) {
             return "👋 <strong>Ayubowan! Welcome to Safora AI Assistant. / ආයුබෝවන්!</strong><br>I am your 24/7 Sri Lanka Travel & Safety Companion. How can I help you today? You can ask me about:<br>• Emergency Hotlines (Police 119, Ambulance 1990, Wildlife 1985, Women Protection 1938)<br>• Safe Places & Tourist Destinations (Colombo, Kandy, Galle, Sigiriya, Ella)<br>• First Aid & Travel Precautions<br>• Weather, Road & Wildlife Safety";
         }
 
