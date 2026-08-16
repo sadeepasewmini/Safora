@@ -43,8 +43,8 @@
         </div>
     </div>
 
-    <!-- Tabbed Navigation Bar -->
-    <ul class="nav nav-pills mb-4 bg-white p-2 rounded-3 shadow-sm" id="dashboardTabs" role="tablist">
+    <!-- Tabbed Navigation Bar (Mobile Friendly Scrollable) -->
+    <ul class="nav nav-pills mb-4 bg-white p-2 rounded-3 shadow-sm flex-nowrap overflow-x-auto text-nowrap" id="dashboardTabs" role="tablist" style="scrollbar-width: thin;">
         <li class="nav-item" role="presentation">
             <button class="nav-link {{ (Auth::user()->role === 'public_user' || Auth::user()->role === 'user') ? 'active' : '' }} fw-bold me-2 bg-warning text-dark shadow-sm" id="chatbot-tab" data-bs-toggle="tab" data-bs-target="#chatbot" type="button" role="tab">
                 🤖 Safora AI Safety Companion

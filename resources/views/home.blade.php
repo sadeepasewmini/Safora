@@ -157,7 +157,7 @@
                 <button type="button" class="btn btn-sm btn-dark text-warning border border-warning fw-bold px-3 shadow-xs" id="nightSafetyToggleBtn">
                     <i class="bi bi-moon-stars-fill me-1"></i> Night Safety & Heatmap
                 </button>
-                <div class="btn-group" role="group">
+                <div class="btn-group flex-wrap" role="group">
                     <a href="{{ route('home') }}#mapSection" class="btn btn-sm {{ !$typeFilter ? 'btn-dark' : 'btn-outline-dark' }} px-3">All Hazards</a>
                     <a href="{{ route('home', ['type' => 'wildlife']) }}#mapSection" class="btn btn-sm {{ $typeFilter === 'wildlife' ? 'btn-warning text-dark fw-bold' : 'btn-outline-warning text-dark' }} px-3">🐘 Wildlife</a>
                     <a href="{{ route('home', ['type' => 'crime']) }}#mapSection" class="btn btn-sm {{ $typeFilter === 'crime' ? 'btn-danger' : 'btn-outline-danger' }} px-3">🚔 Crimes</a>
@@ -165,6 +165,18 @@
                     <a href="{{ route('home', ['type' => 'road']) }}#mapSection" class="btn btn-sm {{ $typeFilter === 'road' ? 'btn-secondary' : 'btn-outline-secondary' }} px-3">🚗 Road</a>
                 </div>
             </div>
+        </div>
+
+        <!-- Quick Pinpoint City Location Search Input -->
+        <div class="mb-3">
+            <div class="input-group shadow-xs rounded-3 overflow-hidden border border-slate-300">
+                <span class="input-group-text bg-dark text-warning border-0 px-3 fw-bold small"><i class="bi bi-geo-alt-fill me-1 text-warning"></i> Pinpoint My Town / City</span>
+                <input type="text" id="mapQuickCitySearchInput" class="form-control border-0 py-2 px-3 fw-semibold text-slate-900" placeholder="Type your town or city (e.g. Kandy, Peradeniya, Galle, Jaffna, Kurunegala, Colombo)..." autocomplete="off" style="font-size: 0.88rem; color: #0f172a !important;">
+                <button type="button" class="btn btn-warning text-dark fw-bold px-3 py-2" id="mapQuickCitySearchBtn">
+                    <i class="bi bi-search me-1"></i> Jump To Location
+                </button>
+            </div>
+            <div id="mapQuickCitySuggestions" class="list-group shadow-lg position-relative d-none mt-1" style="z-index: 9999; max-height: 200px; overflow-y: auto; background: white; border-radius: 8px;"></div>
         </div>
 
         <!-- Live Distance Alert Box -->
@@ -221,6 +233,13 @@
         </div>
 
         <div id="saforaMap" style="height: 520px; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);"></div>
+        <script>
+            setTimeout(function() {
+                if (typeof initSaforaMap === 'function') {
+                    initSaforaMap();
+                }
+            }, 50);
+        </script>
         
         <!-- Night Safety Heatmap Legend Overlay -->
         <div id="nightHeatmapLegend" class="mt-3 p-3 bg-slate-900 text-white rounded-4 d-none border border-slate-700 shadow-lg">
@@ -515,6 +534,8 @@
                     <option value="Bentota">Bentota River Area</option>
                     <option value="Kandy">Kandy Central</option>
                     <option value="Galle">Galle Coast</option>
+                    <option value="Hatton">Hatton Tea Zone</option>
+                    <option value="Kiribathgoda">Kiribathgoda</option>
                 </select>
                 <select id="riskHourSelect" class="form-select form-select-sm bg-slate-800 text-white border-slate-700 rounded-3">
                     <option value="22">22:00 (Night Peak)</option>
@@ -559,15 +580,77 @@
                 </div>
             </div>
 
-            <!-- Right Column: Predictive Time-Series Chart -->
+            <!-- Right Column: Predictive Time-Series Chart & Category Risk Breakdown -->
             <div class="col-lg-7">
-                <div class="card card-pro bg-slate-900 border-slate-800 p-4 rounded-4 shadow-xl" style="background-color: #0f172a !important;">
+                <div class="card card-pro bg-slate-900 border-slate-800 p-4 rounded-4 shadow-xl mb-3" style="background-color: #0f172a !important;">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h6 class="fw-bold text-white mb-0"><i class="bi bi-graph-up-arrow text-warning me-2"></i>24-Hour Hazard Trend Analytics</h6>
                         <span class="badge bg-slate-800 text-slate-300 border border-slate-700 font-mono">Realtime ML Model</span>
                     </div>
-                    <div style="height: 250px;">
+                    <div style="height: 200px;">
                         <canvas id="aiRiskChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Category Specific Crime & Threat Risk Breakdown -->
+                <div class="card card-pro bg-slate-900 border-slate-800 p-3.5 rounded-4 shadow-xl" style="background-color: #0f172a !important; border: 1px solid #1e293b !important;">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6 class="fw-bold text-white small mb-0"><i class="bi bi-shield-slash-fill text-danger me-2"></i>Crime & Threat Risk Type Breakdown</h6>
+                        <span class="badge bg-slate-800 text-slate-400 border border-slate-700 font-mono" style="font-size: 0.7rem;">Dynamic Threat Analysis</span>
+                    </div>
+
+                    <div class="row g-2.5">
+                        <!-- Harassment Risk -->
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="p-3 bg-slate-800 bg-opacity-90 rounded-3 border border-slate-700 h-100 d-flex flex-column justify-content-between shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-white fw-bold small" style="color: #ffffff !important;"><i class="bi bi-exclamation-octagon-fill text-warning me-1"></i> Harassment</span>
+                                    <span id="harassmentRiskVal" class="badge bg-warning text-dark fw-extrabold px-2 py-1 fs-7">68%</span>
+                                </div>
+                                <div class="progress bg-slate-900 rounded-pill overflow-hidden" style="height: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div id="harassmentRiskBar" class="progress-bar bg-warning rounded-pill" role="progressbar" style="width: 68%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Theft Risk -->
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="p-3 bg-slate-800 bg-opacity-90 rounded-3 border border-slate-700 h-100 d-flex flex-column justify-content-between shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-white fw-bold small" style="color: #ffffff !important;"><i class="bi bi-bag-x-fill text-info me-1"></i> Theft / Snatch</span>
+                                    <span id="theftRiskVal" class="badge bg-info text-dark fw-extrabold px-2 py-1 fs-7">54%</span>
+                                </div>
+                                <div class="progress bg-slate-900 rounded-pill overflow-hidden" style="height: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div id="theftRiskBar" class="progress-bar bg-info rounded-pill" role="progressbar" style="width: 54%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Unlit Corridor -->
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="p-3 bg-slate-800 bg-opacity-90 rounded-3 border border-slate-700 h-100 d-flex flex-column justify-content-between shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-white fw-bold small" style="color: #ffffff !important;"><i class="bi bi-lightbulb-off-fill text-danger me-1"></i> Unlit Alley</span>
+                                    <span id="unlitRiskVal" class="badge bg-danger text-white fw-extrabold px-2 py-1 fs-7">82%</span>
+                                </div>
+                                <div class="progress bg-slate-900 rounded-pill overflow-hidden" style="height: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div id="unlitRiskBar" class="progress-bar bg-danger rounded-pill" role="progressbar" style="width: 82%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Wildlife Hazard -->
+                        <div class="col-12 col-sm-6 col-xl-3">
+                            <div class="p-3 bg-slate-800 bg-opacity-90 rounded-3 border border-slate-700 h-100 d-flex flex-column justify-content-between shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-white fw-bold small" style="color: #ffffff !important;">🐘 Wildlife Hazard</span>
+                                    <span id="wildlifeRiskVal" class="badge bg-success text-white fw-extrabold px-2 py-1 fs-7" style="background-color: #059669 !important; color: #ffffff !important;">18%</span>
+                                </div>
+                                <div class="progress bg-slate-900 rounded-pill overflow-hidden" style="height: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                    <div id="wildlifeRiskBar" class="progress-bar bg-success rounded-pill" role="progressbar" style="width: 18%; background-color: #10b981 !important;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -655,44 +738,393 @@
     </div>
 </section>
 
-@endsection
-
-@push('scripts')
 <script>
-    // Initialize Map with 3 Tile Layers (Standard, Satellite, Dark Mode)
-    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    });
+    var map, osmLayer, satelliteLayer, darkLayer, markersGroup, nightHeatmapGroup;
+    var nightModeActive = false;
+    var userMarker = null, userCircle = null, userLat = null, userLng = null;
+    var initialIncidents = @json($incidents);
+    var initialSafePlaces = @json($safePlaces);
 
-    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    });
+    function initSaforaMap() {
+        console.log("=== SAFORA MAP INIT START ===");
+        var container = document.getElementById('saforaMap');
+        if (!container) {
+            console.warn("saforaMap container element not found in DOM!");
+            return;
+        }
+        if (typeof L === 'undefined') {
+            console.log('Leaflet L is undefined, retrying initSaforaMap in 100ms...');
+            setTimeout(initSaforaMap, 100);
+            return;
+        }
+        if (container._leaflet_id && map) {
+            console.log("Map already initialized, invalidating size...");
+            map.invalidateSize();
+            return;
+        } else if (container._leaflet_id && !map) {
+            console.log("Cleaning orphan _leaflet_id from container...");
+            delete container._leaflet_id;
+            container.innerHTML = '';
+        }
 
-    const darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CartoDB &mdash; Map data &copy; OpenStreetMap'
-    });
+        try {
+            // CartoDB Voyager tiles (Fast, reliable, vibrant map tiles with zero 403 blocks)
+            osmLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+                subdomains: 'abcd',
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            });
 
-    const map = L.map('saforaMap', {
-        center: [7.8731, 80.7718],
-        zoom: 8,
-        layers: [osmLayer]
-    });
+            const standardOsmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                subdomains: ['a', 'b', 'c'],
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
 
-    const baseMaps = {
-        "🗺️ Standard Map": osmLayer,
-        "🛰️ Satellite View": satelliteLayer,
-        "🌙 Dark Mode Map": darkLayer
-    };
+            satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 19,
+                attribution: 'Tiles &copy; Esri'
+            });
 
-    L.control.layers(baseMaps).addTo(map);
+            darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+                subdomains: 'abcd',
+                maxZoom: 19,
+                attribution: '&copy; CartoDB &mdash; Map data &copy; OpenStreetMap'
+            });
 
-    let markersGroup = L.layerGroup().addTo(map);
-    let nightHeatmapGroup = L.layerGroup();
-    let nightModeActive = false;
-    let userMarker = null;
-    let userCircle = null;
-    let userLat = null;
-    let userLng = null;
+            map = L.map('saforaMap', {
+                center: [7.8731, 80.7718],
+                zoom: 8,
+                layers: [osmLayer]
+            });
+
+            window.map = map;
+            window.initSaforaMap = initSaforaMap;
+
+            const baseMaps = {
+                "🗺️ Standard Vector Map": osmLayer,
+                "🌐 OpenStreetMap": standardOsmLayer,
+                "🛰️ Satellite View": satelliteLayer,
+                "🌙 Dark Mode Map": darkLayer
+            };
+
+            L.control.layers(baseMaps).addTo(map);
+
+            markersGroup = L.layerGroup().addTo(map);
+            nightHeatmapGroup = L.layerGroup();
+
+            console.log("Map instance successfully created!", map);
+        } catch (err) {
+            console.error("Error creating L.map instance:", err);
+        }
+
+        // Interactive Map Click Location Picker
+        map.on('click', function(e) {
+            const clickedLat = e.latlng.lat.toFixed(4);
+            const clickedLng = e.latlng.lng.toFixed(4);
+
+            const latInp = document.getElementById('latInput');
+            const lngInp = document.getElementById('lngInput');
+            if (latInp) latInp.value = clickedLat;
+            if (lngInp) lngInp.value = clickedLng;
+
+            if (pickerMarker && map) map.removeLayer(pickerMarker);
+
+            const pinIcon = L.divIcon({
+                className: 'picker-pin',
+                html: `<div style="background:#f59e0b; color:#0f172a; padding:4px 10px; border-radius:16px; font-weight:bold; font-size:12px; border:2px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.3);">📍 SELECTED LOCATION</div>`,
+                iconSize: [140, 26]
+            });
+
+            pickerMarker = L.marker([clickedLat, clickedLng], { icon: pinIcon }).addTo(map).bindPopup("📍 Location selected for report!").openPopup();
+
+            // Reverse Geocode place name
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${clickedLat}&lon=${clickedLng}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.display_name) {
+                        const parts = data.display_name.split(',');
+                        const placeTitle = parts[0] + (parts[1] ? ', ' + parts[1] : '');
+                        const locInp = document.getElementById('locationSearchInput');
+                        if (locInp) locInp.value = placeTitle;
+                        const areaInp = document.getElementById('areaName');
+                        if (areaInp && !areaInp.value) {
+                            areaInp.value = parts[1] || parts[0];
+                        }
+                    }
+                }).catch(e => console.log('Reverse geocode error:', e));
+        });
+
+        const forceMapResize = function() {
+            if (map) {
+                map.invalidateSize();
+            }
+        };
+        forceMapResize();
+        setTimeout(forceMapResize, 100);
+        setTimeout(forceMapResize, 500);
+        setTimeout(forceMapResize, 1200);
+        setTimeout(forceMapResize, 2500);
+        window.addEventListener('resize', forceMapResize);
+
+        if (typeof renderMapData === 'function') {
+            renderMapData(initialIncidents, initialSafePlaces);
+        }
+
+        // High-Precision GPS Live Location Engine for Laptop & Mobile
+        let userLocationMarker = null;
+        let userLocationCircle = null;
+
+        window.trackUserLocation = function(shouldFlyToMap = true) {
+            const locateBtn = document.getElementById('locateUserBtn');
+            const alertBox = document.getElementById('userDistanceAlert');
+            const distanceText = document.getElementById('distanceText');
+
+            if (locateBtn) {
+                locateBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span> Locating...';
+                locateBtn.disabled = true;
+            }
+
+            if (alertBox && distanceText) {
+                alertBox.classList.remove('d-none');
+                distanceText.innerHTML = '⌛ Scanning GPS Satellite Signal for your device location...';
+            }
+
+            const handleSuccess = function(lat, lng, accuracy, sourceName = "Live Device GPS") {
+                if (userLocationMarker && map) map.removeLayer(userLocationMarker);
+                if (userLocationCircle && map) map.removeLayer(userLocationCircle);
+
+                // Draggable Pulsing Blue GPS Beacon Marker so user can adjust pin on mobile
+                userLocationMarker = L.marker([lat, lng], { 
+                    icon: pulseIcon, 
+                    draggable: true, 
+                    title: "💡 Drag me anywhere to pinpoint your exact spot!",
+                    zIndexOffset: 1000 
+                }).addTo(map);
+
+                // Handle marker dragend event for manual precision adjustment
+                userLocationMarker.on('dragend', function(e) {
+                    const pos = userLocationMarker.getLatLng();
+                    const dragLat = pos.lat;
+                    const dragLng = pos.lng;
+
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${dragLat}&lon=${dragLng}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            let placeName = "Selected Precision Location";
+                            if (data && data.display_name) {
+                                const parts = data.display_name.split(',');
+                                placeName = parts[0] + (parts[1] ? ', ' + parts[1] : '');
+                            }
+
+                            if (distanceText) {
+                                distanceText.innerHTML = `🎯 <strong>Custom Pin Adjusted:</strong> ${placeName} (${dragLat.toFixed(4)}, ${dragLng.toFixed(4)})`;
+                            }
+
+                            const routeStartInp = document.getElementById('routeStartInput');
+                            if (routeStartInp) routeStartInp.value = placeName;
+                            const locSearchInp = document.getElementById('locationSearchInput');
+                            if (locSearchInp) locSearchInp.value = placeName;
+                            const latInp = document.getElementById('latInput');
+                            const lngInp = document.getElementById('lngInput');
+                            if (latInp) latInp.value = dragLat.toFixed(4);
+                            if (lngInp) lngInp.value = dragLng.toFixed(4);
+
+                            userLocationMarker.bindPopup(`🎯 <strong>Custom Location:</strong><br>${placeName}<br><small class="text-muted">Lat: ${dragLat.toFixed(4)}, Lng: ${dragLng.toFixed(4)}</small>`).openPopup();
+                        });
+                });
+
+                if (accuracy && accuracy < 5000) {
+                    userLocationCircle = L.circle([lat, lng], {
+                        radius: Math.min(accuracy, 800),
+                        color: '#0284c7',
+                        fillColor: '#38bdf8',
+                        fillOpacity: 0.18,
+                        weight: 2
+                    }).addTo(map);
+                }
+
+                if (shouldFlyToMap && map) {
+                    map.flyTo([lat, lng], 14, { duration: 1.5 });
+                }
+
+                // Reverse Geocode place name using Nominatim API
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        let placeName = "Your Current Location";
+                        if (data && data.display_name) {
+                            const parts = data.display_name.split(',');
+                            placeName = parts[0] + (parts[1] ? ', ' + parts[1] : '');
+                        }
+
+                        if (distanceText) {
+                            distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> ${placeName} (${lat.toFixed(4)}, ${lng.toFixed(4)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
+                        }
+
+                        const routeStartInp = document.getElementById('routeStartInput');
+                        if (routeStartInp) {
+                            routeStartInp.value = placeName;
+                        }
+
+                        const locSearchInp = document.getElementById('locationSearchInput');
+                        if (locSearchInp && !locSearchInp.value) {
+                            locSearchInp.value = placeName;
+                        }
+                        const latInp = document.getElementById('latInput');
+                        const lngInp = document.getElementById('lngInput');
+                        if (latInp && !latInp.value) latInp.value = lat.toFixed(4);
+                        if (lngInp && !lngInp.value) lngInp.value = lng.toFixed(4);
+
+                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Position:</strong><br>${placeName}<br><small class="text-muted">Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}</small><br><span class="badge bg-info text-dark mt-1">💡 Drag pin to refine location</span>`).openPopup();
+                    })
+                    .catch(err => {
+                        if (distanceText) {
+                            distanceText.innerHTML = `🎯 <strong>${sourceName} Coordinates:</strong> Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
+                        }
+                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br>Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`).openPopup();
+                    })
+                    .finally(() => {
+                        if (locateBtn) {
+                            locateBtn.innerHTML = '<i class="bi bi-crosshair me-1"></i> Track My Live Location';
+                            locateBtn.disabled = false;
+                        }
+                    });
+            };
+
+            const handleFallbackIpLocation = function(reason) {
+                console.warn("GPS fallback triggered:", reason);
+                fetch('https://ipapi.co/json/')
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.latitude && data.longitude) {
+                            const city = data.city || data.region || "Sri Lanka";
+                            handleSuccess(data.latitude, data.longitude, 4000, `Network City (${city})`);
+                        } else {
+                            handleSuccess(6.9271, 79.8612, 8000, "Colombo Region (Default)");
+                        }
+                    })
+                    .catch(() => {
+                        handleSuccess(6.9271, 79.8612, 8000, "Colombo Region (Default)");
+                    });
+            };
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        handleSuccess(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy, "Live Device GPS");
+                    },
+                    function(err) {
+                        handleFallbackIpLocation(err.message || "GPS Permission Denied");
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 10000
+                    }
+                );
+            } else {
+                handleFallbackIpLocation("Geolocation unsupported");
+            }
+        };
+
+        // Quick City Search Handler
+        const performQuickCitySearch = function() {
+            const cityInput = document.getElementById('mapQuickCitySearchInput');
+            if (!cityInput || !cityInput.value.trim()) return;
+
+            const query = encodeURIComponent(cityInput.value.trim() + ', Sri Lanka');
+            const searchBtn = document.getElementById('mapQuickCitySearchBtn');
+            if (searchBtn) searchBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Searching...';
+
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&countrycodes=lk&limit=3`)
+                .then(res => res.json())
+                .then(results => {
+                    if (results && results.length > 0) {
+                        const target = results[0];
+                        const searchLat = parseFloat(target.lat);
+                        const searchLng = parseFloat(target.lon);
+
+                        // Trigger handleSuccess logic at searched city location
+                        if (userLocationMarker && map) map.removeLayer(userLocationMarker);
+
+                        const pulseIcon = L.divIcon({
+                            className: 'user-gps-beacon',
+                            html: `<div style="position:relative; width:28px; height:28px;">
+                                    <div style="position:absolute; width:28px; height:28px; background:rgba(14, 165, 233, 0.45); border-radius:50%; animation: pulse-ring 1.8s infinite ease-out;"></div>
+                                    <div style="position:absolute; top:5px; left:5px; width:18px; height:18px; background:#0284c7; border:3px solid #ffffff; border-radius:50%; box-shadow:0 0 12px rgba(2, 132, 199, 0.9);"></div>
+                                   </div>`,
+                            iconSize: [28, 28],
+                            iconAnchor: [14, 14]
+                        });
+
+                        userLocationMarker = L.marker([searchLat, searchLng], { 
+                            icon: pulseIcon, 
+                            draggable: true,
+                            zIndexOffset: 1000 
+                        }).addTo(map);
+
+                        map.flyTo([searchLat, searchLng], 14, { duration: 1.5 });
+
+                        const placeName = target.display_name.split(',')[0] + ', ' + (target.display_name.split(',')[1] || '');
+                        userLocationMarker.bindPopup(`🎯 <strong>Searched Location:</strong><br>${placeName}`).openPopup();
+
+                        const distanceText = document.getElementById('distanceText');
+                        const alertBox = document.getElementById('userDistanceAlert');
+                        if (alertBox) alertBox.classList.remove('d-none');
+                        if (distanceText) distanceText.innerHTML = `🎯 <strong>City Pinpointed:</strong> ${placeName} (${searchLat.toFixed(4)}, ${searchLng.toFixed(4)})`;
+
+                        const routeStartInp = document.getElementById('routeStartInput');
+                        if (routeStartInp) routeStartInp.value = placeName;
+                    } else {
+                        alert("City not found in Sri Lanka. Please check spelling.");
+                    }
+                })
+                .catch(err => console.error("City search error:", err))
+                .finally(() => {
+                    if (searchBtn) searchBtn.innerHTML = '<i class="bi bi-search me-1"></i> Jump To Location';
+                });
+        };
+
+        const citySearchBtnEl = document.getElementById('mapQuickCitySearchBtn');
+        if (citySearchBtnEl) {
+            citySearchBtnEl.addEventListener('click', performQuickCitySearch);
+        }
+
+        const citySearchInputEl = document.getElementById('mapQuickCitySearchInput');
+        if (citySearchInputEl) {
+            citySearchInputEl.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') performQuickCitySearch();
+            });
+        }
+
+        // Attach event listeners for Track My Location & Route GPS buttons
+        const locateUserBtnEl = document.getElementById('locateUserBtn');
+        if (locateUserBtnEl) {
+            locateUserBtnEl.addEventListener('click', function() {
+                window.trackUserLocation(true);
+            });
+        }
+
+        const routeCurrentGpsBtnEl = document.getElementById('routeCurrentGpsBtn');
+        if (routeCurrentGpsBtnEl) {
+            routeCurrentGpsBtnEl.addEventListener('click', function() {
+                window.trackUserLocation(true);
+            });
+        }
+
+        // Auto-run user location detection on map load
+        setTimeout(function() {
+            window.trackUserLocation(true);
+        }, 600);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSaforaMap);
+    } else {
+        initSaforaMap();
+    }
+    window.addEventListener('load', initSaforaMap);
 
     // Night Safety & Streetlight Heatmap Corridors (Well-Lit Safe Corridors vs Dark Unlit Hazard Areas)
     const WELL_LIT_CORRIDORS = [
@@ -746,7 +1178,9 @@
         }
     ];
 
-    document.getElementById('nightSafetyToggleBtn').addEventListener('click', function() {
+    const nightToggleBtn = document.getElementById('nightSafetyToggleBtn');
+    if (nightToggleBtn) {
+        nightToggleBtn.addEventListener('click', function() {
         nightModeActive = !nightModeActive;
         const btn = this;
         const legend = document.getElementById('nightHeatmapLegend');
@@ -828,11 +1262,9 @@
             map.removeLayer(nightHeatmapGroup);
         }
     });
+    }
 
-    // Load initial map markers
-    const initialIncidents = @json($incidents);
-    const initialSafePlaces = @json($safePlaces);
-    renderMapData(initialIncidents, initialSafePlaces);
+
 
     // Live AJAX Polling Every 8 Seconds
     setInterval(function() {
@@ -989,49 +1421,68 @@
     });
 
     // Review Form Submission Handler
-    document.getElementById('safePlaceReviewForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const stars = document.getElementById('selectedStarValue').value;
-        const lighting = document.getElementById('lightingQualityInput').value;
-        const comment = document.getElementById('reviewCommentInput').value;
+    const safePlaceReviewFormEl = document.getElementById('safePlaceReviewForm');
+    if (safePlaceReviewFormEl) {
+        safePlaceReviewFormEl.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const stars = document.getElementById('selectedStarValue') ? document.getElementById('selectedStarValue').value : 5;
+            const lighting = document.getElementById('lightingQualityInput') ? document.getElementById('lightingQualityInput').value : 'Good';
+            const comment = document.getElementById('reviewCommentInput') ? document.getElementById('reviewCommentInput').value : '';
 
-        const modalElem = document.getElementById('rateSafePlaceModal');
-        const modal = bootstrap.Modal.getInstance(modalElem);
-        if (modal) modal.hide();
+            const modalElem = document.getElementById('rateSafePlaceModal');
+            if (modalElem && typeof bootstrap !== 'undefined') {
+                const modal = bootstrap.Modal.getInstance(modalElem);
+                if (modal) modal.hide();
+            }
 
-        alert(`✅ Thank you! Your ${stars}-Star community safety review has been published.\n\nLighting Quality: ${lighting}\nFeedback: "${comment}"`);
-    });
+            alert(`✅ Thank you! Your ${stars}-Star community safety review has been published.\n\nLighting Quality: ${lighting}\nFeedback: "${comment}"`);
+        });
+    }
 
     // High Accuracy Geolocation Tracker Functionality
     let watchId = null;
 
-    const updateUserGpsPosition = function(pos) {
+    const updateUserGpsPosition = function(pos, isInitial = false) {
         userLat = pos.coords.latitude;
         userLng = pos.coords.longitude;
-        const accuracy = pos.coords.accuracy ? Math.round(pos.coords.accuracy) : 10;
+        const accuracy = pos.coords.accuracy ? Math.round(pos.coords.accuracy) : 15;
 
-        map.setView([userLat, userLng], 14);
+        // Smooth zoom to street level (zoom 16) on initial GPS lock
+        if (isInitial || !userMarker) {
+            map.setView([userLat, userLng], 16, { animate: true });
+        }
 
         if (userMarker) map.removeLayer(userMarker);
         if (userCircle) map.removeLayer(userCircle);
 
         const userIcon = L.divIcon({
-            className: 'user-gps-pin',
-            html: `<div class="user-gps-pulse" style="background:#2563eb; color:white; padding:6px 12px; border-radius:20px; font-weight:bold; font-size:12px; border:2px solid white;">🛰️ LIVE GPS LOCATION (${accuracy}m accuracy)</div>`,
-            iconSize: [210, 32]
+            className: 'user-gps-red-dot-wrapper',
+            html: `
+                <div class="red-dot-container">
+                    <div class="red-dot-core"></div>
+                    <div class="red-dot-label">🔴 MY LIVE LOCATION (±${accuracy}m)</div>
+                </div>
+            `,
+            iconSize: [230, 28],
+            iconAnchor: [11, 14]
         });
 
         userMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map);
+
+        // Real GPS accuracy precision circle (visual radius in meters)
         userCircle = L.circle([userLat, userLng], {
-            color: '#2563eb',
-            fillColor: '#3b82f6',
-            fillOpacity: 0.15,
-            radius: 10000 // 10km hazard radius
+            color: '#dc2626',
+            weight: 2,
+            fillColor: '#ef4444',
+            fillOpacity: 0.18,
+            radius: Math.max(accuracy, 25) // Visual margin circle
         }).addTo(map);
 
         // Auto-fill report form coordinates
-        document.getElementById('latInput').value = userLat.toFixed(4);
-        document.getElementById('lngInput').value = userLng.toFixed(4);
+        const latInp = document.getElementById('latInput');
+        const lngInp = document.getElementById('lngInput');
+        if (latInp) latInp.value = userLat.toFixed(4);
+        if (lngInp) lngInp.value = userLng.toFixed(4);
 
         // Reverse Geocode place name for human readability
         fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLat}&lon=${userLng}`)
@@ -1041,28 +1492,44 @@
                 if (data && data.display_name) {
                     const parts = data.display_name.split(',');
                     placeName = parts[0] + (parts[1] ? ', ' + parts[1] : '');
-                    document.getElementById('locationSearchInput').value = placeName;
-                    if (!document.getElementById('areaName').value) {
-                        document.getElementById('areaName').value = parts[1] || parts[0];
+                    const locSearch = document.getElementById('locationSearchInput');
+                    if (locSearch) locSearch.value = placeName;
+                    const routeStart = document.getElementById('routeStartInput');
+                    if (routeStart && (!routeStart.value || routeStart.value.includes('GPS') || routeStart.value.includes('Colombo'))) {
+                        routeStart.value = placeName;
+                        routeStart.setAttribute('data-lat', userLat);
+                        routeStart.setAttribute('data-lng', userLng);
+                    }
+                    const areaInp = document.getElementById('areaName');
+                    if (areaInp && !areaInp.value) {
+                        areaInp.value = parts[1] || parts[0];
                     }
                 }
-                userMarker.bindPopup(`<strong>📍 Live Location Active</strong><br>${placeName}<br><small class="text-muted">Accuracy: ±${accuracy}m</small>`).openPopup();
-                document.getElementById('distanceText').innerHTML = `<strong>Live Location Active:</strong> ${placeName} (${userLat.toFixed(4)}, ${userLng.toFixed(4)}). Hazards within 10km highlighted.`;
-                document.getElementById('userDistanceAlert').classList.remove('d-none');
+                userMarker.bindPopup(`<strong>📍 Live Location Active</strong><br><strong>${placeName}</strong><br><small class="text-muted">GPS Accuracy: ±${accuracy}m</small>`).openPopup();
+                const distText = document.getElementById('distanceText');
+                if (distText) distText.innerHTML = `<strong>Live Location Active:</strong> ${placeName} (${userLat.toFixed(4)}, ${userLng.toFixed(4)}). Nearby hazards updated.`;
+                const distAlert = document.getElementById('userDistanceAlert');
+                if (distAlert) distAlert.classList.remove('d-none');
             })
             .catch(e => {
                 userMarker.bindPopup(`📍 <strong>Your GPS Location:</strong> ${userLat.toFixed(4)}, ${userLng.toFixed(4)}`).openPopup();
-                document.getElementById('distanceText').innerHTML = `<strong>Live Location Active:</strong> GPS Coordinates (${userLat.toFixed(4)}, ${userLng.toFixed(4)}). Hazards within 10km highlighted.`;
-                document.getElementById('userDistanceAlert').classList.remove('d-none');
+                const distText = document.getElementById('distanceText');
+                if (distText) distText.innerHTML = `<strong>Live Location Active:</strong> GPS (${userLat.toFixed(4)}, ${userLng.toFixed(4)}).`;
+                const distAlert = document.getElementById('userDistanceAlert');
+                if (distAlert) distAlert.classList.remove('d-none');
             });
 
         // Re-render markers with calculated distance
-        renderMapData(initialIncidents, initialSafePlaces);
+        if (typeof renderMapData === 'function') {
+            renderMapData(initialIncidents, initialSafePlaces);
+        }
     };
 
-    document.getElementById('locateUserBtn').addEventListener('click', function() {
+    const locateUserBtnEl = document.getElementById('locateUserBtn');
+    if (locateUserBtnEl) {
+        locateUserBtnEl.addEventListener('click', function() {
         const btn = this;
-        btn.innerHTML = `<i class="bi bi-arrow-repeat spin me-1"></i> Acquiring GPS...`;
+        btn.innerHTML = `<i class="bi bi-arrow-repeat spin me-1"></i> Acquiring High-Accuracy GPS...`;
         btn.disabled = true;
 
         if (navigator.geolocation) {
@@ -1073,20 +1540,22 @@
             };
 
             navigator.geolocation.getCurrentPosition(function(pos) {
-                btn.innerHTML = `<i class="bi bi-crosshair me-1"></i> Live GPS Active`;
-                btn.className = "btn btn-sm btn-primary fw-bold px-3 shadow-xs";
+                btn.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> Live GPS Active`;
+                btn.className = "btn btn-sm btn-success fw-bold px-3 shadow-xs";
                 btn.disabled = false;
 
-                updateUserGpsPosition(pos);
+                updateUserGpsPosition(pos, true);
 
                 // Start continuous live position watching
                 if (!watchId) {
-                    watchId = navigator.geolocation.watchPosition(updateUserGpsPosition, function(err){}, gpsOptions);
+                    watchId = navigator.geolocation.watchPosition(function(latestPos) {
+                        updateUserGpsPosition(latestPos, false);
+                    }, function(err){}, gpsOptions);
                 }
             }, function(err) {
                 btn.innerHTML = `<i class="bi bi-crosshair me-1"></i> Track My Live Location`;
                 btn.disabled = false;
-                alert("⚠️ Unable to access GPS. Please ensure Location services are enabled in your browser settings.");
+                alert("⚠️ Unable to access high-accuracy GPS. Please check browser location permissions.");
             }, gpsOptions);
         } else {
             btn.innerHTML = `<i class="bi bi-crosshair me-1"></i> Track My Live Location`;
@@ -1094,6 +1563,7 @@
             alert("Geolocation is not supported by your browser.");
         }
     });
+    }
 
     function calculateDistanceKm(lat1, lon1, lat2, lon2) {
         const R = 6371;
@@ -1107,39 +1577,6 @@
     }
 
     let pickerMarker = null;
-
-    // Interactive Map Click Location Picker
-    map.on('click', function(e) {
-        const clickedLat = e.latlng.lat.toFixed(4);
-        const clickedLng = e.latlng.lng.toFixed(4);
-
-        document.getElementById('latInput').value = clickedLat;
-        document.getElementById('lngInput').value = clickedLng;
-
-        if (pickerMarker) map.removeLayer(pickerMarker);
-
-        const pinIcon = L.divIcon({
-            className: 'picker-pin',
-            html: `<div style="background:#f59e0b; color:#0f172a; padding:4px 10px; border-radius:16px; font-weight:bold; font-size:12px; border:2px solid white; box-shadow:0 3px 8px rgba(0,0,0,0.3);">📍 SELECTED LOCATION</div>`,
-            iconSize: [140, 26]
-        });
-
-        pickerMarker = L.marker([clickedLat, clickedLng], { icon: pinIcon }).addTo(map).bindPopup("📍 Location selected for report!").openPopup();
-
-        // Reverse Geocode place name
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${clickedLat}&lon=${clickedLng}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data && data.display_name) {
-                    const parts = data.display_name.split(',');
-                    const placeTitle = parts[0] + (parts[1] ? ', ' + parts[1] : '');
-                    document.getElementById('locationSearchInput').value = placeTitle;
-                    if (!document.getElementById('areaName').value) {
-                        document.getElementById('areaName').value = parts[1] || parts[0];
-                    }
-                }
-            }).catch(e => console.log('Reverse geocode error:', e));
-    });
 
     // Place Name Search via Nominatim Geocoding API
     const performPlaceSearch = function() {
@@ -1195,28 +1632,39 @@
             });
     };
 
-    document.getElementById('searchPlaceBtn').addEventListener('click', performPlaceSearch);
-    document.getElementById('locationSearchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            performPlaceSearch();
-        }
-    });
+    const searchPlaceBtnEl = document.getElementById('searchPlaceBtn');
+    if (searchPlaceBtnEl) searchPlaceBtnEl.addEventListener('click', performPlaceSearch);
 
-    document.getElementById('fetchGpsBtn').addEventListener('click', function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(pos) {
-                document.getElementById('latInput').value = pos.coords.latitude.toFixed(4);
-                document.getElementById('lngInput').value = pos.coords.longitude.toFixed(4);
-                alert("📍 Current GPS coordinates retrieved successfully!");
-            });
-        } else {
-            alert("Geolocation is not supported by your browser.");
-        }
-    });
+    const locationSearchInputEl = document.getElementById('locationSearchInput');
+    if (locationSearchInputEl) {
+        locationSearchInputEl.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                performPlaceSearch();
+            }
+        });
+    }
+
+    const fetchGpsBtnEl = document.getElementById('fetchGpsBtn');
+    if (fetchGpsBtnEl) {
+        fetchGpsBtnEl.addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                    const latInp = document.getElementById('latInput');
+                    const lngInp = document.getElementById('lngInput');
+                    if (latInp) latInp.value = pos.coords.latitude.toFixed(4);
+                    if (lngInp) lngInp.value = pos.coords.longitude.toFixed(4);
+                    alert("📍 Current GPS coordinates retrieved successfully!");
+                });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        });
+    }
 
     const titleInput = document.getElementById('incidentTitle');
-    titleInput.addEventListener('keyup', debounce(function() {
+    if (titleInput) {
+        titleInput.addEventListener('keyup', debounce(function() {
         const val = titleInput.value.trim();
         if (val.length > 5) {
             fetch("{{ route('ai.classify') }}", {
@@ -1240,6 +1688,7 @@
             });
         }
     }, 400));
+    }
 
     function debounce(func, wait) {
         let timeout;
@@ -1333,12 +1782,47 @@
                     const recsList = document.getElementById('riskRecsList');
                     recsList.innerHTML = data.recommendations.map(r => `<li>${r}</li>`).join('');
 
+                    if (data.risk_breakdown) {
+                        const hVal = data.risk_breakdown.harassment || 50;
+                        const tVal = data.risk_breakdown.theft || 50;
+                        const uVal = data.risk_breakdown.unlit_corridor || 50;
+                        const wVal = data.risk_breakdown.wildlife || 10;
+
+                        const hEl = document.getElementById('harassmentRiskVal');
+                        const hBar = document.getElementById('harassmentRiskBar');
+                        if (hEl) hEl.textContent = `${hVal}%`;
+                        if (hBar) hBar.style.width = `${hVal}%`;
+
+                        const tEl = document.getElementById('theftRiskVal');
+                        const tBar = document.getElementById('theftRiskBar');
+                        if (tEl) tEl.textContent = `${tVal}%`;
+                        if (tBar) tBar.style.width = `${tVal}%`;
+
+                        const uEl = document.getElementById('unlitRiskVal');
+                        const uBar = document.getElementById('unlitRiskBar');
+                        if (uEl) uEl.textContent = `${uVal}%`;
+                        if (uBar) uBar.style.width = `${uVal}%`;
+
+                        const wEl = document.getElementById('wildlifeRiskVal');
+                        const wBar = document.getElementById('wildlifeRiskBar');
+                        if (wEl) wEl.textContent = `${wVal}%`;
+                        if (wBar) wBar.style.width = `${wVal}%`;
+                    }
+
                     initAiRiskChart(data.chart_data.labels, data.chart_data.risk_trends);
                 }
             });
     };
 
-    document.getElementById('calcRiskBtn').addEventListener('click', fetchRiskPrediction);
+    const calcRiskBtnEl = document.getElementById('calcRiskBtn');
+    if (calcRiskBtnEl) calcRiskBtnEl.addEventListener('click', fetchRiskPrediction);
+
+    const riskAreaSelectEl = document.getElementById('riskAreaSelect');
+    if (riskAreaSelectEl) riskAreaSelectEl.addEventListener('change', fetchRiskPrediction);
+
+    const riskHourSelectEl = document.getElementById('riskHourSelect');
+    if (riskHourSelectEl) riskHourSelectEl.addEventListener('change', fetchRiskPrediction);
+
     // Initial fetch on page load
     fetchRiskPrediction();
 
@@ -1587,229 +2071,131 @@
     setupLocationAutocomplete('routeStartInput', 'routeStartSuggestions');
     setupLocationAutocomplete('routeDestInput', 'routeDestSuggestions');
 
-    document.getElementById('routeCurrentGpsBtn').addEventListener('click', function() {
-        if (userLat && userLng) {
-            const startElem = document.getElementById('routeStartInput');
-            startElem.value = `My Live GPS (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
-            startElem.setAttribute('data-lat', userLat);
-            startElem.setAttribute('data-lng', userLng);
-        } else {
-            alert("Please click 'Track My Live Location' first to acquire GPS coordinates.");
-        }
-    });
-
-    document.getElementById('planSafeRouteBtn').addEventListener('click', async function() {
-        const btn = this;
-        const startElem = document.getElementById('routeStartInput');
-        const destElem = document.getElementById('routeDestInput');
-        const startVal = startElem.value.trim() || 'Peradeniya';
-        const destVal = destElem.value.trim() || 'Kandy Clock Tower';
-
-        btn.innerHTML = `<i class="bi bi-arrow-repeat spin me-1"></i> Planning Route...`;
-        btn.disabled = true;
-
-        try {
-            // Smart Geocode Start & Destination
-            let startLoc = null, destLoc = null;
-
-            if (startElem.getAttribute('data-lat') && startElem.getAttribute('data-lng') && startVal !== '') {
-                startLoc = { lat: parseFloat(startElem.getAttribute('data-lat')), lng: parseFloat(startElem.getAttribute('data-lng')), name: startVal };
-            } else {
-                startLoc = await smartGeocode(startVal);
-            }
-
-            if (destElem.getAttribute('data-lat') && destElem.getAttribute('data-lng') && destVal !== '') {
-                destLoc = { lat: parseFloat(destElem.getAttribute('data-lat')), lng: parseFloat(destElem.getAttribute('data-lng')), name: destVal };
-            } else {
-                destLoc = await smartGeocode(destVal);
-            }
-
-            if (!startLoc) {
-                alert(`Could not pinpoint start location '${startVal}'. Please try typing 'Peradeniya' or 'Kandy'.`);
-                btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
-                btn.disabled = false;
-                return;
-            }
-
-            if (!destLoc) {
-                alert(`Could not pinpoint destination '${destVal}'. Please try typing 'Kandy Clock Tower' or 'Kandy'.`);
-                btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
-                btn.disabled = false;
-                return;
-            }
-
-            const sLat = startLoc.lat;
-            const sLng = startLoc.lng;
-            const dLat = destLoc.lat;
-            const dLng = destLoc.lng;
-
-            // Call OSRM Navigation API
-            const osrmRes = await fetch(`https://router.project-osrm.org/route/v1/driving/${sLng},${sLat};${dLng},${dLat}?overview=full&geometries=geojson`);
-            const osrmData = await osrmRes.json();
-
-            // Call Safora AI Safe Route Analysis API
-            const safeRes = await fetch(`/ai/safe-route?start_lat=${sLat}&start_lng=${sLng}&dest_lat=${dLat}&dest_lng=${dLng}`);
-            const safeData = await safeRes.json();
-
-            // Render Route Polyline on Leaflet Map
-            if (routePolylineLayer) map.removeLayer(routePolylineLayer);
-
-            if (osrmData.routes && osrmData.routes.length > 0) {
-                const route = osrmData.routes[0];
-                const coordinates = route.geometry.coordinates.map(c => [c[1], c[0]]);
-
-                routePolylineLayer = L.polyline(coordinates, {
-                    color: safeData.route_color || '#059669',
-                    weight: 6,
-                    opacity: 0.85,
-                    dashArray: safeData.safety_score < 50 ? '10, 10' : null
-                }).addTo(map);
-
-                map.fitBounds(routePolylineLayer.getBounds(), { padding: [50, 50] });
-
-                // Display Route Analysis Summary
-                const distKm = (route.distance / 1000).toFixed(1);
-                const durationMin = Math.round(route.duration / 60);
-
-                const badge = document.getElementById('routeSafetyScoreBadge');
-                badge.textContent = `Safety Score: ${safeData.safety_score}/100`;
-                badge.className = `badge fs-6 px-3 py-1 ${safeData.safety_score >= 80 ? 'bg-success' : (safeData.safety_score >= 50 ? 'bg-warning text-dark' : 'bg-danger')}`;
-
-                document.getElementById('routeSafetyRatingText').textContent = safeData.safety_rating;
-                document.getElementById('routeDistanceInfo').innerHTML = `<i class="bi bi-signpost me-1"></i> Distance: <strong>${distKm} km</strong> | Est. Time: <strong>${durationMin} mins</strong>`;
-
-                let hazardsHtml = `<div class="mt-2 text-slate-300">`;
-                if (safeData.hazards_count > 0) {
-                    hazardsHtml += `<p class="mb-1 text-warning fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> ${safeData.hazards_count} Active Hazard Interceptions along Route Corridor:</p><ul>`;
-                    safeData.intercepted_hazards.forEach(h => {
-                        hazardsHtml += `<li><strong>${h.category}</strong> (${h.severity}): ${h.title} at ${h.area_name}</li>`;
-                    });
-                    hazardsHtml += `</ul>`;
-                } else {
-                    hazardsHtml += `<p class="mb-1 text-emerald-400 fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Clear Navigation Route: No active critical hazards detected along route corridor.</p>`;
+    const routeCurrentGpsBtnEl = document.getElementById('routeCurrentGpsBtn');
+    if (routeCurrentGpsBtnEl) {
+        routeCurrentGpsBtnEl.addEventListener('click', function() {
+            if (userLat && userLng) {
+                const startElem = document.getElementById('routeStartInput');
+                if (startElem) {
+                    startElem.value = `My Live GPS (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
+                    startElem.setAttribute('data-lat', userLat);
+                    startElem.setAttribute('data-lng', userLng);
                 }
-                hazardsHtml += `</div>`;
-
-                document.getElementById('routeHazardsSummary').innerHTML = hazardsHtml;
-                document.getElementById('routeResultsBox').classList.remove('d-none');
+            } else {
+                alert("Please click 'Track My Live Location' first to acquire GPS coordinates.");
             }
-
-            btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
-            btn.disabled = false;
-        } catch (e) {
-            btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
-            btn.disabled = false;
-            alert("Error calculating route. Please check location names and try again.");
-        }
-    });
-
-    // Universal Accessibility Widget Logic (Popover Toggle)
-    document.getElementById('accessibilityWidgetBtn').addEventListener('click', function(e) {
-        e.stopPropagation();
-        const panel = document.getElementById('accessibilityPopoverPanel');
-        panel.classList.toggle('d-none');
-    });
-
-    document.getElementById('closeAccessibilityPopoverBtn').addEventListener('click', function() {
-        document.getElementById('accessibilityPopoverPanel').classList.add('d-none');
-    });
-
-    // Close popover when clicking outside
-    document.addEventListener('click', function(e) {
-        const container = document.getElementById('accessibilityWidgetContainer');
-        if (container && !container.contains(e.target)) {
-            document.getElementById('accessibilityPopoverPanel').classList.add('d-none');
-        }
-    });
-
-    let currentFontScale = 100;
-    const fontLabel = document.getElementById('currentFontSizeLabel');
-
-    document.getElementById('fontResetBtn').addEventListener('click', function() {
-        currentFontScale = 100;
-        document.documentElement.style.fontSize = '100%';
-        fontLabel.textContent = 'Normal (100%)';
-        fontLabel.className = 'badge bg-secondary';
-    });
-
-    document.getElementById('fontIncreaseBtn').addEventListener('click', function() {
-        currentFontScale = 115;
-        document.documentElement.style.fontSize = '115%';
-        fontLabel.textContent = 'Large (115%)';
-        fontLabel.className = 'badge bg-warning text-dark';
-    });
-
-    document.getElementById('fontMaxBtn').addEventListener('click', function() {
-        currentFontScale = 130;
-        document.documentElement.style.fontSize = '130%';
-        fontLabel.textContent = 'Extra Large (130%)';
-        fontLabel.className = 'badge bg-danger text-white';
-    });
-
-    // High Contrast Switch
-    document.getElementById('highContrastSwitch').addEventListener('change', function() {
-        if (this.checked) {
-            document.body.classList.add('safora-high-contrast');
-        } else {
-            document.body.classList.remove('safora-high-contrast');
-        }
-    });
-
-    // Voice Speech Reader Switch (TTS)
-    let speechEnabled = false;
-    document.getElementById('speechReaderSwitch').addEventListener('change', function() {
-        speechEnabled = this.checked;
-        if (speechEnabled) {
-            alert('🔊 Voice Speech Reader Enabled! Click or hover over incident titles and hazard alerts to hear audio descriptions.');
-            const msg = new SpeechSynthesisUtterance("Voice Speech Reader Enabled on Safora Platform");
-            window.speechSynthesis.speak(msg);
-        }
-    });
-
-    // Speak text helper function
-    function speakText(text) {
-        if (speechEnabled && window.speechSynthesis && text) {
-            window.speechSynthesis.cancel();
-            const msg = new SpeechSynthesisUtterance(text);
-            msg.rate = 1.0;
-            window.speechSynthesis.speak(msg);
-        }
+        });
     }
 
-    // Attach speak event to incident titles
-    document.addEventListener('mouseover', function(e) {
-        if (speechEnabled && e.target && (e.target.matches('.fw-bold') || e.target.matches('h5') || e.target.matches('h6') || e.target.matches('.badge'))) {
-            const txt = e.target.innerText.trim();
-            if (txt.length > 3 && txt.length < 120) {
-                speakText(txt);
+    const planSafeRouteBtnEl = document.getElementById('planSafeRouteBtn');
+    if (planSafeRouteBtnEl) {
+        planSafeRouteBtnEl.addEventListener('click', async function() {
+            const btn = this;
+            const startElem = document.getElementById('routeStartInput');
+            const destElem = document.getElementById('routeDestInput');
+            const startVal = startElem ? (startElem.value.trim() || 'Peradeniya') : 'Peradeniya';
+            const destVal = destElem ? (destElem.value.trim() || 'Kandy Clock Tower') : 'Kandy Clock Tower';
+
+            btn.innerHTML = `<i class="bi bi-arrow-repeat spin me-1"></i> Planning Route...`;
+            btn.disabled = true;
+
+            try {
+                let startLoc = null, destLoc = null;
+
+                if (startElem && startElem.getAttribute('data-lat') && startElem.getAttribute('data-lng') && startVal !== '') {
+                    startLoc = { lat: parseFloat(startElem.getAttribute('data-lat')), lng: parseFloat(startElem.getAttribute('data-lng')), name: startVal };
+                } else {
+                    startLoc = await smartGeocode(startVal);
+                }
+
+                if (destElem && destElem.getAttribute('data-lat') && destElem.getAttribute('data-lng') && destVal !== '') {
+                    destLoc = { lat: parseFloat(destElem.getAttribute('data-lat')), lng: parseFloat(destElem.getAttribute('data-lng')), name: destVal };
+                } else {
+                    destLoc = await smartGeocode(destVal);
+                }
+
+                if (!startLoc) {
+                    alert(`Could not pinpoint start location '${startVal}'. Please try typing 'Peradeniya' or 'Kandy'.`);
+                    btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
+                    btn.disabled = false;
+                    return;
+                }
+
+                if (!destLoc) {
+                    alert(`Could not pinpoint destination '${destVal}'. Please try typing 'Kandy Clock Tower' or 'Kandy'.`);
+                    btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
+                    btn.disabled = false;
+                    return;
+                }
+
+                const sLat = startLoc.lat;
+                const sLng = startLoc.lng;
+                const dLat = destLoc.lat;
+                const dLng = destLoc.lng;
+
+                const osrmRes = await fetch(`https://router.project-osrm.org/route/v1/driving/${sLng},${sLat};${dLng},${dLat}?overview=full&geometries=geojson`);
+                const osrmData = await osrmRes.json();
+
+                const safeRes = await fetch(`/ai/safe-route?start_lat=${sLat}&start_lng=${sLng}&dest_lat=${dLat}&dest_lng=${dLng}`);
+                const safeData = await safeRes.json();
+
+                if (routePolylineLayer && map) map.removeLayer(routePolylineLayer);
+
+                if (osrmData.routes && osrmData.routes.length > 0 && map) {
+                    const route = osrmData.routes[0];
+                    const coordinates = route.geometry.coordinates.map(c => [c[1], c[0]]);
+
+                    routePolylineLayer = L.polyline(coordinates, {
+                        color: safeData.route_color || '#059669',
+                        weight: 6,
+                        opacity: 0.85,
+                        dashArray: safeData.safety_score < 50 ? '10, 10' : null
+                    }).addTo(map);
+
+                    map.fitBounds(routePolylineLayer.getBounds(), { padding: [50, 50] });
+
+                    const distKm = (route.distance / 1000).toFixed(1);
+                    const durationMin = Math.round(route.duration / 60);
+
+                    const badge = document.getElementById('routeSafetyScoreBadge');
+                    if (badge) {
+                        badge.textContent = `Safety Score: ${safeData.safety_score}/100`;
+                        badge.className = `badge fs-6 px-3 py-1 ${safeData.safety_score >= 80 ? 'bg-success' : (safeData.safety_score >= 50 ? 'bg-warning text-dark' : 'bg-danger')}`;
+                    }
+
+                    const ratingTextEl = document.getElementById('routeSafetyRatingText');
+                    if (ratingTextEl) ratingTextEl.textContent = safeData.safety_rating;
+                    const distInfoEl = document.getElementById('routeDistanceInfo');
+                    if (distInfoEl) distInfoEl.innerHTML = `<i class="bi bi-signpost me-1"></i> Distance: <strong>${distKm} km</strong> | Est. Time: <strong>${durationMin} mins</strong>`;
+
+                    let hazardsHtml = `<div class="mt-2 text-slate-300">`;
+                    if (safeData.hazards_count > 0) {
+                        hazardsHtml += `<p class="mb-1 text-warning fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> ${safeData.hazards_count} Active Hazard Interceptions along Route Corridor:</p><ul>`;
+                        safeData.intercepted_hazards.forEach(h => {
+                            hazardsHtml += `<li><strong>${h.category}</strong> (${h.severity}): ${h.title} at ${h.area_name}</li>`;
+                        });
+                        hazardsHtml += `</ul>`;
+                    } else {
+                        hazardsHtml += `<p class="mb-1 text-emerald-400 fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Clear Navigation Route: No active critical hazards detected along route corridor.</p>`;
+                    }
+                    hazardsHtml += `</div>`;
+
+                    const summaryEl = document.getElementById('routeHazardsSummary');
+                    if (summaryEl) summaryEl.innerHTML = hazardsHtml;
+                    const resultsBoxEl = document.getElementById('routeResultsBox');
+                    if (resultsBoxEl) resultsBoxEl.classList.remove('d-none');
+                }
+
+                btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
+                btn.disabled = false;
+            } catch (e) {
+                btn.innerHTML = `<i class="bi bi-compass me-1"></i> Calculate Route`;
+                btn.disabled = false;
+                alert("Error calculating route. Please check location names and try again.");
             }
-        }
-    });
+        });
+    }
 
-    // Legibility Font Switch
-    document.getElementById('legibilityFontSwitch').addEventListener('change', function() {
-        if (this.checked) {
-            document.body.style.fontFamily = 'Verdana, Arial, sans-serif';
-        } else {
-            document.body.style.fontFamily = 'Plus Jakarta Sans, Inter, sans-serif';
-        }
-    });
-
-    // Reset All Accessibility Settings
-    document.getElementById('resetAccessibilitySettingsBtn').addEventListener('click', function() {
-        currentFontScale = 100;
-        document.documentElement.style.fontSize = '100%';
-        fontLabel.textContent = 'Normal (100%)';
-        fontLabel.className = 'badge bg-secondary';
-
-        document.getElementById('highContrastSwitch').checked = false;
-        document.body.classList.remove('safora-high-contrast');
-
-        document.getElementById('speechReaderSwitch').checked = false;
-        speechEnabled = false;
-
-        document.getElementById('legibilityFontSwitch').checked = false;
-        document.body.style.fontFamily = 'Plus Jakarta Sans, Inter, sans-serif';
-    });
 </script>
-@endpush
+
+@endsection

@@ -148,23 +148,72 @@ class IncidentController extends Controller
         $area = $request->input('area_name', 'Colombo');
         $hour = (int)$request->input('hour', date('H'));
 
+        // Query database for incidents matching area
         $totalIncidents = Incident::where('area_name', 'LIKE', "%{$area}%")->count();
         $recentHighRisk = Incident::where('area_name', 'LIKE', "%{$area}%")
             ->whereIn('severity', ['high', 'critical'])
             ->count();
 
-        // Calculate risk index
-        $baseRisk = min(95, max(15, ($totalIncidents * 12) + ($recentHighRisk * 18)));
+        // Calculate dynamic base risk score (min 15%, max 95%)
+        $areaBaseScore = ($totalIncidents * 14) + ($recentHighRisk * 22);
         
-        // Night time risk adjustment (8 PM - 5 AM)
-        if ($hour >= 20 || $hour <= 5) {
-            $baseRisk = min(98, $baseRisk + 22);
-            $riskReason = "High risk predicted due to night hours & historical harassment/theft incidents in {$area}.";
-        } else {
-            $riskReason = "Moderate risk levels based on active community reports in {$area}.";
+        // Calculate risk percentage for the selected hour
+        $isNightHour = ($hour >= 20 || $hour <= 5);
+        $timeMultiplier = $isNightHour ? 1.4 : 0.85;
+        
+        $baseRisk = (int)min(98, max(18, round(($areaBaseScore + 30) * $timeMultiplier)));
+        if ($totalIncidents === 0) {
+            $baseRisk = $isNightHour ? 42 : 20;
         }
 
-        $riskLevel = $baseRisk >= 75 ? 'Critical' : ($baseRisk >= 50 ? 'High' : 'Moderate');
+        // Determine Risk Level Label
+        if ($baseRisk >= 75) {
+            $riskLevel = 'Critical';
+            $riskReason = "Critical hazard risk predicted in {$area} due to night hours & historical severe incident reports ({$totalIncidents} active/reported hazards).";
+            $recommendations = [
+                "Avoid unlit street corridors & isolated areas after 8 PM in {$area}",
+                "Keep 1-Click SOS quick-dial background trigger enabled",
+                "Share your live GPS location with trusted contacts or emergency dispatchers"
+            ];
+        } elseif ($baseRisk >= 50) {
+            $riskLevel = 'High';
+            $riskReason = "High hazard probability detected in {$area} based on recent community reports ({$totalIncidents} active hazards).";
+            $recommendations = [
+                "Exercise caution when traveling alone after dusk",
+                "Stick to well-lit main arterial roads and verified safe havens",
+                "Keep emergency hotlines (119 Police / 1990 Suwa Seriya) ready"
+            ];
+        } else {
+            $riskLevel = 'Moderate';
+            $riskReason = "Moderate risk levels in {$area}. Active community safety patrols reporting normal conditions ({$totalIncidents} reported hazards).";
+            $recommendations = [
+                "Maintain standard situational awareness while commuting",
+                "Report any unlit streets or suspicious activity to community map",
+                "Check verified safe places locator for nearest emergency stations"
+            ];
+        }
+
+        // Dynamic 24-Hour Time Series Risk Curve Calculation
+        $timePoints = [0 => '00:00', 4 => '04:00', 8 => '08:00', 12 => '12:00', 16 => '16:00', 20 => '20:00', 23 => '23:59'];
+        $riskTrends = [];
+
+        foreach ($timePoints as $h => $label) {
+            $hIsNight = ($h >= 20 || $h <= 5);
+            $hMult = $hIsNight ? 1.35 : ($h == 8 || $h == 16 ? 0.9 : 0.75);
+            $hScore = (int)min(98, max(15, round(($areaBaseScore + 25) * $hMult)));
+            if ($totalIncidents === 0) {
+                $hScore = $hIsNight ? (35 + ($h % 5)) : (18 + ($h % 4));
+            }
+            $riskTrends[] = $hScore;
+        }
+
+        // Dynamic Specific Risk Breakdown Calculation
+        $harassmentRisk = (int)min(96, max(20, round($baseRisk * ($isNightHour ? 1.05 : 0.85))));
+        $theftRisk = (int)min(92, max(15, round($baseRisk * ($isNightHour ? 0.95 : 0.9))));
+        $unlitRisk = (int)min(98, max(25, round($baseRisk * ($isNightHour ? 1.25 : 0.6))));
+        $wildlifeRisk = Str::contains(strtolower($area), ['habarana', 'trinco', 'hatton', 'polonnaruwa']) 
+            ? (int)min(95, max(45, round($baseRisk * 1.1))) 
+            : (int)max(5, round($baseRisk * 0.2));
 
         return response()->json([
             'status' => 'success',
@@ -173,14 +222,16 @@ class IncidentController extends Controller
             'risk_percentage' => $baseRisk,
             'risk_level' => $riskLevel,
             'reason' => $riskReason,
-            'recommendations' => [
-                'Avoid unlit alleys after 8 PM',
-                'Share live GPS location with trusted emergency contacts',
-                'Keep SOS quick-dial enabled',
+            'recommendations' => $recommendations,
+            'risk_breakdown' => [
+                'harassment' => $harassmentRisk,
+                'theft' => $theftRisk,
+                'unlit_corridor' => $unlitRisk,
+                'wildlife' => $wildlifeRisk,
             ],
             'chart_data' => [
-                'labels' => ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
-                'risk_trends' => [85, 90, 35, 40, 55, 82, 88],
+                'labels' => array_values($timePoints),
+                'risk_trends' => $riskTrends,
             ]
         ]);
     }

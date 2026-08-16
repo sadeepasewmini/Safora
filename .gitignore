@@ -19,7 +19,9 @@
 /public/hot
 /public/storage
 /storage/*.key
-/storage/pail
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/rendered_page.html
 /vendor
 _ide_helper.php
 Homestead.json

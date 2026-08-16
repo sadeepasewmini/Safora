@@ -15,8 +15,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Leaflet.js Map CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet.js Map CSS & JS (Local Asset & Cloudflare CDN Fallback) -->
+    <link rel="stylesheet" href="{{ asset('vendor/leaflet/leaflet.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="{{ asset('vendor/leaflet/leaflet.js') }}"></script>
+    <script>
+        if (typeof L === 'undefined') {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"><\/script>');
+        }
+    </script>
 
     <!-- Chart.js for AI Risk Trend Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -259,8 +266,16 @@
         .text-slate-800 { color: #1e293b !important; }
         .text-slate-700 { color: #334155 !important; }
         .text-slate-600 { color: #475569 !important; }
-        .text-slate-400 { color: #94a3b8 !important; }
+        .text-slate-100 { color: #f8fafc !important; }
+        .text-slate-200 { color: #f1f5f9 !important; }
         .text-slate-300 { color: #cbd5e1 !important; }
+        .text-slate-400 { color: #94a3b8 !important; }
+
+        .text-emerald-400 { color: #34d399 !important; }
+        .text-emerald-500 { color: #10b981 !important; }
+        .bg-emerald-500 { background-color: #10b981 !important; }
+        .text-amber-500 { color: #f59e0b !important; }
+        .bg-amber-500 { background-color: #f59e0b !important; }
 
         .badge-category {
             background-color: #e2e8f0 !important;
@@ -271,13 +286,26 @@
             border-radius: 6px !important;
         }
 
+        /* Pulsing GPS Location Beacon */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.5); opacity: 0.9; }
+            100% { transform: scale(2.4); opacity: 0; }
+        }
+        .user-gps-beacon {
+            background: transparent !important;
+            border: none !important;
+        }
+
         /* Map Container */
         #saforaMap {
-            height: 480px;
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            height: 520px !important;
+            min-height: 520px !important;
+            width: 100% !important;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             border: 1px solid #cbd5e1;
+            position: relative;
+            z-index: 1;
         }
 
         /* Custom Scrollbar */
@@ -310,6 +338,50 @@
         }
         .user-gps-pulse {
             animation: pulse-radar 2s infinite;
+        }
+
+        /* Red Dot Live GPS Location Marker & Radar Pulse Animation */
+        @keyframes pulse-red-dot {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.85);
+            }
+            70% {
+                transform: scale(1.08);
+                box-shadow: 0 0 0 18px rgba(239, 68, 68, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+        .red-dot-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .red-dot-core {
+            width: 22px;
+            height: 22px;
+            background-color: #ef4444;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 14px rgba(239, 68, 68, 0.9), 0 3px 8px rgba(0,0,0,0.3);
+            animation: pulse-red-dot 1.5s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+        .red-dot-label {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 14px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
         }
 
         /* Professional Teardrop GIS Map Marker Pins */
@@ -367,65 +439,169 @@
         body.safora-high-contrast .text-slate-300 {
             color: #f1f5f9 !important;
         }
+
+        /* Comprehensive Mobile Responsiveness Improvements */
+        @media (max-width: 768px) {
+            .sos-floating-btn {
+                width: 56px !important;
+                height: 56px !important;
+                font-size: 0.85rem !important;
+                bottom: 16px !important;
+                right: 16px !important;
+            }
+            .ai-chatbot-floating-btn,
+            #accessibilityWidgetBtn {
+                width: 56px !important;
+                height: 56px !important;
+                font-size: 1.4rem !important;
+                bottom: 16px !important;
+                left: 16px !important;
+            }
+            #aiChatbotFloatingContainer,
+            #accessibilityWidgetContainer {
+                bottom: 16px !important;
+                left: 16px !important;
+            }
+            #aiChatbotFloatingDrawer,
+            #accessibilityPopoverPanel {
+                width: calc(100vw - 32px) !important;
+                max-width: 360px !important;
+            }
+            #saforaMap {
+                height: 400px !important;
+                min-height: 400px !important;
+            }
+            .navbar-safora .brand-logo {
+                font-size: 1.2rem !important;
+            }
+            .eval-bar {
+                font-size: 0.75rem !important;
+            }
+            footer {
+                padding-bottom: 85px !important;
+            }
+            .card-pro {
+                padding: 1rem !important;
+            }
+            .display-2 {
+                font-size: 2.75rem !important;
+            }
+            .display-4 {
+                font-size: 2.2rem !important;
+            }
+            .display-5 {
+                font-size: 1.8rem !important;
+            }
+        }
+
+        /* Mobile Navigation Responsive Drawer (Under 992px) */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background-color: #0f172a !important;
+                border: 1px solid #1e293b !important;
+                border-radius: 16px !important;
+                padding: 1.25rem !important;
+                margin-top: 0.75rem !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75) !important;
+            }
+            .navbar-nav {
+                align-items: stretch !important;
+                gap: 0.5rem !important;
+            }
+            .navbar-nav .nav-item {
+                width: 100% !important;
+                text-align: left !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            .navbar-nav .nav-link-custom {
+                display: flex !important;
+                align-items: center !important;
+                padding: 0.75rem 1rem !important;
+                border-radius: 12px !important;
+                color: #f1f5f9 !important;
+                font-weight: 600 !important;
+                font-size: 0.95rem !important;
+                background-color: #1e293b !important;
+                border: 1px solid #334155 !important;
+                transition: all 0.2s ease !important;
+            }
+            .navbar-nav .nav-link-custom:hover, 
+            .navbar-nav .nav-link-custom:focus {
+                background-color: rgba(245, 158, 11, 0.15) !important;
+                color: #f59e0b !important;
+                border-color: #f59e0b !important;
+                padding-left: 1.25rem !important;
+            }
+            .w-100-mobile {
+                width: 100% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 0.75rem 1rem !important;
+                font-size: 0.95rem !important;
+                border-radius: 12px !important;
+                margin: 0.3rem 0 !important;
+            }
+        }
     </style>
 </head>
 <body>
-
-
 
     <!-- Main Header Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-safora sticky-top">
         <div class="container">
             <a class="brand-logo me-4 d-inline-flex align-items-center gap-2 text-decoration-none" href="{{ route('home') }}">
-                <img src="/images/safora-eagle-shield-clean.png" alt="Safora 3D Gold Eagle Shield Logo" class="safora-eagle-3d-logo">
                 <span class="fw-extrabold text-white" style="letter-spacing: -0.5px;">SAFORA<span class="text-warning">.LK</span></span>
             </a>
             
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <button class="navbar-toggler border-0 p-2 rounded-3 bg-slate-800 border-slate-700" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom" href="{{ route('home') }}"><i class="bi bi-house-door me-1"></i> Home</a>
+                        <a class="nav-link nav-link-custom" href="{{ route('home') }}"><i class="bi bi-house-door me-2 text-warning"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom" href="{{ route('home') }}#mapSection"><i class="bi bi-map me-1"></i> Safety Map</a>
+                        <a class="nav-link nav-link-custom" href="{{ route('home') }}#mapSection"><i class="bi bi-map me-2 text-info"></i> Safety Map</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom" href="{{ route('home') }}#reportSection"><i class="bi bi-plus-circle me-1"></i> Report Hazard</a>
+                        <a class="nav-link nav-link-custom" href="{{ route('home') }}#reportSection"><i class="bi bi-plus-circle me-2 text-danger"></i> Report Hazard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom" href="{{ route('home') }}#safePlacesSection"><i class="bi bi-hospital me-1"></i> Safe Places</a>
+                        <a class="nav-link nav-link-custom" href="{{ route('home') }}#safePlacesSection"><i class="bi bi-hospital me-2 text-emerald-400"></i> Safe Places</a>
                     </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-sm btn-outline-warning text-warning px-3 py-1.5 ms-lg-2 rounded-3 me-2" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal">
+                    <li class="nav-item my-1 my-lg-0">
+                        <button type="button" class="btn btn-sm btn-outline-warning text-warning px-3 py-2 ms-lg-2 rounded-3 w-100-mobile" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal">
                             <i class="bi bi-telephone-plus me-1"></i> SOS Contacts
                         </button>
                     </li>
 
                     @auth
-                        <li class="nav-item ms-lg-3">
-                            <a class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2 me-2" href="{{ route('dashboard') }}">
+                        <li class="nav-item ms-lg-3 my-1 my-lg-0">
+                            <a class="btn btn-sm btn-warning text-dark fw-bold px-3 py-2 me-lg-2 w-100-mobile" href="{{ route('dashboard') }}">
                                 <i class="bi bi-speedometer2 me-1"></i> Dashboard ({{ ucfirst(Auth::user()->role) }})
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        <li class="nav-item my-1 my-lg-0">
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline w-100">
                                 @csrf
-                                <button type="submit" class="btn btn-sm btn-outline-light px-3 py-2">Logout</button>
+                                <button type="submit" class="btn btn-sm btn-outline-light px-3 py-2 w-100-mobile">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Logout
+                                </button>
                             </form>
                         </li>
                     @else
-                        <li class="nav-item ms-lg-3">
-                            <a class="btn btn-sm btn-warning text-dark fw-bold px-4 py-2" href="{{ route('login') }}">
-                                Sign In
+                        <li class="nav-item ms-lg-3 my-1 my-lg-0">
+                            <a class="btn btn-sm btn-warning text-dark fw-bold px-4 py-2 me-lg-2 w-100-mobile" href="{{ route('login') }}">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
                             </a>
                         </li>
-                        <li class="nav-item ms-2">
-                            <a class="btn btn-sm btn-outline-light px-3 py-2" href="{{ route('register') }}">
-                                Register
+                        <li class="nav-item my-1 my-lg-0">
+                            <a class="btn btn-sm btn-outline-light px-3 py-2 w-100-mobile" href="{{ route('register') }}">
+                                <i class="bi bi-person-plus me-1"></i> Register
                             </a>
                         </li>
                     @endauth
@@ -473,78 +649,78 @@
             }
         }
         $showFloatingChatbot = $isPublicUserDashboard;
-        $showAccessibilityWidget = !$isPublicUserDashboard;
+        $showAccessibilityWidget = true; // Always enable accessibility widget for all users
     @endphp
 
     @if($showAccessibilityWidget)
-    <!-- Floating Universal Accessibility Widget (Fixed Bottom-Left 24px - Hidden on Public User Dashboard) -->
+    <!-- Floating Universal Accessibility Widget (Fixed Bottom-Left 24px) -->
     <div id="accessibilityWidgetContainer" style="position: fixed !important; bottom: 24px !important; left: 24px !important; z-index: 999999 !important;">
         <!-- Floating Popover Card Drawer anchored directly above button -->
-        <div id="accessibilityPopoverPanel" class="card safora-popup-animate text-white border border-warning rounded-4 shadow-2xl mb-2 d-none" style="width: 320px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important; background-color: #0f172a !important;">
-            <div class="card-header border-bottom border-slate-800 p-3 bg-slate-800 d-flex align-items-center justify-content-between">
+        <div id="accessibilityPopoverPanel" class="card safora-popup-animate text-white border border-warning rounded-4 shadow-2xl mb-3 d-none" style="width: 340px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85) !important; background-color: #0f172a !important; border: 1px solid #334155 !important;">
+            <div class="card-header border-bottom border-slate-700 p-3 bg-slate-900 d-flex align-items-center justify-content-between rounded-top-4">
                 <div class="d-flex align-items-center gap-2">
                     <span class="fs-5 text-warning"><i class="bi bi-person-fill-gear"></i></span>
                     <h6 class="fw-bold text-white fs-6 mb-0">Universal Accessibility</h6>
                 </div>
                 <button type="button" class="btn-close btn-close-white" id="closeAccessibilityPopoverBtn" aria-label="Close"></button>
             </div>
-            <div class="card-body p-3">
+            <div class="card-body p-3 style-caption">
                 
                 <!-- 1. Text Size Control -->
-                <div class="mb-3 p-2.5 bg-slate-800 rounded-3 border border-slate-700">
+                <div class="mb-3 p-3 bg-slate-800 rounded-3 border border-slate-700 shadow-sm">
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fw-bold text-slate-300 small">🔍 Text Resizing:</span>
-                        <span id="currentFontSizeLabel" class="badge bg-warning text-dark">Normal (100%)</span>
+                        <span class="fw-bold text-white small" style="color: #ffffff !important;"><i class="bi bi-search me-1 text-warning"></i> Text Resizing</span>
+                        <span id="currentFontSizeLabel" class="badge bg-warning text-dark fw-bold">Normal (100%)</span>
                     </div>
                     <div class="btn-group w-100" role="group">
-                        <button type="button" class="btn btn-outline-light btn-sm fw-bold" id="fontResetBtn">A</button>
-                        <button type="button" class="btn btn-outline-warning btn-sm fw-bold" id="fontIncreaseBtn">A+</button>
-                        <button type="button" class="btn btn-warning text-dark btn-sm fw-bold" id="fontMaxBtn">A++</button>
+                        <button type="button" class="btn btn-outline-light btn-sm fw-bold px-3" id="fontResetBtn">A</button>
+                        <button type="button" class="btn btn-outline-warning btn-sm fw-bold px-3" id="fontIncreaseBtn">A+</button>
+                        <button type="button" class="btn btn-warning text-dark btn-sm fw-bold px-3" id="fontMaxBtn">A++</button>
                     </div>
                 </div>
 
                 <!-- 2. High Contrast Mode Toggle -->
-                <div class="mb-2.5 p-2.5 bg-slate-800 rounded-3 border border-slate-700 d-flex align-items-center justify-content-between">
+                <div class="mb-3 p-3 bg-slate-800 rounded-3 border border-slate-700 d-flex align-items-center justify-content-between shadow-sm">
                     <div class="pe-2">
-                        <div class="fw-bold text-white small"><i class="bi bi-circle-half text-warning me-1"></i> High Contrast Mode</div>
-                        <div class="text-slate-400 lh-sm" style="font-size: 0.72rem; margin-top: 2px;">Enhances outdoor sunlight visibility</div>
+                        <div class="fw-bold text-white small" style="color: #ffffff !important;"><i class="bi bi-circle-half text-warning me-1.5"></i> High Contrast Mode</div>
+                        <div class="lh-sm mt-1" style="font-size: 0.74rem; color: #cbd5e1 !important;">Enhances outdoor sunlight visibility</div>
                     </div>
-                    <div class="form-check form-switch mb-0">
-                        <input class="form-check-input bg-warning border-0" type="checkbox" id="highContrastSwitch" style="width: 2.4em; height: 1.2em; cursor: pointer;">
+                    <div class="form-check form-switch mb-0 pe-1">
+                        <input class="form-check-input bg-warning border-0" type="checkbox" id="highContrastSwitch" style="width: 2.5em; height: 1.3em; cursor: pointer;">
                     </div>
                 </div>
 
                 <!-- 3. Screen Reader Text-To-Speech (TTS) Voice Guide -->
-                <div class="mb-2.5 p-2.5 bg-slate-800 rounded-3 border border-slate-700 d-flex align-items-center justify-content-between">
+                <div class="mb-3 p-3 bg-slate-800 rounded-3 border border-slate-700 d-flex align-items-center justify-content-between shadow-sm">
                     <div class="pe-2">
-                        <div class="fw-bold text-white small"><i class="bi bi-volume-up-fill text-emerald-400 me-1"></i> Voice Speech Reader</div>
-                        <div class="text-slate-400 lh-sm" style="font-size: 0.72rem; margin-top: 2px;">Reads hazard alerts out loud on click/hover</div>
+                        <div class="fw-bold text-white small" style="color: #ffffff !important;"><i class="bi bi-volume-up-fill text-emerald-400 me-1.5"></i> Voice Speech Reader</div>
+                        <div class="lh-sm mt-1" style="font-size: 0.74rem; color: #cbd5e1 !important;">Reads hazard alerts out loud on click/hover</div>
                     </div>
-                    <div class="form-check form-switch mb-0">
-                        <input class="form-check-input bg-success border-0" type="checkbox" id="speechReaderSwitch" style="width: 2.4em; height: 1.2em; cursor: pointer;">
+                    <div class="form-check form-switch mb-0 pe-1">
+                        <input class="form-check-input bg-success border-0" type="checkbox" id="speechReaderSwitch" style="width: 2.5em; height: 1.3em; cursor: pointer;">
                     </div>
                 </div>
 
                 <!-- 4. Dyslexia / High Legibility Font Mode -->
-                <div class="mb-3 p-2.5 bg-slate-800 rounded-3 border border-slate-700 d-flex align-items-center justify-content-between">
+                <div class="mb-3 p-3 bg-slate-800 rounded-3 border border-slate-700 d-flex align-items-center justify-content-between shadow-sm">
                     <div class="pe-2">
-                        <div class="fw-bold text-white small"><i class="bi bi-fonts text-info me-1"></i> High-Legibility Font</div>
-                        <div class="text-slate-400 lh-sm" style="font-size: 0.72rem; margin-top: 2px;">Switches to high-readability font style</div>
+                        <div class="fw-bold text-white small" style="color: #ffffff !important;"><i class="bi bi-fonts text-info me-1.5"></i> High-Legibility Font</div>
+                        <div class="lh-sm mt-1" style="font-size: 0.74rem; color: #cbd5e1 !important;">Switches to high-readability font style</div>
                     </div>
-                    <div class="form-check form-switch mb-0">
-                        <input class="form-check-input bg-info border-0" type="checkbox" id="legibilityFontSwitch" style="width: 2.4em; height: 1.2em; cursor: pointer;">
+                    <div class="form-check form-switch mb-0 pe-1">
+                        <input class="form-check-input bg-info border-0" type="checkbox" id="legibilityFontSwitch" style="width: 2.5em; height: 1.3em; cursor: pointer;">
                     </div>
                 </div>
 
                 <!-- Reset Button -->
-                <button type="button" class="btn btn-slate-700 btn-outline-secondary text-slate-300 btn-sm w-100" id="resetAccessibilitySettingsBtn">
+                <button type="button" class="btn btn-outline-warning text-warning fw-bold btn-sm w-100 rounded-3 py-2 border-warning" id="resetAccessibilitySettingsBtn" style="transition: all 0.2s ease;">
                     <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Accessibility Options
                 </button>
 
             </div>
         </div>
 
-        <!-- Floating Trigger Button (Exact 68px size matching SOS button) -->
+        <!-- Floating Trigger Button -->
         <button type="button" class="btn btn-warning text-dark fw-bold shadow-lg rounded-circle p-0 d-flex align-items-center justify-content-center" id="accessibilityWidgetBtn" title="Universal Accessibility Options" style="width: 68px; height: 68px; font-size: 1.8rem; border: 3px solid #ffffff !important; box-shadow: 0 10px 20px rgba(0,0,0,0.4) !important; transition: all 0.2s ease;">
             ♿
         </button>
@@ -552,8 +728,8 @@
     @endif
 
     @if($showFloatingChatbot)
-    <!-- Floating AI Chatbot Button & Popover Chat Drawer (Public User Exclusive - Positioned at bottom: 24px replacing Accessibility) -->
-    <div id="aiChatbotFloatingContainer" style="position: fixed; bottom: 24px; left: 24px; z-index: 999998;">
+    <!-- Floating AI Chatbot Button & Popover Chat Drawer (Positioned side-by-side next to Accessibility button) -->
+    <div id="aiChatbotFloatingContainer" style="position: fixed !important; bottom: 24px !important; left: 104px !important; z-index: 999998 !important;">
         <!-- Floating Popover Chat Drawer (Opens above button) -->
         <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate border border-warning rounded-4 shadow-2xl mb-2 d-none" style="width: 360px; max-width: 90vw; background-color: #0f172a !important; color: white !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;">
             <!-- Header -->
@@ -741,7 +917,6 @@
                 <!-- Brand & Tagline -->
                 <div class="col-md-6">
                     <div class="d-flex align-items-center gap-2 mb-1">
-                        <img src="/images/safora-eagle-shield-clean.png" alt="Safora 3D Gold Eagle Shield Logo" class="safora-eagle-3d-logo" style="height: 48px;">
                         <a class="brand-logo fs-4 text-decoration-none fw-extrabold tracking-tight" href="{{ route('home') }}" style="color: #ffffff;">
                             SAFORA<span class="text-warning">.LK</span>
                         </a>
@@ -785,8 +960,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Leaflet.js -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <!-- Emergency SOS & AI Chatbot Floating Drawer Handlers -->
     <script>
@@ -1005,16 +1178,28 @@
         // Emergency SOS Listener with Instant WhatsApp & SMS Broadcast
         const sosTriggerBtn = document.getElementById('sosTriggerBtn');
         if (sosTriggerBtn) {
-            sosTriggerBtn.addEventListener('click', function() {
+            sosTriggerBtn.addEventListener('click', function(e) {
+                if (e) e.preventDefault();
                 if (confirm("🚨 EMERGENCY SOS DISTRESS SIGNAL\n\nAre you sure you want to broadcast an instant Emergency SOS alert with your live GPS location to Police & WhatsApp Emergency Contacts?")) {
+                    
+                    // Default fallback location (Colombo Central default)
+                    let defaultLat = 6.9271;
+                    let defaultLng = 79.8612;
+
+                    // Trigger instant broadcast modal immediately so user never hangs waiting for GPS
+                    triggerSosBroadcast(defaultLat, defaultLng);
+
+                    // Concurrently refine with live GPS coordinates if available (3s timeout for HTTP IP connections)
                     if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            triggerSosBroadcast(position.coords.latitude, position.coords.longitude);
-                        }, function(error) {
-                            triggerSosBroadcast(6.9271, 79.8612);
-                        });
-                    } else {
-                        triggerSosBroadcast(6.9271, 79.8612);
+                        navigator.geolocation.getCurrentPosition(
+                            function(position) {
+                                triggerSosBroadcast(position.coords.latitude, position.coords.longitude);
+                            },
+                            function(error) {
+                                console.warn("GPS lookup timeout/blocked on HTTP IP, fallback coordinates used:", error.message);
+                            },
+                            { timeout: 3000, maximumAge: 60000, enableHighAccuracy: false }
+                        );
                     }
                 }
             });
@@ -1063,10 +1248,10 @@
                 }
             });
 
-            // Trigger Bootstrap Modal
+            // Trigger Bootstrap Modal securely
             const sosModalEl = document.getElementById('sosBroadcastModal');
             if (sosModalEl) {
-                const sosModal = new bootstrap.Modal(sosModalEl);
+                const sosModal = bootstrap.Modal.getOrCreateInstance(sosModalEl);
                 sosModal.show();
             }
 
