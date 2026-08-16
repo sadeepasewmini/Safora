@@ -813,77 +813,102 @@
                 </div>
             </div>
 
-            <!-- Right Side: Display Public Comments List -->
+            <!-- Right Side: Display Public Comments Carousel -->
             <div class="col-lg-8">
-                <div id="publicCommentsContainer" class="row g-3">
-                    <!-- Default Verified Comments -->
-                    <div class="col-md-6">
-                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">AP</div>
-                                    <div>
-                                        <h6 class="fw-bold text-white mb-0 small">Anusha Perera</h6>
-                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Kandy Commuter</small>
+                <div id="commentsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
+                    <div class="carousel-inner rounded-4 shadow-xl" id="publicCommentsContainer">
+                        <!-- Slide 1 (Pair 1 & 2) -->
+                        <div class="carousel-item active">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <div class="d-flex align-items-center gap-2.5">
+                                                <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">AP</div>
+                                                <div>
+                                                    <h6 class="fw-bold text-white mb-0">Anusha Perera</h6>
+                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Kandy Commuter</small>
+                                                </div>
+                                            </div>
+                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
+                                        </div>
+                                        <span class="badge bg-slate-700 text-warning mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🌙 Night Safety Heatmap</span>
+                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"Safora's Night Heatmap helped me find well-lit safe streets when returning home from work late at night near Peradeniya. Truly empowering for women commuters!"</p>
                                     </div>
                                 </div>
-                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
+
+                                <div class="col-md-6">
+                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <div class="d-flex align-items-center gap-2.5">
+                                                <div class="rounded-circle bg-info text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">SS</div>
+                                                <div>
+                                                    <h6 class="fw-bold text-white mb-0">Sanduni Silva</h6>
+                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Colombo</small>
+                                                </div>
+                                            </div>
+                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
+                                        </div>
+                                        <span class="badge bg-slate-700 text-info mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🚨 Emergency SOS</span>
+                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"The Emergency SOS button with instant WhatsApp live location dispatch gives me and my family immense peace of mind whenever I travel late."</p>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="badge bg-slate-700 text-warning mb-2" style="font-size: 0.68rem;">🌙 Night Safety Heatmap</span>
-                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"Safora's Night Heatmap helped me find well-lit safe streets when returning home from work late at night near Peradeniya. Truly empowering for women commuters!"</p>
+                        </div>
+
+                        <!-- Slide 2 (Pair 3 & 4) -->
+                        <div class="carousel-item">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <div class="d-flex align-items-center gap-2.5">
+                                                <div class="rounded-circle text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem; background-color:#10b981;">KW</div>
+                                                <div>
+                                                    <h6 class="fw-bold text-white mb-0">Kavindi Wickramasinghe</h6>
+                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Katugastota / Yatihalagala</small>
+                                                </div>
+                                            </div>
+                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
+                                        </div>
+                                        <span class="badge bg-slate-700 text-emerald-400 mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🤖 Safora AI Companion</span>
+                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"The AI Chatbot provided instant guidance regarding wildlife encountering near Habarana highway and gave direct ambulance numbers."</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <div class="d-flex align-items-center gap-2.5">
+                                                <div class="rounded-circle bg-danger text-white fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">DF</div>
+                                                <div>
+                                                    <h6 class="fw-bold text-white mb-0">Dilani Fernando</h6>
+                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Galle Fort</small>
+                                                </div>
+                                            </div>
+                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
+                                        </div>
+                                        <span class="badge bg-slate-700 text-danger mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🌟 Overall Experience</span>
+                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"Community hazard report voting system is brilliant! Verified community alerts keep our local roads and public spots safe together."</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="rounded-circle bg-info text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">SS</div>
-                                    <div>
-                                        <h6 class="fw-bold text-white mb-0 small">Sanduni Silva</h6>
-                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Colombo</small>
-                                    </div>
-                                </div>
-                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
-                            </div>
-                            <span class="badge bg-slate-700 text-info mb-2" style="font-size: 0.68rem;">🚨 Emergency SOS</span>
-                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"The Emergency SOS button with instant WhatsApp live location dispatch gives me and my family immense peace of mind whenever I travel late."</p>
+                    <!-- Carousel Controls (Previous & Next Arrow Buttons) -->
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2">
+                        <small class="text-slate-400 font-mono" style="font-size: 0.75rem;"><i class="bi bi-arrow-left-right text-warning me-1"></i> Auto-sliding community reviews</small>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-warning btn-sm rounded-circle d-flex align-items-center justify-content-center p-0" type="button" data-bs-target="#commentsCarousel" data-bs-slide="prev" style="width: 36px; height: 36px;">
+                                <i class="bi bi-chevron-left"></i>
+                            </button>
+                            <button class="btn btn-warning btn-sm text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center p-0" type="button" data-bs-target="#commentsCarousel" data-bs-slide="next" style="width: 36px; height: 36px;">
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="rounded-circle text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem; background-color:#10b981;">KW</div>
-                                    <div>
-                                        <h6 class="fw-bold text-white mb-0 small">Kavindi Wickramasinghe</h6>
-                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Katugastota / Yatihalagala</small>
-                                    </div>
-                                </div>
-                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
-                            </div>
-                            <span class="badge bg-slate-700 text-emerald-400 mb-2" style="font-size: 0.68rem;">🤖 Safora AI Companion</span>
-                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"The AI Chatbot provided instant guidance regarding wildlife encountering near Habarana highway and gave direct ambulance numbers."</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="rounded-circle bg-danger text-white fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">DF</div>
-                                    <div>
-                                        <h6 class="fw-bold text-white mb-0 small">Dilani Fernando</h6>
-                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Galle Fort</small>
-                                    </div>
-                                </div>
-                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
-                            </div>
-                            <span class="badge bg-slate-700 text-danger mb-2" style="font-size: 0.68rem;">🌟 Overall Experience</span>
-                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"Community hazard report voting system is brilliant! Verified community alerts keep our local roads and public spots safe together."</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1324,28 +1349,37 @@
             const starStr = '⭐'.repeat(stars);
             const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'U';
 
-            const newCommentCard = document.createElement('div');
-            newCommentCard.className = 'col-md-6 safora-popup-animate';
-            newCommentCard.innerHTML = `
-                <div class="card card-pro bg-slate-800 bg-opacity-90 border-warning p-3.5 rounded-4 shadow-lg h-100 text-white" style="border: 1px solid #f59e0b !important;">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">${initials}</div>
-                            <div>
-                                <h6 class="fw-bold text-white mb-0 small">${author} <span class="badge bg-success text-dark ms-1" style="font-size:0.6rem;">NEW</span></h6>
-                                <small class="text-slate-400" style="font-size: 0.72rem;">📍 Community Reviewer</small>
+            // Remove active class from existing slides
+            document.querySelectorAll('#publicCommentsContainer .carousel-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            const newSlide = document.createElement('div');
+            newSlide.className = 'carousel-item active safora-popup-animate';
+            newSlide.innerHTML = `
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-warning p-4 rounded-4 shadow-xl h-100 text-white" style="background-color: #0f172a !important; border: 1px solid #f59e0b !important;">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="d-flex align-items-center gap-2.5">
+                                    <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">${initials}</div>
+                                    <div>
+                                        <h6 class="fw-bold text-white mb-0">${author} <span class="badge bg-success text-dark ms-1" style="font-size:0.65rem;">NEWLY POSTED</span></h6>
+                                        <small class="text-slate-400" style="font-size: 0.74rem;">📍 Verified Community Reviewer</small>
+                                    </div>
+                                </div>
+                                <span class="text-warning fs-6">${starStr}</span>
                             </div>
+                            <span class="badge bg-slate-700 text-warning mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">${category}</span>
+                            <p class="text-slate-200 mb-0 small" style="line-height: 1.5; font-size: 0.9rem;">"${comment}"</p>
                         </div>
-                        <span class="text-warning small">${starStr}</span>
                     </div>
-                    <span class="badge bg-slate-700 text-warning mb-2" style="font-size: 0.68rem;">${category}</span>
-                    <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"${comment}"</p>
                 </div>
             `;
 
             const container = document.getElementById('publicCommentsContainer');
             if (container) {
-                container.prepend(newCommentCard);
+                container.prepend(newSlide);
             }
 
             document.getElementById('commentTextInput').value = '';
