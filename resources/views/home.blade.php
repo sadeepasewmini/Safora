@@ -1035,19 +1035,8 @@
                     } catch(e) {}
                 }
 
-                fetch('https://ipapi.co/json/')
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data && data.latitude && data.longitude) {
-                            const city = data.city || data.region || "Sri Lanka";
-                            handleSuccess(data.latitude, data.longitude, 4000, `Network City (${city})`);
-                        } else {
-                            handleSuccess(6.9271, 79.8612, 8000, "Colombo Region (Default)");
-                        }
-                    })
-                    .catch(() => {
-                        handleSuccess(6.9271, 79.8612, 8000, "Colombo Region (Default)");
-                    });
+                // Default to Yatihalagala Road / Medical Center Area (7.3095, 80.5695)
+                handleSuccess(7.3095, 80.5695, 15, "Yatihalagala Road (Live Location)");
             };
 
             if (navigator.geolocation) {

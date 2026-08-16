@@ -239,8 +239,8 @@ class IncidentController extends Controller
     // AI Safe Navigation Route & Risk Assessment API
     public function calculateSafeRoute(Request $request)
     {
-        $startLat = (float)$request->input('start_lat', 6.9271);
-        $startLng = (float)$request->input('start_lng', 79.8612);
+        $startLat = (float)$request->input('start_lat', 7.3095);
+        $startLng = (float)$request->input('start_lng', 80.5695);
         $destLat = (float)$request->input('dest_lat', 7.2906);
         $destLng = (float)$request->input('dest_lng', 80.6337);
 

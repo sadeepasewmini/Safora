@@ -1442,9 +1442,9 @@
         }
 
         function executeSosTrigger() {
-            // Default fallback location (Colombo Central default)
-            let defaultLat = 6.9271;
-            let defaultLng = 79.8612;
+            // Default fallback location: Yatihalagala Road / Medical Center Area (7.3095, 80.5695)
+            let defaultLat = 7.3095;
+            let defaultLng = 80.5695;
 
             // Trigger instant broadcast modal immediately so user never hangs waiting for GPS
             triggerSosBroadcast(defaultLat, defaultLng);
