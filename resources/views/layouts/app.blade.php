@@ -211,9 +211,85 @@
         }
         .ai-chatbot-floating-btn:hover {
             transform: scale(1.08);
-            box-shadow: 0 14px 30px rgba(245, 158, 11, 0.6);
+            box-shadow: 0 14px 35px rgba(245, 158, 11, 0.7);
             background: #0f172a;
             color: #fbbf24;
+        }
+
+        /* High-End Glassmorphism AI Chat Drawer Styles */
+        .safora-glass-drawer {
+            background: rgba(15, 23, 42, 0.96) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(245, 158, 11, 0.35) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 20px rgba(245, 158, 11, 0.15) !important;
+            border-radius: 20px !important;
+            overflow: hidden !important;
+        }
+
+        .ai-chip-pill {
+            background: rgba(30, 41, 59, 0.75);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            color: #f1f5f9;
+            font-size: 0.73rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 20px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(4px);
+        }
+
+        .ai-chip-pill:hover {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: #f59e0b;
+            color: #fbbf24;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+        }
+
+        .chat-bubble-bot {
+            background: rgba(30, 41, 59, 0.85) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #f8fafc !important;
+            border-radius: 18px 18px 18px 4px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+            padding: 10px 14px !important;
+        }
+
+        .chat-bubble-user {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+            color: #0f172a !important;
+            font-weight: 600 !important;
+            border-radius: 18px 18px 4px 18px !important;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25) !important;
+            padding: 10px 14px !important;
+        }
+
+        .ai-chat-input-field {
+            background-color: #090d16 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #ffffff !important;
+            font-size: 0.83rem !important;
+            transition: all 0.2s ease;
+        }
+
+        .ai-chat-input-field:focus {
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.25) !important;
+            background-color: #0b1329 !important;
+        }
+
+        .ai-send-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%) !important;
+            color: #0f172a !important;
+            border: none !important;
+            font-weight: 700 !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .ai-send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4) !important;
         }
 
         /* Professional Cards */
@@ -854,55 +930,52 @@
     @if($showFloatingChatbot)
     <!-- Floating AI Chatbot Button & Popover Chat Drawer (Positioned dynamically on bottom-left) -->
     <div id="aiChatbotFloatingContainer" style="position: fixed !important; bottom: 24px !important; left: {{ $showAccessibilityWidget ? '104px' : '24px' }} !important; z-index: 999998 !important;">
-        <!-- Floating Popover Chat Drawer (Ultra-Professional Glassmorphic Design) -->
-        <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate border-0 rounded-4 shadow-2xl mb-3 d-none overflow-hidden" style="width: 380px; max-width: 92vw; background: rgba(15, 23, 42, 0.96) !important; backdrop-filter: blur(20px); border: 1px solid rgba(245, 158, 11, 0.4) !important; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85) !important;">
+        <!-- Floating Popover Chat Drawer (High-End Modern Glassmorphic Design) -->
+        <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate safora-glass-drawer mb-3 d-none" style="width: 365px; max-width: 92vw;">
             <!-- Header -->
             <div class="card-header bg-slate-900 border-bottom border-slate-800 p-3 d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-2.5">
                     <div class="position-relative">
                         <img src="/images/ai-avatar.png" alt="Safora AI" class="rounded-circle border border-warning shadow" style="width: 42px; height: 42px; object-fit: cover;">
-                        <span class="position-absolute bottom-0 end-0 bg-success border border-dark rounded-circle" style="width: 10px; height: 10px;"></span>
+                        <span class="position-absolute bottom-0 end-0 bg-success border border-dark rounded-circle p-1" style="width: 10px; height: 10px;"></span>
                     </div>
                     <div>
-                        <h6 class="fw-bold mb-0 text-white brand-font d-flex align-items-center gap-1.5" style="font-size: 0.95rem;">
-                            Safora AI Companion <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill" style="font-size: 0.65rem;">PRO</span>
-                        </h6>
-                        <small class="text-emerald-400 d-flex align-items-center gap-1" style="font-size: 0.72rem; font-weight: 500;">
-                            <span class="spinner-grow spinner-grow-sm text-success" style="width: 6px; height: 6px;"></span> 24/7 Sri Lanka Emergency AI
+                        <h6 class="fw-bold mb-0 text-white font-outfit" style="font-size: 0.95rem;">Safora AI Safety Companion</h6>
+                        <small class="text-emerald-400 d-flex align-items-center gap-1.5" style="font-size: 0.72rem; font-weight: 500;">
+                            <span class="spinner-grow spinner-grow-sm text-success" style="width: 6px; height: 6px;"></span> 24/7 Live AI Assistant
                         </small>
                     </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white opacity-75" id="closeAiChatbotFloatingBtn" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white opacity-75 opacity-100-hover" id="closeAiChatbotFloatingBtn" aria-label="Close"></button>
             </div>
 
-            <!-- Quick Chips (Wrapped cleanly so all features are 100% visible) -->
+            <!-- Quick Chips (Modern Pills) -->
             <div class="p-2.5 bg-slate-950 border-bottom border-slate-800 d-flex flex-wrap gap-1.5">
-                <button type="button" class="btn btn-xs btn-outline-warning text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(245,158,11,0.35);" onclick="sendGlobalQuickPrompt('What is the emergency hotline for ambulance?')">🚑 Ambulance (1990)</button>
-                <button type="button" class="btn btn-xs btn-outline-info text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(56,189,248,0.35);" onclick="sendGlobalQuickPrompt('Where is the nearest safe place in Colombo?')">📍 Safe Places</button>
-                <button type="button" class="btn btn-xs btn-outline-danger text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(239,68,68,0.35);" onclick="sendGlobalQuickPrompt('How to send emergency SOS distress signal?')">🚨 SOS Guide</button>
-                <button type="button" class="btn btn-xs btn-outline-light text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(255,255,255,0.25);" onclick="sendGlobalQuickPrompt('What to do during wild elephant encounter?')">🐘 Elephants (1985)</button>
-                <button type="button" class="btn btn-xs btn-outline-warning text-nowrap rounded-pill px-2.5 py-1 fw-medium" style="font-size: 0.72rem; border-color: rgba(245,158,11,0.35);" onclick="sendGlobalQuickPrompt('How do I report harassment zone?')">📝 Report Hazard</button>
+                <button type="button" class="ai-chip-pill" onclick="sendGlobalQuickPrompt('What is the emergency hotline for ambulance?')">🚑 Ambulance</button>
+                <button type="button" class="ai-chip-pill" onclick="sendGlobalQuickPrompt('Where is the nearest safe place in Colombo?')">📍 Safe Places</button>
+                <button type="button" class="ai-chip-pill" onclick="sendGlobalQuickPrompt('How to send emergency SOS distress signal?')">🚨 SOS Guide</button>
+                <button type="button" class="ai-chip-pill" onclick="sendGlobalQuickPrompt('What to do during wild elephant encounter?')">🐘 Elephants</button>
+                <button type="button" class="ai-chip-pill" onclick="sendGlobalQuickPrompt('First aid for snake bite')">🩺 First Aid</button>
+                <button type="button" class="ai-chip-pill" onclick="sendGlobalQuickPrompt('How do I report harassment zone?')">📝 Report</button>
             </div>
 
             <!-- Messages Body -->
-            <div id="globalAiChatMessages" class="p-3 overflow-y-auto" style="height: 310px; background-color: #0b1329; scrollbar-width: thin;">
-                <div class="d-flex gap-2.5 mb-3">
-                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning shadow-sm flex-shrink-0" style="width: 32px; height: 32px; object-fit: cover;">
-                    <div class="p-3 text-white shadow-lg" style="max-width: 86%; background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 18px 18px 18px 4px;">
-                        <div class="fw-bold text-warning small mb-1 d-flex align-items-center gap-1" style="font-size: 0.75rem; letter-spacing: 0.3px;">
-                            <i class="bi bi-robot"></i> Safora AI Safety Companion
-                        </div>
-                        <p class="mb-0 lh-base" style="font-size: 0.84rem;">Ayubowan! 👋 Ask me anything about Sri Lanka emergency numbers (119, 1990, 1985, 1938), safe places, or travel safety tips!</p>
+            <div id="globalAiChatMessages" class="p-3 overflow-y-auto" style="height: 310px; background-color: #090d16;">
+                <div class="d-flex gap-2 mb-3">
+                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning flex-shrink-0" style="width: 32px; height: 32px; object-fit: cover;">
+                    <div class="chat-bubble-bot" style="max-width: 85%;">
+                        <div class="fw-bold text-warning small mb-1" style="font-size: 0.75rem;">Safora AI Assistant</div>
+                        <p class="mb-0" style="font-size: 0.82rem; line-height: 1.45;">Ayubowan! 👋 Ask me anything about Sri Lanka emergency numbers (119, 1990, 1985, 1938), safe places, or travel safety tips!</p>
                     </div>
                 </div>
             </div>
 
             <!-- Input Box -->
             <div class="card-footer bg-slate-900 border-top border-slate-800 p-2.5">
-                <form id="globalAiChatForm" onsubmit="handleGlobalAiChatSubmit(event)" class="d-flex align-items-center gap-2">
-                    <input type="text" id="globalAiChatInput" class="form-control form-control-sm bg-slate-950 text-white border-slate-700 px-3 py-2.5 rounded-pill" placeholder="Ask AI Safety Assistant..." required autocomplete="off" style="font-size: 0.85rem;">
-                    <button type="submit" class="btn btn-warning text-dark fw-bold rounded-circle p-0 d-flex align-items-center justify-content-center flex-shrink-0 shadow" style="width: 38px; height: 38px;">
-                        <i class="bi bi-send-fill" style="font-size: 0.9rem;"></i>
+                <form id="globalAiChatForm" onsubmit="handleGlobalAiChatSubmit(event)" class="d-flex gap-2">
+                    <input type="text" id="globalAiChatInput" class="form-control form-control-sm ai-chat-input-field px-3 py-2 rounded-3" placeholder="Ask AI Safety Companion..." required autocomplete="off">
+                    <button type="submit" class="btn btn-sm ai-send-btn px-3.5 py-2 rounded-3 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-send-fill fs-6"></i>
                     </button>
                 </form>
             </div>
@@ -1174,24 +1247,22 @@
             const container = document.getElementById('globalAiChatMessages');
             if (!container) return;
             const msgDiv = document.createElement('div');
-            msgDiv.className = 'd-flex gap-2.5 mb-3 ' + (sender === 'user' ? 'justify-content-end' : '');
+            msgDiv.className = 'd-flex gap-2 mb-3 ' + (sender === 'user' ? 'justify-content-end' : '');
 
             if (sender === 'bot') {
                 msgDiv.innerHTML = `
-                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning shadow-sm flex-shrink-0" style="width: 32px; height: 32px; object-fit: cover;">
-                    <div class="p-3 text-white shadow-lg" style="max-width: 86%; background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 18px 18px 18px 4px;">
-                        <div class="fw-bold text-warning small mb-1 d-flex align-items-center gap-1" style="font-size: 0.75rem; letter-spacing: 0.3px;">
-                            <i class="bi bi-robot"></i> Safora AI Safety Companion
-                        </div>
-                        <div class="lh-base" style="font-size: 0.84rem;">${text}</div>
+                    <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning flex-shrink-0" style="width: 30px; height: 30px; object-fit: cover;">
+                    <div class="chat-bubble-bot" style="max-width: 85%;">
+                        <div class="fw-bold text-warning small mb-1" style="font-size: 0.75rem;">Safora AI Assistant</div>
+                        <div class="small" style="font-size: 0.82rem; line-height: 1.45;">${text}</div>
                     </div>
                 `;
             } else {
                 msgDiv.innerHTML = `
-                    <div class="p-3 text-dark fw-semibold shadow-lg" style="max-width: 86%; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 18px 18px 4px 18px; font-size: 0.84rem; line-height: 1.45;">
+                    <div class="chat-bubble-user" style="max-width: 85%; font-size: 0.82rem;">
                         ${text}
                     </div>
-                    <div class="p-1 bg-slate-800 text-warning rounded-circle fw-bold border border-warning d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 32px; height: 32px; font-size: 0.9rem;">👤</div>
+                    <div class="p-1.5 bg-slate-800 text-warning border border-slate-700 rounded-circle fw-bold d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 30px; height: 30px; font-size: 0.8rem;">👤</div>
                 `;
             }
 
@@ -1206,10 +1277,10 @@
             typingDiv.id = 'globalAiTypingIndicator';
             typingDiv.className = 'd-flex gap-2 mb-3';
             typingDiv.innerHTML = `
-                <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning flex-shrink-0" style="width: 28px; height: 28px; object-fit: cover;">
-                <div class="p-2.5 rounded-3 bg-slate-800 text-slate-400 border border-slate-700 small d-flex align-items-center gap-2" style="font-size: 0.8rem;">
-                    <span>AI thinking...</span>
-                    <span class="spinner-grow spinner-grow-sm text-warning" style="width: 6px; height: 6px;"></span>
+                <img src="/images/ai-avatar.png" alt="AI" class="rounded-circle border border-warning flex-shrink-0" style="width: 30px; height: 30px; object-fit: cover;">
+                <div class="chat-bubble-bot text-slate-400 small d-flex align-items-center gap-2" style="font-size: 0.8rem;">
+                    <span>Safora AI is thinking...</span>
+                    <span class="spinner-grow spinner-grow-sm text-warning" style="width: 8px; height: 8px;"></span>
                 </div>
             `;
             container.appendChild(typingDiv);
