@@ -852,13 +852,12 @@
     @endif
 
     @php
-        $isLoggedIn = auth()->check();
-        $isDashboardRoute = request()->routeIs(['user.dashboard', 'dashboard', 'admin.dashboard', 'authority.dashboard', 'moderator.dashboard']);
+        $isStaffDashboard = request()->routeIs(['admin.dashboard', 'authority.dashboard', 'moderator.dashboard']) || 
+                            (auth()->check() && in_array(auth()->user()->role, ['admin', 'moderator', 'authority']) && request()->routeIs('dashboard'));
         
-        // Hide accessibility button when logged into dashboard, showing AI chatbot button in its place
-        if ($isLoggedIn || $isDashboardRoute) {
-            $showAccessibilityWidget = false;
-            $showFloatingChatbot = true;
+        if ($isStaffDashboard) {
+            $showAccessibilityWidget = true;
+            $showFloatingChatbot = false;
         } else {
             $showAccessibilityWidget = true;
             $showFloatingChatbot = true;
