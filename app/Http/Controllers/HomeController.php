@@ -285,7 +285,16 @@ class HomeController extends Controller
             return "📝 <strong>How to Report a Hazard on Safora:</strong><br>1. Scroll to the <strong>Report Hazard Form</strong>.<br>2. Select category (Streetlight, Crime, Wildlife, Disaster).<br>3. Click <strong>'Use My GPS Location'</strong>.<br>4. Submit report for Moderator verification!";
         }
 
+        // General Conversational & Friendly Chat
+        if (str_contains($q, 'thank') || str_contains($q, 'thanks') || str_contains($q, 'sthuthi') || str_contains($q, 'good') || str_contains($q, 'great') || str_contains($q, 'nice')) {
+            return "😊 <strong>You are very welcome! / ඔබට ගොඩක් ස්තූතියි!</strong><br>Stay safe on your journeys across Sri Lanka. If you ever need emergency assistance, dial <strong>119</strong> or <strong>1990</strong>, or use our live map SOS feature!";
+        }
+
+        if (str_contains($q, 'help') || str_contains($q, 'assistance') || str_contains($q, 'udaw') || str_contains($q, 'monada')) {
+            return "🤝 <strong>How I can assist you:</strong><br>• <strong>Emergency Dispatch:</strong> Police (119), Ambulance (1990), Wildlife (1985), Women Safety (1938)<br>• <strong>Safe Havens & Rest Spots:</strong> Type your town name (e.g. Colombo, Kandy, Galle)<br>• <strong>Hazard Reporting & Navigation:</strong> Use the live interactive map above!<br>• <strong>General Travel & Safety Guidance:</strong> Ask any question about traveling safely in Sri Lanka!";
+        }
+
         // General Conversational Response for Any Open Question
-        return "💡 <strong>Safora AI Safety Answer:</strong><br>Regarding <em>\"" . htmlspecialchars($inputStr) . "\"</em>:<br>Safora is equipped to assist you with emergency response (119 / 1990 / 1985 / 1938), safe navigation, and travel tips across Sri Lanka. <br><br>• For <strong>Emergency Help</strong>: Press the red <strong>SOS Button</strong>.<br>• For <strong>Safe Places</strong>: Search your city name (e.g. <em>\"Safe places in Kandy\"</em>).<br><br><small class='text-slate-400'>✨ <strong>Note:</strong> To enable unlimited open-domain Generative AI answers, insert your Google Gemini API key into <code>.env</code> as <code>GEMINI_API_KEY=your_key</code>.</small>";
+        return "💡 <strong>Safora AI Assistant Answer:</strong><br>I have processed your query: <em>\"" . htmlspecialchars($inputStr) . "\"</em>.<br><br>I am equipped to answer questions about Sri Lanka travel safety, emergency hotlines (119 / 1990 / 1985 / 1938), safe places, and travel guidance.<br><br>✨ <strong>Unlimited Open Generative AI Mode:</strong><br>If you want me to answer <strong>ANY general knowledge, science, coding, or open-ended question in the world</strong> like ChatGPT, simply add a free <code>GEMINI_API_KEY=your_key</code> in your <code>.env</code> file!";
     }
 }
