@@ -765,19 +765,17 @@
     </button>
 
     @php
-        $isPublicUserDashboard = false;
-        if (request()->routeIs(['user.dashboard', 'dashboard'])) {
-            if (auth()->check()) {
-                $role = auth()->user()->role;
-                if (in_array($role, ['public_user', 'user'])) {
-                    $isPublicUserDashboard = true;
-                }
-            } else {
-                $isPublicUserDashboard = true;
-            }
+        $isLoggedIn = auth()->check();
+        $isDashboardRoute = request()->routeIs(['user.dashboard', 'dashboard', 'admin.dashboard', 'authority.dashboard', 'moderator.dashboard']);
+        
+        // Hide accessibility button when logged into dashboard, showing AI chatbot button in its place
+        if ($isLoggedIn || $isDashboardRoute) {
+            $showAccessibilityWidget = false;
+            $showFloatingChatbot = true;
+        } else {
+            $showAccessibilityWidget = true;
+            $showFloatingChatbot = true;
         }
-        $showFloatingChatbot = $isPublicUserDashboard;
-        $showAccessibilityWidget = true; // Always enable accessibility widget for all users
     @endphp
 
     @if($showAccessibilityWidget)
@@ -856,8 +854,8 @@
     @endif
 
     @if($showFloatingChatbot)
-    <!-- Floating AI Chatbot Button & Popover Chat Drawer (Positioned side-by-side next to Accessibility button) -->
-    <div id="aiChatbotFloatingContainer" style="position: fixed !important; bottom: 24px !important; left: 104px !important; z-index: 999998 !important;">
+    <!-- Floating AI Chatbot Button & Popover Chat Drawer (Positioned dynamically on bottom-left) -->
+    <div id="aiChatbotFloatingContainer" style="position: fixed !important; bottom: 24px !important; left: {{ $showAccessibilityWidget ? '104px' : '24px' }} !important; z-index: 999998 !important;">
         <!-- Floating Popover Chat Drawer (Opens above button) -->
         <div id="aiChatbotFloatingDrawer" class="card safora-popup-animate border border-warning rounded-4 shadow-2xl mb-2 d-none" style="width: 360px; max-width: 90vw; background-color: #0f172a !important; color: white !important; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;">
             <!-- Header -->
