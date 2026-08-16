@@ -240,9 +240,21 @@ class HomeController extends Controller
             return "🏝️ <strong>Sri Lanka Safe Travel & Destination Guide:</strong><br>• <strong>Colombo:</strong> Modern capital with verified safe havens around Fort & Cinnamon Gardens.<br>• <strong>Kandy:</strong> Cultural center with safe rest spots near Kandy Lake.<br>• <strong>Galle & Mirissa:</strong> Coastal paradises with active marine safety patrols.<br>• <strong>Sigiriya & Ella:</strong> Scenic hiking destinations. Stay on marked trails and check wild elephant alerts!";
         }
 
-        // First Aid & Health Tips
-        if (str_contains($q, 'first aid') || str_contains($q, 'snake') || str_contains($q, 'burn') || str_contains($q, 'injury') || str_contains($q, 'fever')) {
-            return "🩺 <strong>Emergency First Aid Guidance:</strong><br>1. <strong>Snake Bite:</strong> Immobilize the limb, keep patient calm, do NOT tie tightly. Call 1990.<br>2. <strong>Heat Exhaustion / Fever:</strong> Move to shade, rehydrate with ORS electrolyte water.<br>3. <strong>Minor Injuries:</strong> Clean with safe water and apply sterile bandage.";
+        // First Aid & Health Specific Topics
+        if (str_contains($q, 'snake')) {
+            return "🐍 <strong>Emergency Snake Bite First Aid:</strong><br>1. Keep the patient calm, quiet, and still.<br>2. Immobilize the bitten limb at or below heart level.<br>3. Do NOT cut the wound, suck out venom, or tie tight tourniquets.<br>4. Transport immediately to the nearest hospital or call <strong>1990 (Suwa Seriya Ambulance)</strong>.";
+        }
+
+        if (str_contains($q, 'heat stroke') || str_contains($q, 'heat exhaustion') || str_contains($q, 'fever')) {
+            return "🌡️ <strong>Heat Exhaustion & Fever First Aid:</strong><br>1. Move the person to a cool, shaded or air-conditioned area immediately.<br>2. Apply cool, damp cloths to forehead, neck, and armpits.<br>3. Sip cool water or ORS electrolyte fluid slowly.<br>4. If temperature exceeds 103°F or patient is confused/unconscious, call <strong>1990 (Suwa Seriya Ambulance)</strong> immediately.";
+        }
+
+        if (str_contains($q, 'burn') || str_contains($q, 'fire')) {
+            return "🔥 <strong>Burn First Aid:</strong><br>1. Cool the burn under cool running water for 10 to 15 minutes (do NOT use ice or butter).<br>2. Gently cover with clean sterile bandage or cloth.<br>3. Seek medical attention for deep or large burns.";
+        }
+
+        if (str_contains($q, 'first aid') || str_contains($q, 'injury') || str_contains($q, 'wound')) {
+            return "🩺 <strong>General First Aid Steps:</strong><br>1. <strong>Bleeding/Wounds:</strong> Apply firm direct pressure with clean cloth.<br>2. <strong>Snake Bite:</strong> Keep limb still, do not tie tight tourniquets. Call 1990.<br>3. <strong>Heat/Fever:</strong> Move to shade, hydrate with ORS electrolyte water.<br>4. Call <strong>1990 Suwa Seriya Ambulance</strong> for medical emergencies.";
         }
 
         // Weather & Disaster Safety
