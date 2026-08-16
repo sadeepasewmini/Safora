@@ -28,6 +28,9 @@
     <!-- Chart.js for AI Risk Trend Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
     <style>
         :root {
             --slate-900: #0f172a;
@@ -294,6 +297,75 @@
         .user-gps-beacon {
             background: transparent !important;
             border: none !important;
+        }
+
+        /* Dynamic Keyframe Micro-Animations */
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1.2deg); }
+        }
+        @keyframes floatBob {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+        }
+        @keyframes sosPulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.75); }
+            70% { box-shadow: 0 0 0 16px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+        @keyframes goldPulse {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.65); }
+            70% { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+        @keyframes badgeGlow {
+            0%, 100% { opacity: 1; filter: brightness(1); }
+            50% { opacity: 0.85; filter: brightness(1.25); }
+        }
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-hero-float { animation: heroFloat 5s ease-in-out infinite; }
+        .animate-bob { animation: floatBob 3s ease-in-out infinite; }
+        .animate-sos-pulse { animation: sosPulse 1.8s infinite !important; }
+        .animate-gold-pulse { animation: goldPulse 2s infinite !important; }
+        .animate-badge-glow { animation: badgeGlow 2.5s infinite ease-in-out !important; }
+        .animate-spin-slow { animation: spinSlow 12s linear infinite !important; }
+
+        /* Card Hover Lift & Glow Animations */
+        .card-animate {
+            transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.3s ease !important;
+        }
+        .card-animate:hover {
+            transform: translateY(-8px) scale(1.01) !important;
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.25) !important;
+        }
+
+        /* Shimmer Button Effect */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.35) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: all 0.7s ease;
+        }
+        .btn-shimmer:hover::after {
+            left: 130%;
         }
 
         /* Map Container */
@@ -1455,6 +1527,21 @@
                 document.body.style.fontFamily = 'Plus Jakarta Sans, Inter, sans-serif';
             });
         }
+    </script>
+
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 750,
+                    once: true,
+                    offset: 50,
+                    easing: 'ease-out-cubic'
+                });
+            }
+        });
     </script>
 
     @stack('scripts')

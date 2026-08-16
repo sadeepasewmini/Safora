@@ -25,9 +25,9 @@
         <div class="row align-items-center gy-5">
             
             <!-- Left Column: High Impact Title & Action -->
-            <div class="col-lg-7">
-                <div class="d-inline-flex align-items-center bg-slate-800 bg-opacity-80 border border-slate-700 text-warning px-3 py-15 rounded-pill small fw-semibold mb-4 shadow-sm" style="border-color: rgba(245, 158, 11, 0.3) !important;">
-                    <span class="d-inline-block bg-danger rounded-circle p-1 me-2 animate-pulse" style="width: 8px; height: 8px;"></span>
+            <div class="col-lg-7" data-aos="fade-right" data-aos-duration="800">
+                <div class="d-inline-flex align-items-center bg-slate-800 bg-opacity-80 border border-slate-700 text-warning px-3 py-15 rounded-pill small fw-semibold mb-4 shadow-sm animate-badge-glow" style="border-color: rgba(245, 158, 11, 0.35) !important;">
+                    <span class="d-inline-block bg-danger rounded-circle p-1 me-2 animate-sos-pulse" style="width: 10px; height: 10px;"></span>
                     <i class="bi bi-shield-check me-2 text-warning"></i> Official Community Safety & Emergency Network
                 </div>
                 
@@ -41,10 +41,10 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
-                    <a href="#mapSection" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-3 shadow-md text-dark d-inline-flex align-items-center">
+                    <a href="#mapSection" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-3 shadow-md text-dark d-inline-flex align-items-center btn-shimmer animate-gold-pulse">
                         <i class="bi bi-map-fill me-2 fs-5"></i> Explore Live Safety Map
                     </a>
-                    <a href="#reportSection" class="btn btn-outline-light btn-lg fw-semibold px-4 py-3 rounded-3 d-inline-flex align-items-center" style="border-color: rgba(255,255,255,0.25);">
+                    <a href="#reportSection" class="btn btn-outline-light btn-lg fw-semibold px-4 py-3 rounded-3 d-inline-flex align-items-center btn-shimmer" style="border-color: rgba(255,255,255,0.25);">
                         <i class="bi bi-plus-circle me-2 fs-5 text-warning"></i> Report a Hazard
                     </a>
                 </div>
@@ -52,22 +52,22 @@
                 <!-- Quick Location Safety Finder -->
                 <div class="pt-3 border-top border-slate-800 d-flex flex-wrap align-items-center gap-2">
                     <span class="small text-slate-400 fw-medium me-1"><i class="bi bi-geo-alt-fill text-warning me-1"></i> Quick Area Status:</span>
-                    <a href="#mapSection" class="badge bg-slate-800 text-slate-200 border border-slate-700 px-3 py-2 text-decoration-none fw-normal hover-bg-slate-700">Habarana (85/100 🐘)</a>
-                    <a href="#mapSection" class="badge bg-slate-800 text-slate-200 border border-slate-700 px-3 py-2 text-decoration-none fw-normal hover-bg-slate-700">Bentota (90/100 🐊)</a>
-                    <a href="#mapSection" class="badge bg-slate-800 text-slate-200 border border-slate-700 px-3 py-2 text-decoration-none fw-normal hover-bg-slate-700">Colombo (95/100 🚔)</a>
+                    <a href="#mapSection" class="badge bg-slate-800 text-slate-200 border border-slate-700 px-3 py-2 text-decoration-none fw-normal card-animate">Habarana (85/100 🐘)</a>
+                    <a href="#mapSection" class="badge bg-slate-800 text-slate-200 border border-slate-700 px-3 py-2 text-decoration-none fw-normal card-animate">Bentota (90/100 🐊)</a>
+                    <a href="#mapSection" class="badge bg-slate-800 text-slate-200 border border-slate-700 px-3 py-2 text-decoration-none fw-normal card-animate">Colombo (95/100 🚔)</a>
                 </div>
             </div>
 
             <!-- Right Column: Live Safety Status Radar Console -->
-            <div class="col-lg-5">
-                <div class="card card-pro border-0 text-white p-4 shadow-2xl" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 16px;">
+            <div class="col-lg-5" data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
+                <div class="card card-pro border-0 text-white p-4 shadow-2xl card-animate animate-hero-float" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 16px;">
                     
                     <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom border-slate-800">
                         <div>
-                            <h6 class="fw-bold text-warning mb-0 uppercase-spacing" style="letter-spacing: 0.5px;"><i class="bi bi-radar me-2 text-danger"></i>Live Safety Console</h6>
+                            <h6 class="fw-bold text-warning mb-0 uppercase-spacing" style="letter-spacing: 0.5px;"><i class="bi bi-radar me-2 text-danger animate-spin-slow"></i>Live Safety Console</h6>
                             <small class="text-slate-400" style="font-size: 0.75rem;">Sri Lanka Emergency Monitoring</small>
                         </div>
-                        <span class="badge bg-emerald-500 bg-opacity-20 text-emerald-400 border border-emerald-500 border-opacity-30 px-3 py-1 rounded-pill" style="color: #34d399; font-size: 0.75rem;">
+                        <span class="badge bg-emerald-500 bg-opacity-20 text-emerald-400 border border-emerald-500 border-opacity-30 px-3 py-1 rounded-pill animate-badge-glow" style="color: #34d399; font-size: 0.75rem;">
                             ● LIVE MAP STREAMING
                         </span>
                     </div>
@@ -75,7 +75,7 @@
                     <!-- Live Indicators -->
                     <div class="row g-3 mb-4">
                         <div class="col-6">
-                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800">
+                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800 card-animate">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
                                     <span class="small text-slate-400" style="font-size: 0.75rem;">Verified Hazards</span>
                                     <i class="bi bi-check-circle-fill text-warning"></i>
@@ -86,7 +86,7 @@
                         </div>
 
                         <div class="col-6">
-                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800">
+                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800 card-animate">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
                                     <span class="small text-slate-400" style="font-size: 0.75rem;">Wildlife Sightings</span>
                                     <span class="fs-6">🐘</span>
@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="col-6">
-                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800">
+                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800 card-animate">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
                                     <span class="small text-slate-400" style="font-size: 0.75rem;">Public Safety</span>
                                     <i class="bi bi-shield-shaded text-danger"></i>
@@ -108,7 +108,7 @@
                         </div>
 
                         <div class="col-6">
-                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800">
+                            <div class="p-3 rounded-3 bg-slate-900 bg-opacity-80 border border-slate-800 card-animate">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
                                     <span class="small text-slate-400" style="font-size: 0.75rem;">Safe Shelters</span>
                                     <i class="bi bi-hospital-fill text-success"></i>
@@ -120,12 +120,12 @@
                     </div>
 
                     <!-- Instant SOS Banner Box inside Console -->
-                    <div class="p-3 rounded-3 bg-danger bg-opacity-15 border border-danger border-opacity-30 d-flex align-items-center justify-content-between">
+                    <div class="p-3 rounded-3 bg-danger bg-opacity-15 border border-danger border-opacity-30 d-flex align-items-center justify-content-between card-animate">
                         <div>
-                            <div class="fw-bold text-white small"><i class="bi bi-bell-fill me-1 text-danger"></i> 1-Click Instant Emergency SOS</div>
+                            <div class="fw-bold text-white small"><i class="bi bi-bell-fill me-1 text-danger animate-sos-pulse"></i> 1-Click Instant Emergency SOS</div>
                             <small class="text-slate-300" style="font-size: 0.75rem;">Transmits live GPS location to nearest Authorities</small>
                         </div>
-                        <button type="button" class="btn btn-sm btn-danger fw-bold px-3 py-1.5 shadow-sm" onclick="document.getElementById('sosTriggerBtn').click();">
+                        <button type="button" class="btn btn-sm btn-danger fw-bold px-3 py-1.5 shadow-sm btn-shimmer animate-sos-pulse" onclick="document.getElementById('sosTriggerBtn').click();">
                             Trigger SOS
                         </button>
                     </div>
@@ -138,7 +138,7 @@
 </section>
 
 <!-- Interactive Live GIS Safety Map Section -->
-<section id="mapSection" class="py-5">
+<section id="mapSection" class="py-5" data-aos="fade-up" data-aos-duration="850">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
             <div>
@@ -259,7 +259,7 @@
 </section>
 
 <!-- Community Verified Safe Places & Ratings Directory (USP Feature) -->
-<section id="safePlacesSection" class="py-5 bg-slate-900 text-white border-top border-slate-800">
+<section id="safePlacesSection" class="py-5 bg-slate-900 text-white border-top border-slate-800" data-aos="fade-up" data-aos-duration="850">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
             <div>
@@ -385,7 +385,7 @@
 </div>
 
 <!-- Simple Incident Reporting Form + AI Assistant Section -->
-<section id="reportSection" class="py-5 bg-white border-top border-bottom">
+<section id="reportSection" class="py-5 bg-white border-top border-bottom" data-aos="fade-up" data-aos-duration="850">
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-8">
@@ -515,7 +515,7 @@
 </section>
 
 <!-- AI Risk Prediction Engine & Time-Series Analytics (USP Feature) -->
-<section id="aiPredictionSection" class="py-5 bg-dark text-white position-relative" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+<section id="aiPredictionSection" class="py-5 bg-dark text-white position-relative" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);" data-aos="fade-up" data-aos-duration="850">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 pb-3 border-bottom border-slate-800">
             <div>
