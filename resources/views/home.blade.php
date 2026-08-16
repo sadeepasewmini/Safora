@@ -151,7 +151,7 @@
             
             <!-- Map Controls & GPS Location Tracker Button -->
             <div class="d-flex flex-wrap align-items-center gap-2 mt-2 mt-md-0">
-                <button type="button" class="btn btn-sm btn-emerald-600 btn-success fw-bold px-3 shadow-xs" id="locateUserBtn">
+                <button type="button" class="btn btn-sm btn-emerald-600 btn-success fw-bold px-3 shadow-xs" id="locateUserBtn" onclick="if(typeof trackUserLocation==='function'){trackUserLocation(true);}">
                     <i class="bi bi-crosshair me-1"></i> Track My Live Location
                 </button>
                 <button type="button" class="btn btn-sm btn-dark text-warning border border-warning fw-bold px-3 shadow-xs" id="nightSafetyToggleBtn">
@@ -908,6 +908,16 @@
 
                 if (userLocationMarker && map) map.removeLayer(userLocationMarker);
                 if (userLocationCircle && map) map.removeLayer(userLocationCircle);
+
+                const pulseIcon = (typeof L !== 'undefined') ? L.divIcon({
+                    className: 'user-gps-beacon',
+                    html: `<div style="position:relative; width:28px; height:28px;">
+                            <div style="position:absolute; width:28px; height:28px; background:rgba(14, 165, 233, 0.45); border-radius:50%; animation: pulse-ring 1.8s infinite ease-out;"></div>
+                            <div style="position:absolute; top:5px; left:5px; width:18px; height:18px; background:#0284c7; border:3px solid #ffffff; border-radius:50%; box-shadow:0 0 12px rgba(2, 132, 199, 0.9);"></div>
+                           </div>`,
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                }) : null;
 
                 // Draggable Pulsing Blue GPS Beacon Marker so user can adjust pin on mobile
                 userLocationMarker = L.marker([lat, lng], { 
