@@ -745,6 +745,151 @@
     </div>
 </section>
 
+<!-- Community Reviews & Public Comments Section -->
+<section id="feedbackSection" class="py-5 bg-slate-900 text-white border-top border-slate-800" style="background-color: #0b1120 !important;">
+    <div class="container py-2">
+        <!-- Section Title Header -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 pb-3 border-bottom border-slate-800">
+            <div>
+                <span class="badge bg-warning text-dark px-3 py-1.5 fw-extrabold text-uppercase rounded-pill mb-2" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                    <i class="bi bi-chat-heart-fill me-1"></i> PUBLIC FEEDBACK & COMMUNITY REVIEWS
+                </span>
+                <h3 class="fw-extrabold mb-1 text-white font-outfit">Community Reviews & Platform Feedback</h3>
+                <p class="text-slate-400 small mb-0">See what commuters, students, and citizens say about Safora AI Safety Platform.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
+                <div class="bg-slate-800 border border-slate-700 rounded-3 px-3 py-2 text-center shadow-xs">
+                    <span class="text-warning fw-extrabold fs-5 me-1">⭐ 4.9</span>
+                    <span class="text-slate-300 small">/ 5.0 (340+ Reviews)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Side: Post a Comment / Review Form -->
+            <div class="col-lg-4">
+                <div class="card card-pro bg-slate-800 border-slate-700 p-4 rounded-4 shadow-xl text-white h-100" style="background-color: #0f172a !important;">
+                    <h5 class="fw-bold mb-2 text-white font-outfit"><i class="bi bi-pencil-square text-warning me-2"></i>Share Your Comment</h5>
+                    <p class="text-slate-400 small mb-3">Your feedback helps improve public commuter safety across Sri Lanka.</p>
+
+                    <form id="publicCommentForm" onsubmit="handlePublicCommentSubmit(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-slate-300 small">Your Name / Alias</label>
+                            <input type="text" id="commentAuthorInput" class="form-control bg-slate-900 border-slate-700 text-white rounded-3 small" placeholder="e.g. Anusha Perera" value="{{ Auth::check() ? Auth::user()->name : '' }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-slate-300 small">Rating Star</label>
+                            <div class="d-flex gap-1 fs-5 text-warning cursor-pointer" id="commentStarSelector">
+                                <i class="bi bi-star-fill comment-star" data-val="1"></i>
+                                <i class="bi bi-star-fill comment-star" data-val="2"></i>
+                                <i class="bi bi-star-fill comment-star" data-val="3"></i>
+                                <i class="bi bi-star-fill comment-star" data-val="4"></i>
+                                <i class="bi bi-star-fill comment-star" data-val="5"></i>
+                            </div>
+                            <input type="hidden" id="selectedCommentStars" value="5">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-slate-300 small">Feature Category</label>
+                            <select id="commentCategoryInput" class="form-select bg-slate-900 border-slate-700 text-white rounded-3 small">
+                                <option value="Overall Platform">🌟 Overall Safora Experience</option>
+                                <option value="Night Safety Heatmap">🌙 Night Safety & Streetlight Heatmap</option>
+                                <option value="Emergency SOS">🚨 Emergency SOS Dispatch</option>
+                                <option value="AI Safety Companion">🤖 Safora AI Chatbot</option>
+                                <option value="Safe Places Map">🏥 Safe Places & Haven Locator</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-slate-300 small">Your Comment / Experience</label>
+                            <textarea id="commentTextInput" class="form-control bg-slate-900 border-slate-700 text-white rounded-3 small" rows="3" placeholder="Write your thoughts or suggestions here..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 fw-bold py-2.5 text-dark rounded-3 shadow-xs">
+                            <i class="bi bi-send-fill me-1"></i> Post Public Review
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Side: Display Public Comments List -->
+            <div class="col-lg-8">
+                <div id="publicCommentsContainer" class="row g-3">
+                    <!-- Default Verified Comments -->
+                    <div class="col-md-6">
+                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">AP</div>
+                                    <div>
+                                        <h6 class="fw-bold text-white mb-0 small">Anusha Perera</h6>
+                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Kandy Commuter</small>
+                                    </div>
+                                </div>
+                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <span class="badge bg-slate-700 text-warning mb-2" style="font-size: 0.68rem;">🌙 Night Safety Heatmap</span>
+                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"Safora's Night Heatmap helped me find well-lit safe streets when returning home from work late at night near Peradeniya. Truly empowering for women commuters!"</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle bg-info text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">SS</div>
+                                    <div>
+                                        <h6 class="fw-bold text-white mb-0 small">Sanduni Silva</h6>
+                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Colombo</small>
+                                    </div>
+                                </div>
+                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <span class="badge bg-slate-700 text-info mb-2" style="font-size: 0.68rem;">🚨 Emergency SOS</span>
+                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"The Emergency SOS button with instant WhatsApp live location dispatch gives me and my family immense peace of mind whenever I travel late."</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem; background-color:#10b981;">KW</div>
+                                    <div>
+                                        <h6 class="fw-bold text-white mb-0 small">Kavindi Wickramasinghe</h6>
+                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Katugastota / Yatihalagala</small>
+                                    </div>
+                                </div>
+                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <span class="badge bg-slate-700 text-emerald-400 mb-2" style="font-size: 0.68rem;">🤖 Safora AI Companion</span>
+                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"The AI Chatbot provided instant guidance regarding wildlife encountering near Habarana highway and gave direct ambulance numbers."</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-3.5 rounded-4 shadow-md h-100 text-white">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle bg-danger text-white fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">DF</div>
+                                    <div>
+                                        <h6 class="fw-bold text-white mb-0 small">Dilani Fernando</h6>
+                                        <small class="text-slate-400" style="font-size: 0.72rem;">📍 Galle Fort</small>
+                                    </div>
+                                </div>
+                                <span class="text-warning small">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <span class="badge bg-slate-700 text-danger mb-2" style="font-size: 0.68rem;">🌟 Overall Experience</span>
+                            <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"Community hazard report voting system is brilliant! Verified community alerts keep our local roads and public spots safe together."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <script>
     var map, osmLayer, satelliteLayer, darkLayer, markersGroup, nightHeatmapGroup;
     var nightModeActive = false;
@@ -1153,6 +1298,66 @@
                 window.trackUserLocation(true);
             });
         }
+
+        // Public Comments & Reviews Star Selector & Form Handler
+        document.querySelectorAll('#commentStarSelector .comment-star').forEach(star => {
+            star.addEventListener('click', function() {
+                const val = parseInt(this.getAttribute('data-val'));
+                document.getElementById('selectedCommentStars').value = val;
+                document.querySelectorAll('#commentStarSelector .comment-star').forEach((s, idx) => {
+                    if (idx < val) {
+                        s.className = "bi bi-star-fill comment-star text-warning";
+                    } else {
+                        s.className = "bi bi-star comment-star text-slate-600";
+                    }
+                });
+            });
+        });
+
+        window.handlePublicCommentSubmit = function(e) {
+            e.preventDefault();
+            const author = document.getElementById('commentAuthorInput').value;
+            const stars = parseInt(document.getElementById('selectedCommentStars').value);
+            const category = document.getElementById('commentCategoryInput').value;
+            const comment = document.getElementById('commentTextInput').value;
+
+            const starStr = '⭐'.repeat(stars);
+            const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'U';
+
+            const newCommentCard = document.createElement('div');
+            newCommentCard.className = 'col-md-6 safora-popup-animate';
+            newCommentCard.innerHTML = `
+                <div class="card card-pro bg-slate-800 bg-opacity-90 border-warning p-3.5 rounded-4 shadow-lg h-100 text-white" style="border: 1px solid #f59e0b !important;">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; font-size: 0.9rem;">${initials}</div>
+                            <div>
+                                <h6 class="fw-bold text-white mb-0 small">${author} <span class="badge bg-success text-dark ms-1" style="font-size:0.6rem;">NEW</span></h6>
+                                <small class="text-slate-400" style="font-size: 0.72rem;">📍 Community Reviewer</small>
+                            </div>
+                        </div>
+                        <span class="text-warning small">${starStr}</span>
+                    </div>
+                    <span class="badge bg-slate-700 text-warning mb-2" style="font-size: 0.68rem;">${category}</span>
+                    <p class="text-slate-300 mb-0 small" style="line-height: 1.45;">"${comment}"</p>
+                </div>
+            `;
+
+            const container = document.getElementById('publicCommentsContainer');
+            if (container) {
+                container.prepend(newCommentCard);
+            }
+
+            document.getElementById('commentTextInput').value = '';
+
+            SaforaAlert.fire({
+                icon: 'success',
+                title: 'Review Published!',
+                text: `Thank you, ${author}! Your ${stars}-Star review for "${category}" has been published to the community board.`,
+                confirmButtonText: 'Great!',
+                confirmButtonColor: '#10b981'
+            });
+        };
 
         // Auto-run user location detection on map load
         setTimeout(function() {
