@@ -833,10 +833,23 @@
         @yield('content')
     </main>
 
+    @php
+        $showSosFloatingBtn = false;
+        if (request()->routeIs('home') || request()->routeIs('user.dashboard')) {
+            $showSosFloatingBtn = true;
+        } elseif (request()->routeIs('dashboard')) {
+            if (!auth()->check() || auth()->user()->role === 'public_user') {
+                $showSosFloatingBtn = true;
+            }
+        }
+    @endphp
+
+    @if($showSosFloatingBtn)
     <!-- Floating Emergency SOS Button -->
     <button type="button" class="sos-floating-btn" id="sosTriggerBtn" title="Click for Emergency SOS Alert">
         SOS
     </button>
+    @endif
 
     @php
         $isLoggedIn = auth()->check();
