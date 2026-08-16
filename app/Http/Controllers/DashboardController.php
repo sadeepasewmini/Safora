@@ -188,4 +188,36 @@ class DashboardController extends Controller
 
         return redirect()->back()->with('success', "New Safe Place {$validated['name']} added successfully!");
     }
+
+    // Resolve SOS Emergency Request (Authority / Admin)
+    public function resolveSos(Request $request, $id)
+    {
+        $sos = SosRequest::findOrFail($id);
+        $sos->status = 'resolved';
+        if ($request->filled('notes')) {
+            $sos->notes = $request->input('notes');
+        }
+        $sos->save();
+
+        return redirect()->back()->with('success', "Emergency SOS Signal #{$id} has been resolved successfully!");
+    }
+
+    // Create Community Safety Alert (Moderator / Admin / Authority)
+    public function createAlert(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'message' => 'required|string',
+            'category' => 'required|string|max:50',
+            'area_name' => 'required|string|max:255',
+            'severity' => 'required|in:info,warning,danger',
+        ]);
+
+        $validated['published_by'] = Auth::id();
+        $validated['is_active'] = true;
+
+        Alert::create($validated);
+
+        return redirect()->back()->with('success', "New Community Safety Alert '{$validated['title']}' published successfully!");
+    }
 }
