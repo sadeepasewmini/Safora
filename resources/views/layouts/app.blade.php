@@ -28,6 +28,9 @@
     <!-- Chart.js for AI Risk Trend Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- SweetAlert2 Beautiful Pop-up Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- AOS (Animate On Scroll) CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
@@ -1527,6 +1530,110 @@
                 document.body.style.fontFamily = 'Plus Jakarta Sans, Inter, sans-serif';
             });
         }
+    </script>
+
+    <!-- SweetAlert2 Beautiful Pop-Up Notification Engine Setup -->
+    <script>
+        // Global Safora SweetAlert Dark Slate Mixins
+        const SaforaToast = (typeof Swal !== 'undefined') ? Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            background: '#0f172a',
+            color: '#f8fafc',
+            customClass: {
+                popup: 'border border-slate-700 shadow-2xl rounded-4'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        }) : null;
+
+        const SaforaAlert = (typeof Swal !== 'undefined') ? Swal.mixin({
+            background: '#0f172a',
+            color: '#f8fafc',
+            confirmButtonColor: '#f59e0b',
+            cancelButtonColor: '#475569',
+            customClass: {
+                popup: 'border border-slate-700 shadow-2xl rounded-4 text-white p-4',
+                title: 'fw-bold text-white fs-4',
+                confirmButton: 'btn btn-warning text-dark fw-bold px-4 py-2 rounded-3 shadow-sm me-2',
+                cancelButton: 'btn btn-outline-light px-4 py-2 rounded-3'
+            }
+        }) : null;
+
+        // Override standard JS window.alert with SweetAlert Pop-up
+        if (typeof Swal !== 'undefined') {
+            window.nativeAlert = window.alert;
+            window.alert = function(message) {
+                SaforaAlert.fire({
+                    title: 'Safora Notification',
+                    text: message,
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                });
+            };
+
+            window.showSaforaPopup = function(title, text, icon = 'success') {
+                SaforaAlert.fire({
+                    title: title,
+                    text: text,
+                    icon: icon,
+                    confirmButtonText: 'OK'
+                });
+            };
+
+            window.showSaforaToast = function(title, icon = 'success') {
+                if (SaforaToast) {
+                    SaforaToast.fire({
+                        icon: icon,
+                        title: title
+                    });
+                }
+            };
+        }
+
+        // Trigger SweetAlert for Laravel Session Flash Messages
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+                if (SaforaAlert) {
+                    SaforaAlert.fire({
+                        icon: 'success',
+                        title: 'Action Completed',
+                        text: @json(session('success')),
+                        confirmButtonText: 'Great!',
+                        confirmButtonColor: '#10b981'
+                    });
+                }
+            @endif
+
+            @if(session('error'))
+                if (SaforaAlert) {
+                    SaforaAlert.fire({
+                        icon: 'error',
+                        title: 'Attention Required',
+                        text: @json(session('error')),
+                        confirmButtonText: 'Dismiss',
+                        confirmButtonColor: '#dc2626'
+                    });
+                }
+            @endif
+
+            @if(session('warning'))
+                if (SaforaAlert) {
+                    SaforaAlert.fire({
+                        icon: 'warning',
+                        title: 'Alert Warning',
+                        text: @json(session('warning')),
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#f59e0b'
+                    });
+                }
+            @endif
+        });
     </script>
 
     <!-- AOS (Animate On Scroll) JS -->
