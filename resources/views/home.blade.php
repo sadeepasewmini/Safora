@@ -157,12 +157,12 @@
                 <button type="button" class="btn btn-sm btn-dark text-warning border border-warning fw-bold px-3 shadow-xs" id="nightSafetyToggleBtn">
                     <i class="bi bi-moon-stars-fill me-1"></i> Night Safety & Heatmap
                 </button>
-                <div class="btn-group flex-wrap" role="group">
-                    <a href="{{ route('home') }}#mapSection" class="btn btn-sm {{ !$typeFilter ? 'btn-dark' : 'btn-outline-dark' }} px-3">All Hazards</a>
-                    <a href="{{ route('home', ['type' => 'wildlife']) }}#mapSection" class="btn btn-sm {{ $typeFilter === 'wildlife' ? 'btn-warning text-dark fw-bold' : 'btn-outline-warning text-dark' }} px-3">🐘 Wildlife</a>
-                    <a href="{{ route('home', ['type' => 'crime']) }}#mapSection" class="btn btn-sm {{ $typeFilter === 'crime' ? 'btn-danger' : 'btn-outline-danger' }} px-3">🚔 Crimes</a>
-                    <a href="{{ route('home', ['type' => 'disaster']) }}#mapSection" class="btn btn-sm {{ $typeFilter === 'disaster' ? 'btn-info text-dark fw-bold' : 'btn-outline-info' }} px-3">🌧️ Disasters</a>
-                    <a href="{{ route('home', ['type' => 'road']) }}#mapSection" class="btn btn-sm {{ $typeFilter === 'road' ? 'btn-secondary' : 'btn-outline-secondary' }} px-3">🚗 Road</a>
+                <div class="btn-group flex-wrap" role="group" id="hazardCategoryFilterGroup">
+                    <button type="button" class="btn btn-sm btn-dark filter-hazard-btn px-3 active fw-bold" data-type="all" onclick="filterHazardType('all', this)">All Hazards</button>
+                    <button type="button" class="btn btn-sm btn-outline-warning text-dark filter-hazard-btn px-3" data-type="wildlife" onclick="filterHazardType('wildlife', this)">🐘 Wildlife</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger filter-hazard-btn px-3" data-type="crime" onclick="filterHazardType('crime', this)">🚔 Crimes</button>
+                    <button type="button" class="btn btn-sm btn-outline-info filter-hazard-btn px-3" data-type="disaster" onclick="filterHazardType('disaster', this)">🌧️ Disasters</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary filter-hazard-btn px-3" data-type="road" onclick="filterHazardType('road', this)">🚗 Road</button>
                 </div>
             </div>
         </div>
@@ -1300,14 +1300,58 @@
 
 
 
+    // Dynamic Client-Side Hazard Category Filtering (Zero Page Reload to Keep GPS Pin Intact)
+    window.activeHazardType = 'all';
+
+    window.filterHazardType = function(selectedType, btnElement) {
+        window.activeHazardType = selectedType;
+
+        const btnGroup = document.getElementById('hazardCategoryFilterGroup');
+        if (btnGroup) {
+            btnGroup.querySelectorAll('.filter-hazard-btn').forEach(btn => {
+                const type = btn.getAttribute('data-type');
+                btn.classList.remove('active', 'btn-dark', 'btn-warning', 'btn-danger', 'btn-info', 'btn-secondary', 'fw-bold', 'text-dark');
+                if (type === 'all') btn.className = 'btn btn-sm btn-outline-dark filter-hazard-btn px-3';
+                else if (type === 'wildlife') btn.className = 'btn btn-sm btn-outline-warning text-dark filter-hazard-btn px-3';
+                else if (type === 'crime') btn.className = 'btn btn-sm btn-outline-danger filter-hazard-btn px-3';
+                else if (type === 'disaster') btn.className = 'btn btn-sm btn-outline-info filter-hazard-btn px-3';
+                else if (type === 'road') btn.className = 'btn btn-sm btn-outline-secondary filter-hazard-btn px-3';
+            });
+        }
+
+        if (btnElement) {
+            if (selectedType === 'all') btnElement.className = 'btn btn-sm btn-dark filter-hazard-btn px-3 active fw-bold';
+            else if (selectedType === 'wildlife') btnElement.className = 'btn btn-sm btn-warning text-dark filter-hazard-btn px-3 active fw-bold';
+            else if (selectedType === 'crime') btnElement.className = 'btn btn-sm btn-danger filter-hazard-btn px-3 active fw-bold';
+            else if (selectedType === 'disaster') btnElement.className = 'btn btn-sm btn-info text-dark filter-hazard-btn px-3 active fw-bold';
+            else if (selectedType === 'road') btnElement.className = 'btn btn-sm btn-secondary filter-hazard-btn px-3 active fw-bold';
+        }
+
+        let filteredIncidents = initialIncidents;
+        if (selectedType !== 'all') {
+            filteredIncidents = initialIncidents.filter(inc => inc.category && inc.category.type === selectedType);
+        }
+
+        if (typeof renderMapData === 'function') {
+            renderMapData(filteredIncidents, initialSafePlaces);
+        }
+    };
+
     // Live AJAX Polling Every 8 Seconds
     setInterval(function() {
         fetch("{{ route('api.live-map-data') }}")
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    renderMapData(data.incidents, data.safePlaces);
-                    document.getElementById('liveHazardCount').textContent = data.incidents.length;
+                    initialIncidents = data.incidents;
+                    initialSafePlaces = data.safePlaces;
+                    let filteredIncidents = data.incidents;
+                    if (window.activeHazardType && window.activeHazardType !== 'all') {
+                        filteredIncidents = data.incidents.filter(inc => inc.category && inc.category.type === window.activeHazardType);
+                    }
+                    renderMapData(filteredIncidents, data.safePlaces);
+                    const liveCountEl = document.getElementById('liveHazardCount');
+                    if (liveCountEl) liveCountEl.textContent = data.incidents.length;
                 }
             })
             .catch(err => console.log('Live map sync:', err));
