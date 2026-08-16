@@ -82,49 +82,53 @@
     <!-- Tab Content Sections -->
     <div class="tab-content" id="dashboardTabsContent">
 
-        <!-- Public User AI Safety Chatbot Tab -->
+        <!-- Public User AI Safety Chatbot Tab (Ultra-Professional Modern Design) -->
         <div class="tab-pane fade {{ (Auth::user()->role === 'public_user' || Auth::user()->role === 'user') ? 'show active' : '' }}" id="chatbot" role="tabpanel">
-            <div id="aiChatbotContainer" class="card card-custom p-0 border-0 shadow-lg rounded-4 overflow-hidden mb-4" style="background-color: #0f172a !important;">
+            <div id="aiChatbotContainer" class="card safora-glass-drawer border border-warning rounded-4 shadow-2xl mb-4">
                 <!-- Chat Header -->
-                <div class="p-3 bg-slate-800 border-bottom border-slate-700 d-flex align-items-center justify-content-between text-white">
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="/images/ai-avatar.png" alt="Safora AI Avatar" class="rounded-circle border border-warning shadow-sm" style="width: 44px; height: 44px; object-fit: cover;">
+                <div class="p-3 bg-slate-900 border-bottom border-slate-800 d-flex align-items-center justify-content-between text-white">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="position-relative">
+                            <img src="/images/ai-avatar.png" alt="Safora AI Avatar" class="rounded-circle border border-warning shadow" style="width: 44px; height: 44px; object-fit: cover;">
+                            <span class="position-absolute bottom-0 end-0 bg-success border border-dark rounded-circle p-1" style="width: 10px; height: 10px;"></span>
+                        </div>
                         <div>
-                            <h5 class="fw-bold mb-0 text-white">Safora AI Safety Assistant</h5>
-                            <small class="text-emerald-400 d-flex align-items-center gap-1" style="font-size: 0.75rem;">
-                                <span class="spinner-grow spinner-grow-sm text-success" style="width: 8px; height: 8px;"></span> 24/7 Interactive Safety Bot (Public User Exclusive)
+                            <h5 class="fw-bold mb-0 text-white font-outfit">Safora AI Safety Companion</h5>
+                            <small class="text-emerald-400 d-flex align-items-center gap-1.5" style="font-size: 0.75rem; font-weight: 500;">
+                                <span class="spinner-grow spinner-grow-sm text-success" style="width: 8px; height: 8px;"></span> 24/7 Interactive Safety Bot (Dashboard Edition)
                             </small>
                         </div>
                     </div>
-                    <span class="badge bg-slate-700 text-warning border border-warning px-3 py-2 rounded-pill">Sri Lanka Safety AI</span>
+                    <span class="badge bg-slate-800 text-warning border border-warning px-3 py-2 rounded-pill font-outfit">Sri Lanka Safety AI</span>
                 </div>
 
                 <!-- Quick Prompt Chips -->
-                <div class="p-3 bg-slate-900 border-bottom border-slate-800 d-flex gap-2 overflow-x-auto" style="scrollbar-width: thin;">
-                    <button type="button" class="btn btn-sm btn-outline-warning text-nowrap rounded-pill px-3" onclick="sendQuickPrompt('What is the emergency hotline for ambulance?')">🚑 Ambulance Hotline</button>
-                    <button type="button" class="btn btn-sm btn-outline-info text-nowrap rounded-pill px-3" onclick="sendQuickPrompt('Where is the nearest safe place in Colombo?')">📍 Nearest Safe Place</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger text-nowrap rounded-pill px-3" onclick="sendQuickPrompt('How to send emergency SOS distress signal?')">🚨 How to send SOS</button>
-                    <button type="button" class="btn btn-sm btn-outline-light text-nowrap rounded-pill px-3" onclick="sendQuickPrompt('What to do during wild elephant encounter?')">🐘 Elephant Safety</button>
-                    <button type="button" class="btn btn-sm btn-outline-warning text-nowrap rounded-pill px-3" onclick="sendQuickPrompt('How do I report harassment zone?')">📝 Report Harassment</button>
+                <div class="p-3 bg-slate-950 border-bottom border-slate-800 d-flex gap-2 overflow-x-auto" style="scrollbar-width: thin;">
+                    <button type="button" class="ai-chip-pill" onclick="sendQuickPrompt('What is the emergency hotline for ambulance?')">🚑 Ambulance Hotline</button>
+                    <button type="button" class="ai-chip-pill" onclick="sendQuickPrompt('Where is the nearest safe place in Colombo?')">📍 Nearest Safe Place</button>
+                    <button type="button" class="ai-chip-pill" onclick="sendQuickPrompt('How to send emergency SOS distress signal?')">🚨 How to send SOS</button>
+                    <button type="button" class="ai-chip-pill" onclick="sendQuickPrompt('What to do during wild elephant encounter?')">🐘 Elephant Safety</button>
+                    <button type="button" class="ai-chip-pill" onclick="sendQuickPrompt('First aid for heat stroke or fever')">🌡️ Heat Stroke First Aid</button>
+                    <button type="button" class="ai-chip-pill" onclick="sendQuickPrompt('How do I report harassment zone?')">📝 Report Harassment</button>
                 </div>
 
                 <!-- Chat Messages Body -->
-                <div id="aiChatMessages" class="p-4 overflow-y-auto" style="height: 380px; background-color: #0b1329;">
+                <div id="aiChatMessages" class="p-4 overflow-y-auto" style="height: 380px; background-color: #090d16;">
                     <!-- Welcome Bot Message -->
                     <div class="d-flex gap-2 mb-3">
-                        <img src="/images/ai-avatar.png" alt="Safora AI Avatar" class="rounded-circle border border-warning flex-shrink-0" style="width: 36px; height: 36px; object-fit: cover;">
-                        <div class="p-3 rounded-4 bg-slate-800 text-white border border-slate-700 shadow-sm" style="max-width: 80%;">
-                            <div class="fw-bold text-warning small mb-1">Safora AI Safety Bot</div>
-                            <p class="mb-0 small">Ayubowan {{ Auth::user()->name }}! 👋 Welcome to your public user safety dashboard. I am your 24/7 AI Companion. Ask me anything about Sri Lanka emergency hotlines (119, 1990, 1985, 1938), safe places, reporting hazards, or travel precautions!</p>
+                        <img src="/images/ai-avatar.png" alt="Safora AI Avatar" class="rounded-circle border border-warning flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;">
+                        <div class="chat-bubble-bot" style="max-width: 85%;">
+                            <div class="fw-bold text-warning small mb-1" style="font-size: 0.78rem;">Safora AI Safety Bot</div>
+                            <p class="mb-0 small" style="line-height: 1.5;">Ayubowan {{ Auth::user()->name }}! 👋 Welcome to your public user safety dashboard. I am your 24/7 AI Companion. Ask me anything about Sri Lanka emergency hotlines (119, 1990, 1985, 1938), safe places, reporting hazards, or travel precautions!</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Chat Input Form -->
-                <div class="p-3 bg-slate-800 border-top border-slate-700">
+                <div class="p-3 bg-slate-900 border-top border-slate-800">
                     <form id="aiChatForm" onsubmit="handleAiChatSubmit(event)" class="d-flex gap-2">
-                        <input type="text" id="aiChatInput" class="form-control bg-slate-900 text-white border-slate-700 py-2.5 px-3 rounded-3" placeholder="Type your safety question here (e.g. 'police hotline', 'safe places in Galle')..." required autocomplete="off">
-                        <button type="submit" class="btn btn-warning text-dark fw-bold px-4 py-2.5 rounded-3 d-flex align-items-center gap-2">
+                        <input type="text" id="aiChatInput" class="form-control ai-chat-input-field py-2.5 px-3 rounded-3" placeholder="Type your safety question here (e.g. 'police hotline', 'safe places in Galle')..." required autocomplete="off">
+                        <button type="submit" class="btn ai-send-btn px-4 py-2.5 rounded-3 d-flex align-items-center gap-2">
                             <span>Send</span> <i class="bi bi-send-fill"></i>
                         </button>
                     </form>
@@ -457,17 +461,17 @@
         if (sender === 'bot') {
             msgDiv.innerHTML = `
                 <img src="/images/ai-avatar.png" alt="Safora AI Avatar" class="rounded-circle border border-warning flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;">
-                <div class="p-3 rounded-4 bg-slate-800 text-white border border-slate-700 shadow-sm" style="max-width: 80%;">
-                    <div class="fw-bold text-warning small mb-1">Safora AI Safety Bot</div>
-                    <div class="small">${text}</div>
+                <div class="chat-bubble-bot" style="max-width: 82%;">
+                    <div class="fw-bold text-warning small mb-1" style="font-size: 0.78rem;">Safora AI Safety Bot</div>
+                    <div class="small" style="font-size: 0.84rem; line-height: 1.5;">${text}</div>
                 </div>
             `;
         } else {
             msgDiv.innerHTML = `
-                <div class="p-3 rounded-4 bg-warning text-dark fw-medium shadow-sm" style="max-width: 80%;">
-                    <div class="small">${text}</div>
+                <div class="chat-bubble-user" style="max-width: 82%; font-size: 0.84rem;">
+                    ${text}
                 </div>
-                <div class="p-2 bg-slate-700 text-white rounded-circle fw-bold fs-6 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 34px; height: 34px;">👤</div>
+                <div class="p-1.5 bg-slate-800 text-warning border border-slate-700 rounded-circle fw-bold d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 34px; height: 34px; font-size: 0.9rem;">👤</div>
             `;
         }
 
@@ -483,9 +487,9 @@
         typingDiv.className = 'd-flex gap-2 mb-3';
         typingDiv.innerHTML = `
             <img src="/images/ai-avatar.png" alt="Safora AI Avatar" class="rounded-circle border border-warning flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;">
-            <div class="p-3 rounded-4 bg-slate-800 text-slate-400 border border-slate-700 small d-flex align-items-center gap-2">
-                <span>Safora AI is processing...</span>
-                <span class="spinner-grow spinner-grow-sm text-warning" style="width: 6px; height: 6px;"></span>
+            <div class="chat-bubble-bot text-slate-400 small d-flex align-items-center gap-2" style="font-size: 0.82rem;">
+                <span>Safora AI is thinking...</span>
+                <span class="spinner-grow spinner-grow-sm text-warning" style="width: 8px; height: 8px;"></span>
             </div>
         `;
         container.appendChild(typingDiv);
