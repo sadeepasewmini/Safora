@@ -141,21 +141,7 @@ class DatabaseSeeder extends Seeder
             'views_count' => 98,
         ]);
 
-        Incident::create([
-            'user_id' => $sanduni->id,
-            'category_id' => $categoryModels['Harassment Zone']->id,
-            'title' => 'Poorly lit walkway near Fort Station',
-            'description' => 'Streetlights non-functional for past 3 days. Frequent harassment reported by evening commuters.',
-            'latitude' => 6.9344000,
-            'longitude' => 79.8504000,
-            'address' => 'Station Road, Colombo Fort',
-            'area_name' => 'Colombo Fort',
-            'severity' => 'medium',
-            'status' => 'verified',
-            'verified_by' => $moderator->id,
-            'views_count' => 210,
-        ]);
-
+// Removed: Fort Station (Colombo Fort) - Harassment Zone (Non-Kandy Crime)
         Incident::create([
             'user_id' => $publicUser->id,
             'category_id' => $categoryModels['Flood Warning']->id,

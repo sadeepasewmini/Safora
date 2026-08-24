@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1400px" height="950px" viewBox="-0.5 -0.5 1400 950" content="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;mxfile host=&quot;Electron&quot; modified=&quot;2026-08-23T21:50:00.000Z&quot; agent=&quot;Mozilla/5.0&quot; version=&quot;21.0.0&quot; type=&quot;device&quot;&gt;
+  &lt;diagram id=&quot;safora_register_wireframe&quot; name=&quot;Safora Public Registration Wireframe&quot;&gt;
+    &lt;mxGraphModel dx=&quot;1422&quot; dy=&quot;800&quot; grid=&quot;1&quot; gridSize=&quot;10&quot; guides=&quot;1&quot; tooltips=&quot;1&quot; connect=&quot;1&quot; arrows=&quot;1&quot; fold=&quot;1&quot; page=&quot;1&quot; pageScale=&quot;1&quot; pageWidth=&quot;1400&quot; pageHeight=&quot;950&quot; math=&quot;0&quot; shadow=&quot;0&quot;&gt;
+      &lt;root&gt;
+        &lt;mxCell id=&quot;0&quot; /&gt;&lt;mxCell id=&quot;1&quot; parent=&quot;0&quot; /&gt;&lt;mxCell id=&quot;2&quot; value=&quot;&quot; style=&quot;fillColor=#F8FAFC;strokeColor=none;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;0&quot; y=&quot;0&quot; width=&quot;1400&quot; height=&quot;950&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;3&quot; value=&quot;&quot; style=&quot;fillColor=#0F172A;strokeColor=#1E293B;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;0&quot; y=&quot;0&quot; width=&quot;1400&quot; height=&quot;70&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;4&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#F59E0B&amp;#x27; size=&amp;#x27;5&amp;#x27;&amp;gt;SAFORA&amp;lt;/font&amp;gt;&amp;lt;font color=&amp;#x27;#FFFFFF&amp;#x27; size=&amp;#x27;5&amp;#x27;&amp;gt;.LK&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;60&quot; y=&quot;20&quot; width=&quot;180&quot; height=&quot;30&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;5&quot; value=&quot;&amp;lt;font color=&amp;#x27;#E2E8F0&amp;#x27;&amp;gt;🏠 Home&amp;lt;/font&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;420&quot; y=&quot;20&quot; width=&quot;90&quot; height=&quot;30&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;6&quot; value=&quot;&amp;lt;font color=&amp;#x27;#E2E8F0&amp;#x27;&amp;gt;🗺️ Safety Map&amp;lt;/font&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;520&quot; y=&quot;20&quot; width=&quot;110&quot; height=&quot;30&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;7&quot; value=&quot;&amp;lt;font color=&amp;#x27;#E2E8F0&amp;#x27;&amp;gt;➕ Report Hazard&amp;lt;/font&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;640&quot; y=&quot;20&quot; width=&quot;130&quot; height=&quot;30&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;8&quot; value=&quot;&amp;lt;font color=&amp;#x27;#E2E8F0&amp;#x27;&amp;gt;🏥 Safe Places&amp;lt;/font&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;780&quot; y=&quot;20&quot; width=&quot;110&quot; height=&quot;30&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;9&quot; value=&quot;📞 SOS Contacts&quot; style=&quot;fillColor=#0F172A;strokeColor=#F59E0B;fontColor=#FCD34D;fontStyle=1;rounded=1;align=center;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;910&quot; y=&quot;16&quot; width=&quot;130&quot; height=&quot;38&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;10&quot; value=&quot;➡️ Sign In&quot; style=&quot;fillColor=#F59E0B;strokeColor=#D97706;fontColor=#000000;fontStyle=1;rounded=1;align=center;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;1050&quot; y=&quot;16&quot; width=&quot;100&quot; height=&quot;38&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;11&quot; value=&quot;👤 Register&quot; style=&quot;fillColor=#0F172A;strokeColor=#475569;fontColor=#FFFFFF;fontStyle=1;rounded=1;align=center;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;1160&quot; y=&quot;16&quot; width=&quot;100&quot; height=&quot;38&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;12&quot; value=&quot;&quot; style=&quot;fillColor=#FFFFFF;strokeColor=#CBD5E1;rounded=1;shadow=1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;430&quot; y=&quot;110&quot; width=&quot;540&quot; height=&quot;580&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;13&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font size=&amp;#x27;6&amp;#x27; color=&amp;#x27;#F59E0B&amp;#x27;&amp;gt;👤+&amp;lt;/font&amp;gt; &amp;lt;font size=&amp;#x27;5&amp;#x27; color=&amp;#x27;#1E293B&amp;#x27;&amp;gt;Public Registration&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;450&quot; y=&quot;130&quot; width=&quot;500&quot; height=&quot;35&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;14&quot; value=&quot;&amp;lt;font color=&amp;#x27;#64748B&amp;#x27; size=&amp;#x27;2&amp;#x27;&amp;gt;Register to report safety hazards and send live GPS SOS alerts&amp;lt;/font&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;450&quot; y=&quot;168&quot; width=&quot;500&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;15&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#334155&amp;#x27;&amp;gt;Full Name&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;210&quot; width=&quot;480&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;16&quot; value=&quot;e.g. Kasun Fernando&quot; style=&quot;fillColor=#F8FAFC;strokeColor=#CBD5E1;fontColor=#94A3B8;rounded=1;align=left;spacingLeft=12;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;233&quot; width=&quot;480&quot; height=&quot;40&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;17&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#334155&amp;#x27;&amp;gt;Email Address&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;288&quot; width=&quot;480&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;18&quot; value=&quot;kasun@gmail.com&quot; style=&quot;fillColor=#F8FAFC;strokeColor=#CBD5E1;fontColor=#94A3B8;rounded=1;align=left;spacingLeft=12;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;311&quot; width=&quot;480&quot; height=&quot;40&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;19&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#334155&amp;#x27;&amp;gt;Phone Number (For Emergency Alerts)&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;366&quot; width=&quot;480&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;20&quot; value=&quot;0771234567&quot; style=&quot;fillColor=#F8FAFC;strokeColor=#CBD5E1;fontColor=#94A3B8;rounded=1;align=left;spacingLeft=12;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;389&quot; width=&quot;480&quot; height=&quot;40&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;21&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#334155&amp;#x27;&amp;gt;Password&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;444&quot; width=&quot;230&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;22&quot; value=&quot;••••••••&quot; style=&quot;fillColor=#F8FAFC;strokeColor=#CBD5E1;fontColor=#475569;rounded=1;align=left;spacingLeft=12;fontSize=16;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;467&quot; width=&quot;230&quot; height=&quot;40&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;23&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#334155&amp;#x27;&amp;gt;Confirm Password&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;710&quot; y=&quot;444&quot; width=&quot;230&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;24&quot; value=&quot;••••••••&quot; style=&quot;fillColor=#F8FAFC;strokeColor=#CBD5E1;fontColor=#475569;rounded=1;align=left;spacingLeft=12;fontSize=16;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;710&quot; y=&quot;467&quot; width=&quot;230&quot; height=&quot;40&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;25&quot; value=&quot;Create Account&quot; style=&quot;fillColor=#F59E0B;strokeColor=#D97706;fontColor=#000000;fontStyle=1;rounded=1;align=center;fontSize=15;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;530&quot; width=&quot;480&quot; height=&quot;48&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;26&quot; value=&quot;&quot; style=&quot;fillColor=#E2E8F0;strokeColor=#CBD5E1;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;598&quot; width=&quot;480&quot; height=&quot;1&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;27&quot; value=&quot;&amp;lt;font color=&amp;#x27;#64748B&amp;#x27; size=&amp;#x27;2&amp;#x27;&amp;gt;Already registered? &amp;lt;/font&amp;gt;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#F59E0B&amp;#x27; size=&amp;#x27;2&amp;#x27;&amp;gt;Sign In Here&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;460&quot; y=&quot;618&quot; width=&quot;480&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;28&quot; value=&quot;&quot; style=&quot;fillColor=#0B132B;strokeColor=#1E293B;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;0&quot; y=&quot;770&quot; width=&quot;1400&quot; height=&quot;180&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;29&quot; value=&quot;&amp;lt;b&amp;gt;&amp;lt;font color=&amp;#x27;#F59E0B&amp;#x27; size=&amp;#x27;4&amp;#x27;&amp;gt;SAFORA&amp;lt;/font&amp;gt;&amp;lt;font color=&amp;#x27;#FFFFFF&amp;#x27; size=&amp;#x27;4&amp;#x27;&amp;gt;.LK&amp;lt;/font&amp;gt;&amp;lt;/b&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;60&quot; y=&quot;795&quot; width=&quot;140&quot; height=&quot;30&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;30&quot; value=&quot;(((•))) 24/7 AI SAFETY&quot; style=&quot;fillColor=#0F172A;strokeColor=#F59E0B;fontColor=#FBBF24;rounded=1;fontSize=10;fontStyle=1;align=center;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;205&quot; y=&quot;798&quot; width=&quot;130&quot; height=&quot;24&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;31&quot; value=&quot;&amp;lt;font color=&amp;#x27;#94A3B8&amp;#x27; size=&amp;#x27;2&amp;#x27;&amp;gt;Sri Lanka&amp;#x27;s premier community-driven safety network &amp;amp;amp; real-time GIS hazard mapping platform.&amp;lt;/font&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;60&quot; y=&quot;830&quot; width=&quot;550&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;32&quot; value=&quot;🏠 Home&quot; style=&quot;fillColor=#0F172A;strokeColor=#334155;fontColor=#FFFFFF;rounded=1;align=center;fontSize=11;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;820&quot; y=&quot;795&quot; width=&quot;80&quot; height=&quot;32&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;33&quot; value=&quot;🗺️ Safety Map&quot; style=&quot;fillColor=#0F172A;strokeColor=#334155;fontColor=#FFFFFF;rounded=1;align=center;fontSize=11;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;910&quot; y=&quot;795&quot; width=&quot;100&quot; height=&quot;32&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;34&quot; value=&quot;⚠️ Report Hazard&quot; style=&quot;fillColor=#0F172A;strokeColor=#334155;fontColor=#FFFFFF;rounded=1;align=center;fontSize=11;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;1020&quot; y=&quot;795&quot; width=&quot;120&quot; height=&quot;32&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;35&quot; value=&quot;📊 Dashboard&quot; style=&quot;fillColor=#0F172A;strokeColor=#334155;fontColor=#FFFFFF;rounded=1;align=center;fontSize=11;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;1150&quot; y=&quot;795&quot; width=&quot;100&quot; height=&quot;32&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;36&quot; value=&quot;&quot; style=&quot;fillColor=#1E293B;strokeColor=#334155;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;60&quot; y=&quot;865&quot; width=&quot;1190&quot; height=&quot;1&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;37&quot; value=&quot;&amp;lt;font color=&amp;#x27;#94A3B8&amp;#x27; size=&amp;#x27;2&amp;#x27;&amp;gt;🛡️ © 2026 SAFORA.LK Safety Network • Protection for Sri Lanka Commuters&amp;lt;/font&amp;gt;&quot; style=&quot;text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;350&quot; y=&quot;875&quot; width=&quot;600&quot; height=&quot;20&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;38&quot; value=&quot;♿&quot; style=&quot;ellipse;fillColor=#F59E0B;strokeColor=#D97706;fontColor=#FFFFFF;fontStyle=1;fontSize=18;align=center;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;30&quot; y=&quot;870&quot; width=&quot;50&quot; height=&quot;50&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;&lt;mxCell id=&quot;39&quot; value=&quot;🤖&quot; style=&quot;ellipse;fillColor=#0F172A;strokeColor=#F59E0B;strokeWidth=2;fontColor=#FFFFFF;fontSize=18;align=center;&quot; vertex=&quot;1&quot; parent=&quot;1&quot;&gt;&lt;mxGeometry x=&quot;90&quot; y=&quot;870&quot; width=&quot;50&quot; height=&quot;50&quot; as=&quot;geometry&quot; /&gt;&lt;/mxCell&gt;
+      &lt;/root&gt;
+    &lt;/mxGraphModel&gt;
+  &lt;/diagram&gt;
+&lt;/mxfile&gt;">
+  <defs>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+      svg { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    </style>
+  </defs>
+  <g>
+  <rect x="0.0" y="0.0" width="1400.0" height="950.0" fill="#F8FAFC" stroke="none" />
+  <rect x="0.0" y="0.0" width="1400.0" height="70.0" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+  <foreignObject x="60.0" y="20.0" width="180.0" height="30.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font color='#F59E0B' size='5'>SAFORA</font><font color='#FFFFFF' size='5'>.LK</font></b>
+    </div>
+  </foreignObject>
+  <foreignObject x="420.0" y="20.0" width="90.0" height="30.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#E2E8F0'>🏠 Home</font>
+    </div>
+  </foreignObject>
+  <foreignObject x="520.0" y="20.0" width="110.0" height="30.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#E2E8F0'>🗺️ Safety Map</font>
+    </div>
+  </foreignObject>
+  <foreignObject x="640.0" y="20.0" width="130.0" height="30.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#E2E8F0'>➕ Report Hazard</font>
+    </div>
+  </foreignObject>
+  <foreignObject x="780.0" y="20.0" width="110.0" height="30.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#E2E8F0'>🏥 Safe Places</font>
+    </div>
+  </foreignObject>
+  <rect x="910.0" y="16.0" width="130.0" height="38.0" rx="6" ry="6" fill="#0F172A" stroke="#F59E0B" stroke-width="1" />
+  <foreignObject x="910.0" y="16.0" width="130.0" height="38.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FCD34D; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.4; word-wrap: break-word;">
+      📞 SOS Contacts
+    </div>
+  </foreignObject>
+  <rect x="1050.0" y="16.0" width="100.0" height="38.0" rx="6" ry="6" fill="#F59E0B" stroke="#D97706" stroke-width="1" />
+  <foreignObject x="1050.0" y="16.0" width="100.0" height="38.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #000000; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.4; word-wrap: break-word;">
+      ➡️ Sign In
+    </div>
+  </foreignObject>
+  <rect x="1160.0" y="16.0" width="100.0" height="38.0" rx="6" ry="6" fill="#0F172A" stroke="#475569" stroke-width="1" />
+  <foreignObject x="1160.0" y="16.0" width="100.0" height="38.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.4; word-wrap: break-word;">
+      👤 Register
+    </div>
+  </foreignObject>
+  <rect x="430.0" y="110.0" width="540.0" height="580.0" rx="6" ry="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" />
+  <foreignObject x="450.0" y="130.0" width="500.0" height="35.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font size='6' color='#F59E0B'>👤+</font> <font size='5' color='#1E293B'>Public Registration</font></b>
+    </div>
+  </foreignObject>
+  <foreignObject x="450.0" y="168.0" width="500.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#64748B' size='2'>Register to report safety hazards and send live GPS SOS alerts</font>
+    </div>
+  </foreignObject>
+  <foreignObject x="460.0" y="210.0" width="480.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font color='#334155'>Full Name</font></b>
+    </div>
+  </foreignObject>
+  <rect x="460.0" y="233.0" width="480.0" height="40.0" rx="6" ry="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <foreignObject x="460.0" y="233.0" width="480.0" height="40.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 12px; color: #94A3B8; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      e.g. Kasun Fernando
+    </div>
+  </foreignObject>
+  <foreignObject x="460.0" y="288.0" width="480.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font color='#334155'>Email Address</font></b>
+    </div>
+  </foreignObject>
+  <rect x="460.0" y="311.0" width="480.0" height="40.0" rx="6" ry="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <foreignObject x="460.0" y="311.0" width="480.0" height="40.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 12px; color: #94A3B8; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      kasun@gmail.com
+    </div>
+  </foreignObject>
+  <foreignObject x="460.0" y="366.0" width="480.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font color='#334155'>Phone Number (For Emergency Alerts)</font></b>
+    </div>
+  </foreignObject>
+  <rect x="460.0" y="389.0" width="480.0" height="40.0" rx="6" ry="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <foreignObject x="460.0" y="389.0" width="480.0" height="40.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 12px; color: #94A3B8; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      0771234567
+    </div>
+  </foreignObject>
+  <foreignObject x="460.0" y="444.0" width="230.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font color='#334155'>Password</font></b>
+    </div>
+  </foreignObject>
+  <rect x="460.0" y="467.0" width="230.0" height="40.0" rx="6" ry="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <foreignObject x="460.0" y="467.0" width="230.0" height="40.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 12px; color: #475569; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      ••••••••
+    </div>
+  </foreignObject>
+  <foreignObject x="710.0" y="444.0" width="230.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font color='#334155'>Confirm Password</font></b>
+    </div>
+  </foreignObject>
+  <rect x="710.0" y="467.0" width="230.0" height="40.0" rx="6" ry="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+  <foreignObject x="710.0" y="467.0" width="230.0" height="40.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 12px; color: #475569; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      ••••••••
+    </div>
+  </foreignObject>
+  <rect x="460.0" y="530.0" width="480.0" height="48.0" rx="6" ry="6" fill="#F59E0B" stroke="#D97706" stroke-width="1" />
+  <foreignObject x="460.0" y="530.0" width="480.0" height="48.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #000000; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: bold; line-height: 1.4; word-wrap: break-word;">
+      Create Account
+    </div>
+  </foreignObject>
+  <rect x="460.0" y="598.0" width="480.0" height="1.0" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1" />
+  <foreignObject x="460.0" y="618.0" width="480.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#64748B' size='2'>Already registered? </font><b><font color='#F59E0B' size='2'>Sign In Here</font></b>
+    </div>
+  </foreignObject>
+  <rect x="0.0" y="770.0" width="1400.0" height="180.0" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+  <foreignObject x="60.0" y="795.0" width="140.0" height="30.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <b><font color='#F59E0B' size='4'>SAFORA</font><font color='#FFFFFF' size='4'>.LK</font></b>
+    </div>
+  </foreignObject>
+  <rect x="205.0" y="798.0" width="130.0" height="24.0" rx="6" ry="6" fill="#0F172A" stroke="#F59E0B" stroke-width="1" />
+  <foreignObject x="205.0" y="798.0" width="130.0" height="24.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FBBF24; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold; line-height: 1.4; word-wrap: break-word;">
+      (((•))) 24/7 AI SAFETY
+    </div>
+  </foreignObject>
+  <foreignObject x="60.0" y="830.0" width="550.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: flex-start; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#94A3B8' size='2'>Sri Lanka's premier community-driven safety network &amp; real-time GIS hazard mapping platform.</font>
+    </div>
+  </foreignObject>
+  <rect x="820.0" y="795.0" width="80.0" height="32.0" rx="6" ry="6" fill="#0F172A" stroke="#334155" stroke-width="1" />
+  <foreignObject x="820.0" y="795.0" width="80.0" height="32.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      🏠 Home
+    </div>
+  </foreignObject>
+  <rect x="910.0" y="795.0" width="100.0" height="32.0" rx="6" ry="6" fill="#0F172A" stroke="#334155" stroke-width="1" />
+  <foreignObject x="910.0" y="795.0" width="100.0" height="32.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      🗺️ Safety Map
+    </div>
+  </foreignObject>
+  <rect x="1020.0" y="795.0" width="120.0" height="32.0" rx="6" ry="6" fill="#0F172A" stroke="#334155" stroke-width="1" />
+  <foreignObject x="1020.0" y="795.0" width="120.0" height="32.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      ⚠️ Report Hazard
+    </div>
+  </foreignObject>
+  <rect x="1150.0" y="795.0" width="100.0" height="32.0" rx="6" ry="6" fill="#0F172A" stroke="#334155" stroke-width="1" />
+  <foreignObject x="1150.0" y="795.0" width="100.0" height="32.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      📊 Dashboard
+    </div>
+  </foreignObject>
+  <rect x="60.0" y="865.0" width="1190.0" height="1.0" fill="#1E293B" stroke="#334155" stroke-width="1" />
+  <foreignObject x="350.0" y="875.0" width="600.0" height="20.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      <font color='#94A3B8' size='2'>🛡️ © 2026 SAFORA.LK Safety Network • Protection for Sri Lanka Commuters</font>
+    </div>
+  </foreignObject>
+  <ellipse cx="55.0" cy="895.0" rx="25.0" ry="25.0" fill="#F59E0B" stroke="#D97706" stroke-width="1" />
+  <foreignObject x="30.0" y="870.0" width="50.0" height="50.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; line-height: 1.4; word-wrap: break-word;">
+      ♿
+    </div>
+  </foreignObject>
+  <ellipse cx="115.0" cy="895.0" rx="25.0" ry="25.0" fill="#0F172A" stroke="#F59E0B" stroke-width="2" />
+  <foreignObject x="90.0" y="870.0" width="50.0" height="50.0">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; box-sizing: border-box; padding-left: 0px; color: #FFFFFF; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: normal; line-height: 1.4; word-wrap: break-word;">
+      🤖
+    </div>
+  </foreignObject>
+  </g>
+</svg>
