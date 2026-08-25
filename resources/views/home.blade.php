@@ -32,11 +32,11 @@
                 </div>
                 
                 <h1 class="display-4 fw-extrabold text-white mb-3" style="font-weight: 800; letter-spacing: -1px; line-height: 1.15;">
-                    Empowering Communities with <span style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Real-Time Safety</span> & Wildlife Hazard Intelligence
+                    Empowering Communities with <span style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI-Powered Street Crime Prediction</span> & Community Safety Platform
                 </h1>
 
-                <p class="lead text-slate-300 mb-4 opacity-90" style="font-size: 1.15rem; font-weight: 400; max-width: 620px;">
-                    Instant awareness for wild elephant crossings, public crime hotspots, and flood warnings across Sri Lanka. Stay safe, report hazards in seconds, or send 1-click Emergency SOS signals.
+                <p class="lead text-slate-300 mb-4 opacity-90" style="font-size: 1.15rem; font-weight: 400; max-width: 650px;">
+                    Real-time spatial risk modeling, 24/7 predictive hazard intelligence, and sub-500ms Emergency SOS dispatch. Stay safe with automated street crime forecasting, safe route navigation, and verified community havens across Sri Lanka.
                 </p>
 
                 <!-- Action Buttons -->
