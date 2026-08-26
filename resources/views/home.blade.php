@@ -1407,6 +1407,26 @@
 
             document.getElementById('commentTextInput').value = '';
 
+            // Re-initialize Bootstrap Carousel instance so newly inserted DOM slides are recognized by auto-slider
+            const carouselEl = document.getElementById('commentsCarousel');
+            if (carouselEl && window.bootstrap && window.bootstrap.Carousel) {
+                try {
+                    const existingInstance = window.bootstrap.Carousel.getInstance(carouselEl);
+                    if (existingInstance) {
+                        existingInstance.dispose();
+                    }
+                    const newCarouselInstance = new window.bootstrap.Carousel(carouselEl, {
+                        interval: 4500,
+                        ride: 'carousel',
+                        wrap: true
+                    });
+                    newCarouselInstance.to(0);
+                    newCarouselInstance.cycle();
+                } catch(e) {
+                    console.log("Carousel re-init info:", e);
+                }
+            }
+
             SaforaAlert.fire({
                 icon: 'success',
                 title: 'Review Published & Saved!',
