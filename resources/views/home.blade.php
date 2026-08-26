@@ -1382,39 +1382,52 @@
             const starStr = '⭐'.repeat(stars);
             const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'U';
 
-            // Remove active class from existing slides
-            document.querySelectorAll('#publicCommentsContainer .carousel-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            const newSlide = document.createElement('div');
-            newSlide.className = 'carousel-item active safora-popup-animate';
-            newSlide.innerHTML = `
-                <div class="row g-3 justify-content-start">
-                    <div class="col-md-6">
-                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-warning p-4 rounded-4 shadow-xl h-100 text-white text-start" style="background-color: #0f172a !important; border: 1px solid #f59e0b !important;">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <div class="d-flex align-items-center gap-2.5">
-                                    <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">${initials}</div>
-                                    <div>
-                                        <h6 class="fw-bold text-white mb-0">${author} <span class="badge bg-success text-dark ms-1" style="font-size:0.65rem;">NEWLY POSTED</span></h6>
-                                        <small class="text-slate-400" style="font-size: 0.74rem;">📍 Verified Community Reviewer</small>
-                                    </div>
-                                </div>
-                                <span class="text-warning fs-6">${starStr}</span>
+            const cardCol = document.createElement('div');
+            cardCol.className = 'col-md-6 safora-popup-animate';
+            cardCol.innerHTML = `
+                <div class="card card-pro bg-slate-800 bg-opacity-90 border-warning p-4 rounded-4 shadow-xl h-100 text-white text-start" style="background-color: #0f172a !important; border: 1px solid #f59e0b !important;">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-flex align-items-center gap-2.5">
+                            <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">${initials}</div>
+                            <div>
+                                <h6 class="fw-bold text-white mb-0">${author} <span class="badge bg-success text-dark ms-1" style="font-size:0.65rem;">NEWLY POSTED</span></h6>
+                                <small class="text-slate-400" style="font-size: 0.74rem;">📍 Verified Community Reviewer</small>
                             </div>
-                            <div class="mb-2.5 text-start">
-                                <span class="badge bg-slate-700 text-warning px-2.5 py-1 d-inline-block" style="font-size: 0.7rem;">${category}</span>
-                            </div>
-                            <p class="text-slate-200 mb-0 small text-start" style="line-height: 1.5; font-size: 0.88rem;">"${comment}"</p>
                         </div>
+                        <span class="text-warning fs-6">${starStr}</span>
                     </div>
+                    <div class="mb-2.5 text-start">
+                        <span class="badge bg-slate-700 text-warning px-2.5 py-1 d-inline-block" style="font-size: 0.7rem;">${category}</span>
+                    </div>
+                    <p class="text-slate-200 mb-0 small text-start" style="line-height: 1.5; font-size: 0.88rem;">"${comment}"</p>
                 </div>
             `;
 
             const container = document.getElementById('publicCommentsContainer');
             if (container) {
-                container.prepend(newSlide);
+                // Remove active class from all existing carousel slides
+                document.querySelectorAll('#publicCommentsContainer .carousel-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                const topSlide = container.querySelector('.carousel-item');
+                const topRow = topSlide ? topSlide.querySelector('.row') : null;
+                const existingCards = topRow ? topRow.querySelectorAll('.col-md-6') : [];
+
+                if (topSlide && topRow && existingCards.length < 2) {
+                    // Fill the 2nd slot of the top slide to maintain 2 cards per slide
+                    topRow.prepend(cardCol);
+                    topSlide.classList.add('active');
+                } else {
+                    // Create a brand new 2-card carousel slide
+                    const newSlide = document.createElement('div');
+                    newSlide.className = 'carousel-item active safora-popup-animate';
+                    const newRow = document.createElement('div');
+                    newRow.className = 'row g-3';
+                    newRow.appendChild(cardCol);
+                    newSlide.appendChild(newRow);
+                    container.prepend(newSlide);
+                }
             }
 
             document.getElementById('commentTextInput').value = '';
