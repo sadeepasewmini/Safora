@@ -20,7 +20,6 @@ Route::get('/ai/predict-risk', [IncidentController::class, 'predictRisk'])->name
 Route::get('/ai/safe-route', [IncidentController::class, 'calculateSafeRoute'])->name('ai.safe-route');
 Route::post('/ai/chat', [HomeController::class, 'aiChat'])->name('ai.chat');
 Route::post('/api/public-feedback', [HomeController::class, 'storePublicFeedback'])->name('api.public-feedback.store');
-Route::get('/log-sheets', fn() => response()->file(base_path('icbt_project_log_sheets.html')))->name('log-sheets');
 
 // Instant SOS
 Route::post('/sos/trigger', [SosController::class, 'trigger'])->name('sos.trigger');
