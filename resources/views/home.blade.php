@@ -1390,9 +1390,9 @@
             const newSlide = document.createElement('div');
             newSlide.className = 'carousel-item active safora-popup-animate';
             newSlide.innerHTML = `
-                <div class="row g-3">
-                    <div class="col-md-12">
-                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-warning p-4 rounded-4 shadow-xl h-100 text-white" style="background-color: #0f172a !important; border: 1px solid #f59e0b !important;">
+                <div class="row g-3 justify-content-start">
+                    <div class="col-md-6">
+                        <div class="card card-pro bg-slate-800 bg-opacity-90 border-warning p-4 rounded-4 shadow-xl h-100 text-white text-start" style="background-color: #0f172a !important; border: 1px solid #f59e0b !important;">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <div class="d-flex align-items-center gap-2.5">
                                     <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">${initials}</div>
@@ -1403,8 +1403,10 @@
                                 </div>
                                 <span class="text-warning fs-6">${starStr}</span>
                             </div>
-                            <span class="badge bg-slate-700 text-warning mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">${category}</span>
-                            <p class="text-slate-200 mb-0 small" style="line-height: 1.5; font-size: 0.9rem;">"${comment}"</p>
+                            <div class="mb-2.5 text-start">
+                                <span class="badge bg-slate-700 text-warning px-2.5 py-1 d-inline-block" style="font-size: 0.7rem;">${category}</span>
+                            </div>
+                            <p class="text-slate-200 mb-0 small text-start" style="line-height: 1.5; font-size: 0.88rem;">"${comment}"</p>
                         </div>
                     </div>
                 </div>
