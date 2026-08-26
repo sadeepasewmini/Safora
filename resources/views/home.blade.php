@@ -1436,9 +1436,22 @@
             });
         };
 
-        // Auto-run user location detection on map load
+        // Auto-run user location detection & initialize comments auto-slider
         setTimeout(function() {
             window.trackUserLocation(true);
+            const commentsCarouselEl = document.getElementById('commentsCarousel');
+            if (commentsCarouselEl && window.bootstrap && window.bootstrap.Carousel) {
+                try {
+                    const bsCarousel = window.bootstrap.Carousel.getOrCreateInstance(commentsCarouselEl, {
+                        interval: 4500,
+                        ride: 'carousel',
+                        wrap: true
+                    });
+                    bsCarousel.cycle();
+                } catch(err) {
+                    console.log("Comments carousel init:", err);
+                }
+            }
         }, 600);
     }
 
