@@ -225,6 +225,42 @@
             box-shadow: 0 0 24px rgba(245, 158, 11, 1), 0 0 35px rgba(245, 158, 11, 0.75) !important;
         }
 
+        /* Safe Place Map Marker Sparkle & Pulse Glow Keyframes */
+        @keyframes safePlacePulseRing {
+            0% {
+                transform: scale(0.65);
+                opacity: 0.95;
+                box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+            }
+            50% {
+                transform: scale(1.4);
+                opacity: 0.45;
+                box-shadow: 0 0 22px rgba(16, 185, 129, 0.95), 0 0 32px rgba(245, 158, 11, 0.75);
+            }
+            100% {
+                transform: scale(1.65);
+                opacity: 0;
+            }
+        }
+
+        @keyframes safePlaceSparkleStar {
+            0% {
+                transform: scale(0.6) rotate(0deg);
+                opacity: 0.3;
+                filter: drop-shadow(0 0 2px #fbbf24);
+            }
+            50% {
+                transform: scale(1.45) rotate(180deg);
+                opacity: 1;
+                filter: drop-shadow(0 0 9px #f59e0b);
+            }
+            100% {
+                transform: scale(0.7) rotate(360deg);
+                opacity: 0.35;
+                filter: drop-shadow(0 0 2px #fbbf24);
+            }
+        }
+
         /* Floating AI Chatbot Button (Stacking neatly below drawer form with zero overlap) */
         .ai-chatbot-floating-btn {
             position: relative;

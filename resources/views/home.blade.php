@@ -1742,10 +1742,14 @@
         safePlaces.forEach(sp => {
             const spIcon = L.divIcon({
                 className: 'safora-sp-wrapper',
-                html: `<div class="safora-marker-pin" style="background:#059669;"><span class="safora-marker-icon">🏥</span></div>`,
-                iconSize: [36, 36],
-                iconAnchor: [18, 36],
-                popupAnchor: [0, -32]
+                html: `<div class="safora-safeplace-beacon" style="position:relative; width:42px; height:42px; display:flex; align-items:center; justify-content:center;">
+                    <div style="position:absolute; width:44px; height:44px; background:rgba(16, 185, 129, 0.4); border-radius:50%; animation: safePlacePulseRing 2s infinite ease-out;"></div>
+                    <div style="position:absolute; top:-3px; right:-2px; font-size:12px; animation: safePlaceSparkleStar 1.5s infinite alternate; z-index:10;">✨</div>
+                    <div style="position:relative; width:34px; height:34px; background:linear-gradient(135deg, #059669 0%, #10b981 100%); border:2px solid #ffffff; border-radius:50%; box-shadow:0 0 16px rgba(16, 185, 129, 0.95), 0 0 28px rgba(245, 158, 11, 0.7); display:flex; align-items:center; justify-content:center; color:white; font-size:16px;">🏥</div>
+                </div>`,
+                iconSize: [42, 42],
+                iconAnchor: [21, 21],
+                popupAnchor: [0, -22]
             });
 
             const escapedName = (sp.name || 'Safe Place').replace(/'/g, "\\'");
