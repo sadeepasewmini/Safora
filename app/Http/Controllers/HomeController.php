@@ -55,6 +55,9 @@ class HomeController extends Controller
         // Area Safety Scores Demo Calculation
         $areaScores = $this->calculateAreaSafetyScores();
 
+        // Fetch Public Feedbacks from MySQL Database
+        $publicFeedbacks = \App\Models\PublicFeedback::latest()->get();
+
         return view('home', compact(
             'incidents',
             'categories',
@@ -62,8 +65,33 @@ class HomeController extends Controller
             'activeAlerts',
             'stats',
             'areaScores',
-            'typeFilter'
+            'typeFilter',
+            'publicFeedbacks'
         ));
+    }
+
+    public function storePublicFeedback(Request $request)
+    {
+        $validated = $request->validate([
+            'author_name' => 'required|string|max:255',
+            'rating' => 'required|integer|min:1|max:5',
+            'category' => 'required|string|max:255',
+            'comment' => 'required|string|max:1000',
+        ]);
+
+        $feedback = \App\Models\PublicFeedback::create([
+            'author_name' => $validated['author_name'],
+            'rating' => $validated['rating'],
+            'category' => $validated['category'],
+            'comment' => $validated['comment'],
+            'user_id' => auth()->check() ? auth()->id() : null,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Feedback saved successfully in database!',
+            'feedback' => $feedback
+        ]);
     }
 
     public function apiLiveMapData()

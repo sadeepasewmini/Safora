@@ -19,6 +19,7 @@ Route::post('/ai/classify', [IncidentController::class, 'classifyAi'])->name('ai
 Route::get('/ai/predict-risk', [IncidentController::class, 'predictRisk'])->name('ai.predict-risk');
 Route::get('/ai/safe-route', [IncidentController::class, 'calculateSafeRoute'])->name('ai.safe-route');
 Route::post('/ai/chat', [HomeController::class, 'aiChat'])->name('ai.chat');
+Route::post('/api/public-feedback', [HomeController::class, 'storePublicFeedback'])->name('api.public-feedback.store');
 
 // Instant SOS
 Route::post('/sos/trigger', [SosController::class, 'trigger'])->name('sos.trigger');

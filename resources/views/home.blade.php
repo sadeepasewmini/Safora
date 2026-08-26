@@ -833,83 +833,38 @@
             <div class="col-lg-8">
                 <div id="commentsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
                     <div class="carousel-inner rounded-4 shadow-xl" id="publicCommentsContainer">
-                        <!-- Slide 1 (Pair 1 & 2) -->
-                        <div class="carousel-item active">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <div class="d-flex align-items-center gap-2.5">
-                                                <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">AP</div>
-                                                <div>
-                                                    <h6 class="fw-bold text-white mb-0">Anusha Perera</h6>
-                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Kandy Commuter</small>
+                        @if(isset($publicFeedbacks) && $publicFeedbacks->count() > 0)
+                            @foreach($publicFeedbacks->chunk(2) as $chunkIndex => $feedbackChunk)
+                                <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
+                                    <div class="row g-3">
+                                        @foreach($feedbackChunk as $fb)
+                                            @php
+                                                $initials = strtoupper(substr($fb->author_name, 0, 2));
+                                                $starStr = str_repeat('⭐', $fb->rating);
+                                            @endphp
+                                            <div class="col-md-6">
+                                                <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
+                                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                                        <div class="d-flex align-items-center gap-2.5">
+                                                            <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">{{ $initials }}</div>
+                                                            <div>
+                                                                <h6 class="fw-bold text-white mb-0">{{ $fb->author_name }}</h6>
+                                                                <small class="text-slate-400" style="font-size: 0.74rem;">📍 Verified Community Reviewer</small>
+                                                            </div>
+                                                        </div>
+                                                        <span class="text-warning">{{ $starStr }}</span>
+                                                    </div>
+                                                    <div class="mb-2.5 text-start">
+                                                        <span class="badge bg-slate-700 text-warning px-2.5 py-1 d-inline-block" style="font-size: 0.7rem;">{{ $fb->category }}</span>
+                                                    </div>
+                                                    <p class="text-slate-300 mb-0 small text-start" style="line-height: 1.5; font-size: 0.88rem;">"{{ $fb->comment }}"</p>
                                                 </div>
                                             </div>
-                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
-                                        </div>
-                                        <span class="badge bg-slate-700 text-warning mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🌙 Night Safety Heatmap</span>
-                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"Safora's Night Heatmap helped me find well-lit safe streets when returning home from work late at night near Peradeniya. Truly empowering for women commuters!"</p>
+                                        @endforeach
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <div class="d-flex align-items-center gap-2.5">
-                                                <div class="rounded-circle bg-info text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">SS</div>
-                                                <div>
-                                                    <h6 class="fw-bold text-white mb-0">Sanduni Silva</h6>
-                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Colombo</small>
-                                                </div>
-                                            </div>
-                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
-                                        </div>
-                                        <span class="badge bg-slate-700 text-info mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🚨 Emergency SOS</span>
-                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"The Emergency SOS button with instant WhatsApp live location dispatch gives me and my family immense peace of mind whenever I travel late."</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Slide 2 (Pair 3 & 4) -->
-                        <div class="carousel-item">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <div class="d-flex align-items-center gap-2.5">
-                                                <div class="rounded-circle text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem; background-color:#10b981;">KW</div>
-                                                <div>
-                                                    <h6 class="fw-bold text-white mb-0">Kavindi Wickramasinghe</h6>
-                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Katugastota / Yatihalagala</small>
-                                                </div>
-                                            </div>
-                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
-                                        </div>
-                                        <span class="badge bg-slate-700 text-emerald-400 mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🤖 Safora AI Companion</span>
-                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"The AI Chatbot provided instant guidance regarding wildlife encountering near Habarana highway and gave direct ambulance numbers."</p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="card card-pro bg-slate-800 bg-opacity-90 border-slate-700 p-4 rounded-4 shadow-md h-100 text-white" style="background-color: #0f172a !important;">
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <div class="d-flex align-items-center gap-2.5">
-                                                <div class="rounded-circle bg-danger text-white fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">DF</div>
-                                                <div>
-                                                    <h6 class="fw-bold text-white mb-0">Dilani Fernando</h6>
-                                                    <small class="text-slate-400" style="font-size: 0.74rem;">📍 Galle Fort</small>
-                                                </div>
-                                            </div>
-                                            <span class="text-warning">⭐⭐⭐⭐⭐</span>
-                                        </div>
-                                        <span class="badge bg-slate-700 text-danger mb-2.5 px-2.5 py-1" style="font-size: 0.7rem;">🌟 Overall Experience</span>
-                                        <p class="text-slate-300 mb-0 small" style="line-height: 1.5; font-size: 0.88rem;">"Community hazard report voting system is brilliant! Verified community alerts keep our local roads and public spots safe together."</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- Carousel Controls (Previous & Next Arrow Buttons) -->
@@ -1379,6 +1334,26 @@
             const category = document.getElementById('commentCategoryInput').value;
             const comment = document.getElementById('commentTextInput').value;
 
+            // Save review permanently to MySQL Database
+            fetch("{{ route('api.public-feedback.store') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({
+                    author_name: author,
+                    rating: stars,
+                    category: category,
+                    comment: comment
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Review saved to Database successfully:", data);
+            })
+            .catch(err => console.error("Error saving review to DB:", err));
+
             const starStr = '⭐'.repeat(stars);
             const initials = author.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase() || 'U';
 
@@ -1390,7 +1365,7 @@
                         <div class="d-flex align-items-center gap-2.5">
                             <div class="rounded-circle bg-warning text-dark fw-bold d-flex align-items-center justify-content-center shadow-xs" style="width: 40px; height: 40px; font-size: 0.95rem;">${initials}</div>
                             <div>
-                                <h6 class="fw-bold text-white mb-0">${author} <span class="badge bg-success text-dark ms-1" style="font-size:0.65rem;">NEWLY POSTED</span></h6>
+                                <h6 class="fw-bold text-white mb-0">${author} <span class="badge bg-success text-dark ms-1" style="font-size:0.65rem;">SAVED TO DB</span></h6>
                                 <small class="text-slate-400" style="font-size: 0.74rem;">📍 Verified Community Reviewer</small>
                             </div>
                         </div>
@@ -1434,8 +1409,8 @@
 
             SaforaAlert.fire({
                 icon: 'success',
-                title: 'Review Published!',
-                text: `Thank you, ${author}! Your ${stars}-Star review for "${category}" has been published to the community board.`,
+                title: 'Review Published & Saved!',
+                text: `Thank you, ${author}! Your ${stars}-Star review for "${category}" has been saved permanently to the database.`,
                 confirmButtonText: 'Great!',
                 confirmButtonColor: '#10b981'
             });
