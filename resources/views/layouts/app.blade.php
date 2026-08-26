@@ -114,6 +114,20 @@
             background-color: rgba(255, 255, 255, 0.08);
         }
 
+        /* High Contrast Outline Warning Button Styles */
+        .btn-outline-warning {
+            color: #f59e0b !important;
+            border-color: #f59e0b !important;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-outline-warning:hover,
+        .btn-outline-warning:focus,
+        .btn-outline-warning:active {
+            color: #0f172a !important;
+            background-color: #f59e0b !important;
+            border-color: #f59e0b !important;
+        }
+
         /* Floating Emergency SOS Button */
         .sos-floating-btn {
             position: fixed;
@@ -188,6 +202,27 @@
         }
         .safora-popup-animate {
             animation: popupSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Shimmer & Pulse Glow Animation for Sign In Button */
+        @keyframes signInGlow {
+            0% {
+                box-shadow: 0 0 6px rgba(245, 158, 11, 0.4), 0 0 12px rgba(245, 158, 11, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 18px rgba(245, 158, 11, 0.85), 0 0 28px rgba(245, 158, 11, 0.55);
+            }
+            100% {
+                box-shadow: 0 0 6px rgba(245, 158, 11, 0.4), 0 0 12px rgba(245, 158, 11, 0.2);
+            }
+        }
+        .btn-signin-animate {
+            animation: signInGlow 2.2s infinite ease-in-out;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-signin-animate:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 0 24px rgba(245, 158, 11, 1), 0 0 35px rgba(245, 158, 11, 0.75) !important;
         }
 
         /* Floating AI Chatbot Button (Stacking neatly below drawer form with zero overlap) */
@@ -725,7 +760,7 @@
                         <a class="nav-link nav-link-custom" href="{{ route('home') }}#safePlacesSection"><i class="bi bi-hospital me-2 text-emerald-400"></i> Safe Places</a>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-sm btn-outline-warning text-warning px-3 py-2 ms-lg-2 rounded-3" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal">
+                        <button type="button" class="btn btn-sm btn-outline-warning px-3 py-2 ms-lg-2 rounded-3 fw-bold" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal" title="Manage SOS Emergency Contacts">
                             <i class="bi bi-telephone-plus me-1"></i> SOS Contacts
                         </button>
                     </li>
@@ -746,7 +781,7 @@
                         </li>
                     @else
                         <li class="nav-item ms-lg-3">
-                            <a class="btn btn-sm btn-warning text-dark fw-bold px-4 py-2 me-lg-2" href="{{ route('login') }}">
+                            <a class="btn btn-sm btn-warning text-dark fw-bold px-4 py-2 me-lg-2 btn-signin-animate" href="{{ route('login') }}">
                                 <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
                             </a>
                         </li>
@@ -786,7 +821,7 @@
             </div>
 
             <div class="d-flex flex-column gap-2 pt-4 border-top border-slate-800 mt-auto">
-                <button type="button" class="btn btn-outline-warning text-warning fw-bold py-2.5 rounded-3 w-100 shadow-xs" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal" data-bs-dismiss="offcanvas">
+                <button type="button" class="btn btn-outline-warning fw-bold py-2.5 rounded-3 w-100 shadow-xs" data-bs-toggle="modal" data-bs-target="#emergencyContactsModal" data-bs-dismiss="offcanvas" title="Manage SOS Emergency Contacts">
                     <i class="bi bi-telephone-plus me-2"></i> SOS Contacts
                 </button>
 
@@ -801,7 +836,7 @@
                         </button>
                     </form>
                 @else
-                    <a class="btn btn-warning text-dark fw-bold py-2.5 rounded-3 w-100 shadow-xs" href="{{ route('login') }}">
+                    <a class="btn btn-warning text-dark fw-bold py-2.5 rounded-3 w-100 shadow-xs btn-signin-animate" href="{{ route('login') }}">
                         <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
                     </a>
                     <a class="btn btn-outline-light fw-semibold py-2.5 rounded-3 w-100 shadow-xs" href="{{ route('register') }}">
@@ -925,7 +960,7 @@
                 </div>
 
                 <!-- Reset Button -->
-                <button type="button" class="btn btn-outline-warning text-warning fw-bold btn-sm w-100 rounded-3 py-2 border-warning" id="resetAccessibilitySettingsBtn" style="transition: all 0.2s ease;">
+                <button type="button" class="btn btn-outline-warning fw-bold btn-sm w-100 rounded-3 py-2 border-warning" id="resetAccessibilitySettingsBtn" style="transition: all 0.2s ease;">
                     <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Accessibility Options
                 </button>
 

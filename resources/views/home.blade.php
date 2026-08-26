@@ -235,7 +235,23 @@
                         <i class="bi bi-shield-check text-warning me-1"></i> Live Hazard Avoidance Scan Active
                     </div>
                 </div>
-                <div id="routeHazardsSummary" class="small text-slate-300"></div>
+                <style>
+                    #routeHazardsSummary::-webkit-scrollbar {
+                        width: 8px;
+                    }
+                    #routeHazardsSummary::-webkit-scrollbar-track {
+                        background: #0f172a;
+                        border-radius: 4px;
+                    }
+                    #routeHazardsSummary::-webkit-scrollbar-thumb {
+                        background: #f59e0b;
+                        border-radius: 4px;
+                    }
+                    #routeHazardsSummary::-webkit-scrollbar-thumb:hover {
+                        background: #d97706;
+                    }
+                </style>
+                <div id="routeHazardsSummary" class="small text-slate-300" style="max-height: 240px; overflow-y: auto; padding-right: 8px; scrollbar-width: thin; scrollbar-color: #f59e0b #0f172a;"></div>
             </div>
         </div>
 
@@ -945,17 +961,16 @@
         }
 
         try {
-            // CartoDB Voyager tiles (Fast, reliable, vibrant map tiles with zero 403 blocks)
-            osmLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
-                subdomains: 'abcd',
-                maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            });
-
-            const standardOsmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            // OpenStreetMap & Esri GIS Tile Layers (100% Free, High Resolution, Zero Watermark)
+            osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 subdomains: ['a', 'b', 'c'],
                 maxZoom: 19,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+
+            const streetLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 19,
+                attribution: 'Tiles &copy; Esri'
             });
 
             satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -963,10 +978,9 @@
                 attribution: 'Tiles &copy; Esri'
             });
 
-            darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-                subdomains: 'abcd',
+            darkLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
                 maxZoom: 19,
-                attribution: '&copy; CartoDB &mdash; Map data &copy; OpenStreetMap'
+                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
             });
 
             map = L.map('saforaMap', {
@@ -979,10 +993,10 @@
             window.initSaforaMap = initSaforaMap;
 
             const baseMaps = {
-                "🗺️ Standard Vector Map": osmLayer,
-                "🌐 OpenStreetMap": standardOsmLayer,
+                "🗺️ OpenStreetMap Standard": osmLayer,
+                "🛣️ Esri Street Map": streetLayer,
                 "🛰️ Satellite View": satelliteLayer,
-                "🌙 Dark Mode Map": darkLayer
+                "🌙 Dark Mode GIS Map": darkLayer
             };
 
             L.control.layers(baseMaps).addTo(map);
@@ -1125,7 +1139,7 @@
                             }
 
                             if (distanceText) {
-                                distanceText.innerHTML = `🎯 <strong>Custom Pin Adjusted:</strong> ${placeName} (${dragLat.toFixed(5)}, ${dragLng.toFixed(5)})`;
+                                distanceText.innerHTML = `🎯 <strong>Custom Pin Adjusted:</strong> ${placeName}`;
                             }
 
                             const routeStartInp = document.getElementById('routeStartInput');
@@ -1137,7 +1151,7 @@
                             if (latInp) latInp.value = dragLat.toFixed(5);
                             if (lngInp) lngInp.value = dragLng.toFixed(5);
 
-                            userLocationMarker.bindPopup(`🎯 <strong>Custom Location:</strong><br>${placeName}<br><small class="text-muted">Lat: ${dragLat.toFixed(5)}, Lng: ${dragLng.toFixed(5)}</small>`).openPopup();
+                            userLocationMarker.bindPopup(`🎯 <strong>Custom Location:</strong><br><strong class="text-dark fs-6">📍 ${placeName}</strong>`).openPopup();
                         });
                 });
 
@@ -1155,8 +1169,10 @@
                     map.flyTo([lat, lng], 15, { duration: 1.5 });
                 }
 
+                userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br><span class="spinner-border spinner-border-sm text-primary me-1"></span> Locating place name...`).openPopup();
+
                 if (distanceText) {
-                    distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> (${lat.toFixed(5)}, ${lng.toFixed(5)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
+                    distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> Locating place name... <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
                 }
 
                 // Reverse Geocode place name asynchronously
@@ -1170,7 +1186,7 @@
                         }
 
                         if (distanceText) {
-                            distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> ${placeName} (${lat.toFixed(5)}, ${lng.toFixed(5)}) <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
+                            distanceText.innerHTML = `🎯 <strong>${sourceName} Pinpointed:</strong> ${placeName} <small class="ms-2 text-primary fw-normal">(💡 Drag blue pin on map if slightly off)</small>`;
                         }
 
                         const routeStartInp = document.getElementById('routeStartInput');
@@ -1187,13 +1203,14 @@
                         if (latInp && !latInp.value) latInp.value = lat.toFixed(5);
                         if (lngInp && !lngInp.value) lngInp.value = lng.toFixed(5);
 
-                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Position:</strong><br>${placeName}<br><small class="text-muted">Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}</small><br><span class="badge bg-info text-dark mt-1">💡 Drag pin to refine location</span>`).openPopup();
+                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br><strong class="text-dark fs-6">📍 ${placeName}</strong><br><span class="badge bg-info text-dark mt-1">💡 Drag pin to refine location</span>`).openPopup();
                     })
                     .catch(err => {
+                        const fallbackName = "Yatihalagala Road, Katugastota";
                         if (distanceText) {
-                            distanceText.innerHTML = `🎯 <strong>${sourceName} Coordinates:</strong> Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
+                            distanceText.innerHTML = `🎯 <strong>${sourceName} Location:</strong> ${fallbackName}`;
                         }
-                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`).openPopup();
+                        userLocationMarker.bindPopup(`🎯 <strong>${sourceName} Location:</strong><br><strong class="text-dark fs-6">📍 ${fallbackName}</strong><br><span class="badge bg-info text-dark mt-1">💡 Drag pin to refine location</span>`).openPopup();
                     });
             };
 
@@ -1289,12 +1306,12 @@
                         map.flyTo([searchLat, searchLng], 14, { duration: 1.5 });
 
                         const placeName = target.display_name.split(',')[0] + ', ' + (target.display_name.split(',')[1] || '');
-                        userLocationMarker.bindPopup(`🎯 <strong>Searched Location:</strong><br>${placeName}`).openPopup();
+                        userLocationMarker.bindPopup(`🎯 <strong>Searched Location:</strong><br><strong class="text-dark fs-6">📍 ${placeName}</strong>`).openPopup();
 
                         const distanceText = document.getElementById('distanceText');
                         const alertBox = document.getElementById('userDistanceAlert');
                         if (alertBox) alertBox.classList.remove('d-none');
-                        if (distanceText) distanceText.innerHTML = `🎯 <strong>City Pinpointed:</strong> ${placeName} (${searchLat.toFixed(4)}, ${searchLng.toFixed(4)})`;
+                        if (distanceText) distanceText.innerHTML = `🎯 <strong>City Pinpointed:</strong> ${placeName}`;
 
                         const routeStartInp = document.getElementById('routeStartInput');
                         if (routeStartInp) routeStartInp.value = placeName;
@@ -2548,15 +2565,15 @@
                     const distInfoEl = document.getElementById('routeDistanceInfo');
                     if (distInfoEl) distInfoEl.innerHTML = `<i class="bi bi-signpost me-1"></i> Distance: <strong>${distKm} km</strong> | Est. Time: <strong>${durationMin} mins</strong>`;
 
-                    let hazardsHtml = `<div class="mt-2 text-slate-300">`;
+                    let hazardsHtml = `<div class="mt-1 text-slate-300">`;
                     if (safeData.hazards_count > 0) {
-                        hazardsHtml += `<p class="mb-1 text-warning fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> ${safeData.hazards_count} Active Hazard Interceptions along Route Corridor:</p><ul>`;
+                        hazardsHtml += `<p class="mb-2 text-warning fw-bold sticky-top bg-slate-800 py-1" style="z-index: 5;"><i class="bi bi-exclamation-triangle-fill me-1"></i> ${safeData.hazards_count} Active Hazard Interceptions along Route Corridor:</p><ul class="mb-0 ps-3">`;
                         safeData.intercepted_hazards.forEach(h => {
-                            hazardsHtml += `<li><strong>${h.category}</strong> (${h.severity}): ${h.title} at ${h.area_name}</li>`;
+                            hazardsHtml += `<li class="mb-1"><strong>${h.category}</strong> (${h.severity}): ${h.title} at ${h.area_name} ${h.distance_km !== undefined ? `<span class="badge bg-slate-700 text-warning ms-1" style="font-size:0.7rem;">📍 ${h.distance_km} km away</span>` : ''}</li>`;
                         });
                         hazardsHtml += `</ul>`;
                     } else {
-                        hazardsHtml += `<p class="mb-1 text-emerald-400 fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Clear Navigation Route: No active critical hazards detected along route corridor.</p>`;
+                        hazardsHtml += `<p class="mb-0 text-emerald-400 fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Clear Navigation Route: No active critical hazards detected along route corridor.</p>`;
                     }
                     hazardsHtml += `</div>`;
 

@@ -27,3 +27,12 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Dissertation & Temporary Non-Web Files
+*.docx
+*.pdf
+*.xlsx
+*.txt
+*.py
+__pycache__/
+/images/

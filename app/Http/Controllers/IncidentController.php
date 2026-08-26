@@ -244,13 +244,14 @@ class IncidentController extends Controller
         $destLat = (float)$request->input('dest_lat', 7.2906);
         $destLng = (float)$request->input('dest_lng', 80.6337);
 
-        $minLat = min($startLat, $destLat) - 0.1;
-        $maxLat = max($startLat, $destLat) + 0.1;
-        $minLng = min($startLng, $destLng) - 0.1;
-        $maxLng = max($startLng, $destLng) + 0.1;
+        // Bounding box corridor around route line (+- 0.015 deg ~ 1.5 km buffer)
+        $minLat = min($startLat, $destLat) - 0.015;
+        $maxLat = max($startLat, $destLat) + 0.015;
+        $minLng = min($startLng, $destLng) - 0.015;
+        $maxLng = max($startLng, $destLng) + 0.015;
 
-        // Fetch active verified incidents near the travel corridor
-        $nearbyIncidents = Incident::with('category')
+        // Fetch verified incidents within the corridor bounding box
+        $allIncidents = Incident::with('category')
             ->where('status', 'verified')
             ->whereBetween('latitude', [$minLat, $maxLat])
             ->whereBetween('longitude', [$minLng, $maxLng])
@@ -259,19 +260,29 @@ class IncidentController extends Controller
         $interceptedHazards = [];
         $safetyScore = 100;
 
-        foreach ($nearbyIncidents as $inc) {
-            $deduction = $inc->severity === 'critical' ? 25 : ($inc->severity === 'high' ? 15 : 5);
-            $safetyScore = max(10, $safetyScore - $deduction);
+        foreach ($allIncidents as $inc) {
+            $incLat = (float)$inc->latitude;
+            $incLng = (float)$inc->longitude;
 
-            $interceptedHazards[] = [
-                'id' => $inc->id,
-                'title' => $inc->title,
-                'category' => $inc->category ? $inc->category->name : 'Hazard',
-                'severity' => strtoupper($inc->severity),
-                'area_name' => $inc->area_name,
-                'latitude' => (float)$inc->latitude,
-                'longitude' => (float)$inc->longitude,
-            ];
+            // Calculate perpendicular distance (in km) from incident to route line segment
+            $distKm = $this->distanceToSegment($incLat, $incLng, $startLat, $startLng, $destLat, $destLng);
+
+            // Only intercept hazards within 1.2 km of the route corridor
+            if ($distKm <= 1.2) {
+                $deduction = $inc->severity === 'critical' ? 20 : ($inc->severity === 'high' ? 12 : ($inc->severity === 'medium' ? 6 : 3));
+                $safetyScore = max(15, $safetyScore - $deduction);
+
+                $interceptedHazards[] = [
+                    'id' => $inc->id,
+                    'title' => $inc->title,
+                    'category' => $inc->category ? $inc->category->name : 'Hazard',
+                    'severity' => strtoupper($inc->severity),
+                    'area_name' => $inc->area_name,
+                    'distance_km' => round($distKm, 2),
+                    'latitude' => $incLat,
+                    'longitude' => $incLng,
+                ];
+            }
         }
 
         $rating = $safetyScore >= 80 ? 'Highly Safe Route' : ($safetyScore >= 50 ? 'Caution Advised' : 'High Hazard Travel Zone');
@@ -290,5 +301,39 @@ class IncidentController extends Controller
                 'Avoid unlit street detours after sunset.'
             ]
         ]);
+    }
+
+    /**
+     * Helper to compute perpendicular distance (in km) from point P to line segment AB
+     */
+    private function distanceToSegment($pLat, $pLng, $aLat, $aLng, $bLat, $bLng)
+    {
+        $l2 = pow($bLat - $aLat, 2) + pow($bLng - $aLng, 2);
+        if ($l2 == 0) {
+            return $this->haversineKm($pLat, $pLng, $aLat, $aLng);
+        }
+
+        $t = (($pLat - $aLat) * ($bLat - $aLat) + ($pLng - $aLng) * ($bLng - $aLng)) / $l2;
+        $t = max(0, min(1, $t));
+
+        $projLat = $aLat + $t * ($bLat - $aLat);
+        $projLng = $aLng + $t * ($bLng - $aLng);
+
+        return $this->haversineKm($pLat, $pLng, $projLat, $projLng);
+    }
+
+    /**
+     * Haversine formula to compute distance in km
+     */
+    private function haversineKm($lat1, $lon1, $lat2, $lon2)
+    {
+        $r = 6371;
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+        $a = sin($dLat / 2) * sin($dLat / 2) +
+             cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+             sin($dLon / 2) * sin($dLon / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        return $r * $c;
     }
 }

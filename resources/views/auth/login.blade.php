@@ -20,7 +20,7 @@
                         <label class="form-label fw-semibold text-slate-700">Password</label>
                         <input type="password" name="password" class="form-control form-control-lg rounded-3 fs-6" required placeholder="••••••••">
                     </div>
-                    <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold rounded-3 py-3 shadow-sm mb-3 text-dark">
+                    <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold rounded-3 py-3 shadow-sm mb-3 text-dark btn-signin-animate">
                         <i class="bi bi-box-arrow-in-right me-2"></i> Sign In to Dashboard
                     </button>
                 </form>
