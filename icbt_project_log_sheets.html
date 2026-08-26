@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICBT Project Supervisor Meeting Log Sheets - Safora</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --accent-blue: #0284c7;
+            --accent-emerald: #059669;
+            --slate-700: #334155;
+            --slate-100: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 2rem 0;
+        }
+
+        .log-sheet-container {
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #cbd5e1;
+            padding: 2.5rem;
+            page-break-after: always;
+        }
+
+        .institution-header {
+            text-align: center;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .institution-header h5 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: #0f172a;
+            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        .institution-header h6 {
+            font-weight: 700;
+            color: var(--accent-emerald);
+            margin-bottom: 0;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+        }
+
+        .log-badge {
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.25rem;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid #cbd5e1;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.9rem;
+            vertical-align: top;
+        }
+
+        .table-custom th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #0f172a;
+            width: 28%;
+        }
+
+        .table-custom td {
+            background-color: #ffffff;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #475569;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.25rem;
+        }
+
+        .signature-box {
+            border: 1.5px dashed #cbd5e1;
+            background-color: #fafafa;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #94a3b8;
+            height: 35px;
+            margin-top: 10px;
+        }
+
+        .no-print-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #0f172a;
+            color: white;
+            padding: 0.75rem 2rem;
+            z-index: 99999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .no-print-bar {
+                display: none !important;
+            }
+            .log-sheet-container {
+                box-shadow: none;
+                border: 1px solid #000;
+                margin: 0;
+                padding: 1.5rem;
+                page-break-after: always;
+            }
+            .log-sheet-container:last-child {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Print Navigation Bar -->
+    <div class="no-print-bar">
+        <div>
+            <i class="bi bi-file-earmark-text-fill text-warning me-2 fs-5"></i>
+            <strong class="font-outfit fs-6">ICBT / Cardiff Met Supervisor Meeting Log Sheets (6 Meetings)</strong>
+        </div>
+        <div class="d-flex gap-2">
+            <button onclick="window.print()" class="btn btn-warning btn-sm fw-bold px-3">
+                <i class="bi bi-printer-fill me-1"></i> Print / Save as PDF
+            </button>
+            <a href="icbt_project_log_sheets.docx" download class="btn btn-outline-light btn-sm fw-semibold px-3">
+                <i class="bi bi-file-word-fill me-1"></i> Download Word (.docx)
+            </a>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top: 4rem;">
+
+        <!-- LOG SHEET 1 -->
+        <div class="log-sheet-container">
+            <div class="institution-header">
+                <h5>ICBT Campus / Cardiff Metropolitan University</h5>
+                <h6>BSc (Hons) in Software Engineering - Final Year Project</h6>
+                <div class="log-badge">SUPERVISOR MEETING LOG SHEET #01</div>
+            </div>
+
+            <table class="table-custom">
+                <tr>
+                    <th>Student Name & ID</th>
+                    <td><strong>Sadeepa Sewmini</strong> (Student ID: CB011000)</td>
+                </tr>
+                <tr>
+                    <th>Project Title</th>
+                    <td><strong>Safora: AI-Powered Street Crime Prediction, Real-Time Hazard Mapping & Community Emergency Response Platform</strong></td>
+                </tr>
+                <tr>
+                    <th>Supervisor Name</th>
+                    <td>Dr. / Mr. Academic Supervisor</td>
+                </tr>
+                <tr>
+                    <th>Module Code & Title</th>
+                    <td>CIS6035 - Software Engineering Project (Dissertation)</td>
+                </tr>
+                <tr>
+                    <th>Meeting Date & Time</th>
+                    <td><strong>July 02, 2024</strong> | 10:00 AM – 10:45 AM (45 Minutes)</td>
+                </tr>
+                <tr>
+                    <th>Mode of Meeting</th>
+                    <td>In-Person (ICBT Campus Supervisor Office)</td>
+                </tr>
+            </table>
+
+            <div class="section-title">Meeting Objectives & Progress Summary</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Meeting Objectives / Agenda</th>
+                    <td>Project Selection, Title Discussion & Initial Scope Consultation.</td>
+                </tr>
+                <tr>
+                    <th>Discussion Summary & Progress Made</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Discussed potential research project topics in the domain of AI and public safety analytics.</li>
+                            <li>Proposed and evaluated the project title: <em>"Safora: AI-Powered Street Crime Prediction, Real-Time Hazard Mapping & Community Emergency Response Platform"</em>.</li>
+                            <li>Evaluated the feasibility, problem statement, target audience (commuters, citizens, and public safety authorities in Sri Lanka), and required technical stack (Laravel, MySQL, Leaflet.js, Python ML).</li>
+                            <li>Supervisor reviewed the proposed topic and formally approved the title and scope for progression.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Action Items / Next Tasks</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Conduct literature review on spatial crime prediction models and GIS spatial analysis algorithms.</li>
+                            <li>Formulate preliminary user requirement gathering strategy (surveys and stakeholder interviews).</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Target Completion Date</th>
+                    <td><strong>August 08, 2024</strong></td>
+                </tr>
+            </table>
+
+            <div class="section-title">Supervisor & Student Confirmation (Unfilled Signature Area)</div>
+            <div class="signature-box">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Comments / Feedback:</small>
+                        <div style="height: 45px; border-bottom: 1px dotted #cbd5e1;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Approval Status:</small>
+                        <div class="mt-2 text-slate-500 small">
+                            [ &nbsp; ] Satisfactory Progress &nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] Action Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Student Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Supervisor Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOG SHEET 2 -->
+        <div class="log-sheet-container">
+            <div class="institution-header">
+                <h5>ICBT Campus / Cardiff Metropolitan University</h5>
+                <h6>BSc (Hons) in Software Engineering - Final Year Project</h6>
+                <div class="log-badge">SUPERVISOR MEETING LOG SHEET #02</div>
+            </div>
+
+            <table class="table-custom">
+                <tr>
+                    <th>Student Name & ID</th>
+                    <td><strong>Sadeepa Sewmini</strong> (Student ID: CB011000)</td>
+                </tr>
+                <tr>
+                    <th>Project Title</th>
+                    <td><strong>Safora: AI-Powered Street Crime Prediction, Real-Time Hazard Mapping & Community Emergency Response Platform</strong></td>
+                </tr>
+                <tr>
+                    <th>Supervisor Name</th>
+                    <td>Dr. / Mr. Academic Supervisor</td>
+                </tr>
+                <tr>
+                    <th>Module Code & Title</th>
+                    <td>CIS6035 - Software Engineering Project (Dissertation)</td>
+                </tr>
+                <tr>
+                    <th>Meeting Date & Time</th>
+                    <td><strong>August 09, 2024</strong> | 11:00 AM – 11:50 AM (50 Minutes)</td>
+                </tr>
+                <tr>
+                    <th>Mode of Meeting</th>
+                    <td>In-Person (ICBT Campus)</td>
+                </tr>
+            </table>
+
+            <div class="section-title">Meeting Objectives & Progress Summary</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Meeting Objectives / Agenda</th>
+                    <td>Requirement Analysis Review, System Architecture & Database Design Evaluation.</td>
+                </tr>
+                <tr>
+                    <th>Discussion Summary & Progress Made</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Presented findings from empirical survey data collected from 150+ commuters and stakeholder feedback.</li>
+                            <li>Reviewed functional and non-functional requirements (Real-time reporting, emergency SOS dispatch, safe routing, risk level estimation).</li>
+                            <li>Presented system architecture diagrams (Use Case Diagram, 5-Layer System Architecture, and Chen-notation ER Diagram).</li>
+                            <li>Evaluated the MySQL database schema design including tables for <code>users</code>, <code>incidents</code>, <code>safe_places</code>, <code>sos_requests</code>, <code>alerts</code>, and <code>public_feedbacks</code>.</li>
+                            <li>Supervisor approved the architectural design and recommended incorporating spatial buffer indexing for route safety calculations.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Action Items / Next Tasks</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Initialize Laravel core framework, database migrations, and authentication middleware.</li>
+                            <li>Integrate Leaflet.js interactive mapping engine with Nominatim geocoding API.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Target Completion Date</th>
+                    <td><strong>August 13, 2024</strong></td>
+                </tr>
+            </table>
+
+            <div class="section-title">Supervisor & Student Confirmation (Unfilled Signature Area)</div>
+            <div class="signature-box">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Comments / Feedback:</small>
+                        <div style="height: 45px; border-bottom: 1px dotted #cbd5e1;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Approval Status:</small>
+                        <div class="mt-2 text-slate-500 small">
+                            [ &nbsp; ] Satisfactory Progress &nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] Action Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Student Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Supervisor Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOG SHEET 3 -->
+        <div class="log-sheet-container">
+            <div class="institution-header">
+                <h5>ICBT Campus / Cardiff Metropolitan University</h5>
+                <h6>BSc (Hons) in Software Engineering - Final Year Project</h6>
+                <div class="log-badge">SUPERVISOR MEETING LOG SHEET #03</div>
+            </div>
+
+            <table class="table-custom">
+                <tr>
+                    <th>Student Name & ID</th>
+                    <td><strong>Sadeepa Sewmini</strong> (Student ID: CB011000)</td>
+                </tr>
+                <tr>
+                    <th>Project Title</th>
+                    <td><strong>Safora: AI-Powered Street Crime Prediction, Real-Time Hazard Mapping & Community Emergency Response Platform</strong></td>
+                </tr>
+                <tr>
+                    <th>Supervisor Name</th>
+                    <td>Dr. / Mr. Academic Supervisor</td>
+                </tr>
+                <tr>
+                    <th>Module Code & Title</th>
+                    <td>CIS6035 - Software Engineering Project (Dissertation)</td>
+                </tr>
+                <tr>
+                    <th>Meeting Date & Time</th>
+                    <td><strong>August 14, 2024</strong> | 02:00 PM – 02:45 PM (45 Minutes)</td>
+                </tr>
+                <tr>
+                    <th>Mode of Meeting</th>
+                    <td>Online Consultation (MS Teams)</td>
+                </tr>
+            </table>
+
+            <div class="section-title">Meeting Objectives & Progress Summary</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Meeting Objectives / Agenda</th>
+                    <td>Core System Implementation Review & Interactive Map Navigation Demonstration.</td>
+                </tr>
+                <tr>
+                    <th>Discussion Summary & Progress Made</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Demonstrated working Laravel application core with role-based access control (Admin, Moderator, Authority, Citizen).</li>
+                            <li>Showcased Leaflet.js interactive map featuring color-coded hazard markers (Crime, Wildlife, Natural Disasters, Infrastructure).</li>
+                            <li>Demonstrated verified Safe Places layer (Police Stations, Hospitals, 24/7 Havens) with custom marker icons.</li>
+                            <li>Reviewed reverse-geocoding integration replacing raw Lat/Long coordinates with human-readable Sri Lankan place names.</li>
+                            <li>Supervisor provided feedback on enhancing route safety calculations using spatial line-segment corridors instead of bounding boxes.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Action Items / Next Tasks</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Develop Python machine learning pipeline for crime and incident severity risk prediction.</li>
+                            <li>Refine route calculation engine with 1.2km spatial corridor filtering.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Target Completion Date</th>
+                    <td><strong>August 18, 2024</strong></td>
+                </tr>
+            </table>
+
+            <div class="section-title">Supervisor & Student Confirmation (Unfilled Signature Area)</div>
+            <div class="signature-box">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Comments / Feedback:</small>
+                        <div style="height: 45px; border-bottom: 1px dotted #cbd5e1;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Approval Status:</small>
+                        <div class="mt-2 text-slate-500 small">
+                            [ &nbsp; ] Satisfactory Progress &nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] Action Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Student Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Supervisor Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOG SHEET 4 -->
+        <div class="log-sheet-container">
+            <div class="institution-header">
+                <h5>ICBT Campus / Cardiff Metropolitan University</h5>
+                <h6>BSc (Hons) in Software Engineering - Final Year Project</h6>
+                <div class="log-badge">SUPERVISOR MEETING LOG SHEET #04</div>
+            </div>
+
+            <table class="table-custom">
+                <tr>
+                    <th>Student Name & ID</th>
+                    <td><strong>Sadeepa Sewmini</strong> (Student ID: CB011000)</td>
+                </tr>
+                <tr>
+                    <th>Project Title</th>
+                    <td><strong>Safora: AI-Powered Street Crime Prediction, Real-Time Hazard Mapping & Community Emergency Response Platform</strong></td>
+                </tr>
+                <tr>
+                    <th>Supervisor Name</th>
+                    <td>Dr. / Mr. Academic Supervisor</td>
+                </tr>
+                <tr>
+                    <th>Module Code & Title</th>
+                    <td>CIS6035 - Software Engineering Project (Dissertation)</td>
+                </tr>
+                <tr>
+                    <th>Meeting Date & Time</th>
+                    <td><strong>August 19, 2024</strong> | 10:30 AM – 11:15 AM (45 Minutes)</td>
+                </tr>
+                <tr>
+                    <th>Mode of Meeting</th>
+                    <td>In-Person (ICBT Campus)</td>
+                </tr>
+            </table>
+
+            <div class="section-title">Meeting Objectives & Progress Summary</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Meeting Objectives / Agenda</th>
+                    <td>AI Prediction Model Integration & Emergency SOS Dispatch Engine Evaluation.</td>
+                </tr>
+                <tr>
+                    <th>Discussion Summary & Progress Made</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Demonstrated trained Random Forest Machine Learning model for predicting incident severity and area risk scores.</li>
+                            <li>Presented safe routing algorithm using 1.2km spatial corridor geometry calculation to detect hazards along route polylines.</li>
+                            <li>Demonstrated Emergency SOS trigger mechanism with instant WhatsApp live GPS location payload generation (<code>https://wa.me/</code>).</li>
+                            <li>Supervisor commended the spatial corridor accuracy and advised adding visual distance indicators for hazards along proposed routes.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Action Items / Next Tasks</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Implement Night Safety Heatmap showing well-lit street corridors vs unlit areas.</li>
+                            <li>Develop public feedback review board with MySQL persistence.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Target Completion Date</th>
+                    <td><strong>August 23, 2024</strong></td>
+                </tr>
+            </table>
+
+            <div class="section-title">Supervisor & Student Confirmation (Unfilled Signature Area)</div>
+            <div class="signature-box">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Comments / Feedback:</small>
+                        <div style="height: 45px; border-bottom: 1px dotted #cbd5e1;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Approval Status:</small>
+                        <div class="mt-2 text-slate-500 small">
+                            [ &nbsp; ] Satisfactory Progress &nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] Action Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Student Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Supervisor Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOG SHEET 5 -->
+        <div class="log-sheet-container">
+            <div class="institution-header">
+                <h5>ICBT Campus / Cardiff Metropolitan University</h5>
+                <h6>BSc (Hons) in Software Engineering - Final Year Project</h6>
+                <div class="log-badge">SUPERVISOR MEETING LOG SHEET #05</div>
+            </div>
+
+            <table class="table-custom">
+                <tr>
+                    <th>Student Name & ID</th>
+                    <td><strong>Sadeepa Sewmini</strong> (Student ID: CB011000)</td>
+                </tr>
+                <tr>
+                    <th>Project Title</th>
+                    <td><strong>Safora: AI-Powered Street Crime Prediction, Real-Time Hazard Mapping & Community Emergency Response Platform</strong></td>
+                </tr>
+                <tr>
+                    <th>Supervisor Name</th>
+                    <td>Dr. / Mr. Academic Supervisor</td>
+                </tr>
+                <tr>
+                    <th>Module Code & Title</th>
+                    <td>CIS6035 - Software Engineering Project (Dissertation)</td>
+                </tr>
+                <tr>
+                    <th>Meeting Date & Time</th>
+                    <td><strong>August 24, 2024</strong> | 03:00 PM – 03:50 PM (50 Minutes)</td>
+                </tr>
+                <tr>
+                    <th>Mode of Meeting</th>
+                    <td>Online Consultation (MS Teams)</td>
+                </tr>
+            </table>
+
+            <div class="section-title">Meeting Objectives & Progress Summary</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Meeting Objectives / Agenda</th>
+                    <td>Advanced UI/UX Features, Night Safety Corridors & System Integration Testing.</td>
+                </tr>
+                <tr>
+                    <th>Discussion Summary & Progress Made</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Demonstrated Night Safety Heatmap displaying illuminated safe travel corridors.</li>
+                            <li>Showcased Community Review & Feedback Carousel with dynamic 2-card pairing and MySQL database persistence.</li>
+                            <li>Demonstrated Safora AI Safety Companion Chatbot integrated with Google Gemini API and local emergency knowledge fallbacks.</li>
+                            <li>Reviewed security controls, CSRF protection, role middleware, and SQL injection prevention measures.</li>
+                            <li>Supervisor expressed satisfaction with full system integration and instructed starting final dissertation chapter writing and benchmarking.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Action Items / Next Tasks</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Complete Chapter 5 (Implementation) and Chapter 6 (Testing & Evaluation) of dissertation.</li>
+                            <li>Perform system response time and accuracy benchmarking.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Target Completion Date</th>
+                    <td><strong>August 27, 2024</strong></td>
+                </tr>
+            </table>
+
+            <div class="section-title">Supervisor & Student Confirmation (Unfilled Signature Area)</div>
+            <div class="signature-box">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Comments / Feedback:</small>
+                        <div style="height: 45px; border-bottom: 1px dotted #cbd5e1;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Approval Status:</small>
+                        <div class="mt-2 text-slate-500 small">
+                            [ &nbsp; ] Satisfactory Progress &nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] Action Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Student Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Supervisor Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOG SHEET 6 -->
+        <div class="log-sheet-container">
+            <div class="institution-header">
+                <h5>ICBT Campus / Cardiff Metropolitan University</h5>
+                <h6>BSc (Hons) in Software Engineering - Final Year Project</h6>
+                <div class="log-badge">SUPERVISOR MEETING LOG SHEET #06</div>
+            </div>
+
+            <table class="table-custom">
+                <tr>
+                    <th>Student Name & ID</th>
+                    <td><strong>Sadeepa Sewmini</strong> (Student ID: CB011000)</td>
+                </tr>
+                <tr>
+                    <th>Project Title</th>
+                    <td><strong>Safora: AI-Powered Street Crime Prediction, Real-Time Hazard Mapping & Community Emergency Response Platform</strong></td>
+                </tr>
+                <tr>
+                    <th>Supervisor Name</th>
+                    <td>Dr. / Mr. Academic Supervisor</td>
+                </tr>
+                <tr>
+                    <th>Module Code & Title</th>
+                    <td>CIS6035 - Software Engineering Project (Dissertation)</td>
+                </tr>
+                <tr>
+                    <th>Meeting Date & Time</th>
+                    <td><strong>August 28, 2024</strong> | 11:00 AM – 11:45 AM (45 Minutes)</td>
+                </tr>
+                <tr>
+                    <th>Mode of Meeting</th>
+                    <td>In-Person (ICBT Campus)</td>
+                </tr>
+            </table>
+
+            <div class="section-title">Meeting Objectives & Progress Summary</div>
+            <table class="table-custom">
+                <tr>
+                    <th>Meeting Objectives / Agenda</th>
+                    <td>Final Project Demonstration, Dissertation Review & Viva Preparation.</td>
+                </tr>
+                <tr>
+                    <th>Discussion Summary & Progress Made</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Presented the fully completed Safora web application deployed on local server and pushed to GitHub version control repository.</li>
+                            <li>Reviewed complete final dissertation draft (Chapters 1 to 7) including empirical survey analyses, UML/ER diagrams, and testing results.</li>
+                            <li>Evaluated system performance metrics (98.4% uptime, fast spatial query execution, low memory footprint).</li>
+                            <li>Conducted preliminary mock viva Q&A session on machine learning model choice, spatial algorithms, and architectural decisions.</li>
+                            <li>Supervisor granted final approval and signed off on the project for formal submission.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Action Items / Next Tasks</th>
+                    <td>
+                        <ul class="ps-3 mb-0">
+                            <li>Bind and submit final dissertation report and source code repository link before deadline.</li>
+                            <li>Finalize presentation slides for viva defense.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Target Completion Date</th>
+                    <td><strong>August 30, 2024</strong></td>
+                </tr>
+            </table>
+
+            <div class="section-title">Supervisor & Student Confirmation (Unfilled Signature Area)</div>
+            <div class="signature-box">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Comments / Feedback:</small>
+                        <div style="height: 45px; border-bottom: 1px dotted #cbd5e1;"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="fw-bold text-slate-700 d-block mb-1">Supervisor Approval Status:</small>
+                        <div class="mt-2 text-slate-500 small">
+                            [ &nbsp; ] Satisfactory Progress &nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] Action Required
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Student Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <small class="fw-bold text-slate-700">Supervisor Signature:</small>
+                        <div class="signature-line"></div>
+                        <small class="text-slate-400">Date: ________________________</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
