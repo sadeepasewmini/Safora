@@ -10,24 +10,53 @@
                     <p class="text-muted small">Register to report safety hazards and send live GPS SOS alerts</p>
                 </div>
 
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4 border-0 shadow-sm" role="alert" style="background-color: #fef2f2; border-left: 4px solid #dc2626 !important; color: #991b1b;">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-exclamation-triangle-fill fs-4 me-3 text-danger flex-shrink-0 mt-1"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1" style="color: #991b1b;"><i class="bi bi-person-x me-1"></i> Registration Error</h6>
+                                <ul class="mb-0 ps-3 small fw-semibold">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Full Name</label>
-                        <input type="text" name="name" class="form-control rounded-3" required placeholder="e.g. Kasun Fernando">
+                        <input type="text" name="name" class="form-control rounded-3 @error('name') is-invalid @enderror" required placeholder="e.g. Kasun Fernando" value="{{ old('name') }}">
+                        @error('name')
+                            <div class="invalid-feedback fw-semibold mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Email Address</label>
-                        <input type="email" name="email" class="form-control rounded-3" required placeholder="kasun@gmail.com">
+                        <input type="email" name="email" class="form-control rounded-3 @error('email') is-invalid @enderror" required placeholder="kasun@gmail.com" value="{{ old('email') }}">
+                        @error('email')
+                            <div class="invalid-feedback fw-semibold mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Phone Number (For Emergency Alerts)</label>
-                        <input type="text" name="phone" class="form-control rounded-3" required placeholder="0771234567">
+                        <input type="text" name="phone" class="form-control rounded-3 @error('phone') is-invalid @enderror" required placeholder="0771234567" value="{{ old('phone') }}">
+                        @error('phone')
+                            <div class="invalid-feedback fw-semibold mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="row g-2 mb-4">
                         <div class="col-6">
                             <label class="form-label fw-semibold">Password</label>
-                            <input type="password" name="password" class="form-control rounded-3" required placeholder="••••••••">
+                            <input type="password" name="password" class="form-control rounded-3 @error('password') is-invalid @enderror" required placeholder="••••••••">
+                            @error('password')
+                                <div class="invalid-feedback fw-semibold mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-6">
                             <label class="form-label fw-semibold">Confirm Password</label>

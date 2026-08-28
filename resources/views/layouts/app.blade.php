@@ -363,6 +363,45 @@
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4) !important;
         }
 
+        /* SweetAlert2 Pop-up Styling Matching Screenshot */
+        .safora-swal-popup {
+            background: #0f172a !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            border-radius: 20px !important;
+            padding: 2.2rem 1.8rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85) !important;
+        }
+        .safora-swal-title {
+            color: #ffffff !important;
+            font-family: 'Outfit', 'Inter', sans-serif !important;
+            font-weight: 800 !important;
+            font-size: 1.75rem !important;
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        .safora-swal-html {
+            color: #cbd5e1 !important;
+            font-size: 1.05rem !important;
+            font-weight: 500 !important;
+            margin-bottom: 1.25rem !important;
+        }
+        .safora-swal-confirm-btn {
+            background-color: #f59e0b !important;
+            color: #0f172a !important;
+            font-weight: 800 !important;
+            font-size: 1rem !important;
+            padding: 10px 36px !important;
+            border-radius: 10px !important;
+            border: none !important;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4) !important;
+            transition: all 0.2s ease !important;
+        }
+        .safora-swal-confirm-btn:hover {
+            transform: scale(1.05) !important;
+            background-color: #fbbf24 !important;
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6) !important;
+        }
+
         /* Professional Cards */
         .card-pro {
             background-color: #ffffff;
@@ -886,18 +925,78 @@
     <!-- Global Alert Notifications -->
     <div class="container mt-3">
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+            <div class="alert alert-success alert-dismissible fade show rounded-3 shadow-sm border-0 d-none" role="alert">
                 <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
         @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm border-0 d-none" role="alert">
                 <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
+        @if($errors->any() && !request()->routeIs(['login', 'register']))
+            <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert" style="background-color: #fef2f2; border-left: 4px solid #dc2626 !important; color: #991b1b;">
+                <div class="d-flex align-items-start">
+                    <i class="bi bi-exclamation-triangle-fill fs-5 me-2 flex-shrink-0 mt-1"></i>
+                    <div>
+                        <strong class="d-block mb-1">Please check the following errors:</strong>
+                        <ul class="mb-0 ps-3 small fw-semibold">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
     </div>
+
+    <!-- Centered Pop-up Modal Alert (SweetAlert2) -->
+    <script>
+        function triggerSaforaSwal(title, text, icon, confirmText) {
+            let retries = 0;
+            function runSwal() {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        title: title,
+                        text: text,
+                        icon: icon,
+                        iconColor: icon === 'success' ? '#22c55e' : '#ef4444',
+                        confirmButtonText: confirmText || 'Great!',
+                        buttonsStyling: false,
+                        customClass: {
+                            popup: 'safora-swal-popup',
+                            title: 'safora-swal-title',
+                            htmlContainer: 'safora-swal-html',
+                            confirmButton: 'safora-swal-confirm-btn'
+                        }
+                    });
+                } else if (retries < 20) {
+                    retries++;
+                    setTimeout(runSwal, 100);
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', runSwal);
+            } else {
+                runSwal();
+            }
+        }
+    </script>
+    @if(session('success'))
+    <script>
+        triggerSaforaSwal('Action Completed', "{{ session('success') }}", 'success', 'Great!');
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+        triggerSaforaSwal('Action Failed', "{{ session('error') }}", 'error', 'OK');
+    </script>
+    @endif
 
     <!-- Main Content -->
     <main class="w-100">

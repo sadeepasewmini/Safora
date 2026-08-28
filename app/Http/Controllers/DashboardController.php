@@ -19,15 +19,23 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
+        $targetRoute = 'user.dashboard';
         if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
+            $targetRoute = 'admin.dashboard';
         } elseif ($user->role === 'moderator') {
-            return redirect()->route('moderator.dashboard');
+            $targetRoute = 'moderator.dashboard';
         } elseif ($user->role === 'authority') {
-            return redirect()->route('authority.dashboard');
-        } else {
-            return redirect()->route('user.dashboard');
+            $targetRoute = 'authority.dashboard';
         }
+
+        $redirect = redirect()->route($targetRoute);
+        if (session()->has('success')) {
+            $redirect->with('success', session('success'));
+        }
+        if (session()->has('error')) {
+            $redirect->with('error', session('error'));
+        }
+        return $redirect;
     }
 
     // 👨💼 1. ADMIN DASHBOARD

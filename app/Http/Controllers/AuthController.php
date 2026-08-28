@@ -19,14 +19,29 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+        ], [
+            'email.required' => 'Please enter your email address.',
+            'email.email' => 'Please enter a valid email address format.',
+            'password.required' => 'Please enter your password.',
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', 'Logged in successfully!');
+            $user = Auth::user();
+            $targetRoute = 'user.dashboard';
+            if ($user->role === 'admin') {
+                $targetRoute = 'admin.dashboard';
+            } elseif ($user->role === 'moderator') {
+                $targetRoute = 'moderator.dashboard';
+            } elseif ($user->role === 'authority') {
+                $targetRoute = 'authority.dashboard';
+            }
+            return redirect()->route($targetRoute)->with('success', 'Logged in successfully!');
         }
 
-        return back()->withErrors(['email' => 'Invalid email or password credentials.']);
+        return back()
+            ->withErrors(['email' => 'Invalid email address or password. Please check your credentials and try again.'])
+            ->withInput($request->only('email'));
     }
 
     public function showRegister()
@@ -41,6 +56,15 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|string|max:20',
             'password' => 'required|min:6|confirmed',
+        ], [
+            'name.required' => 'Please enter your full name.',
+            'email.required' => 'Please enter your email address.',
+            'email.email' => 'Please enter a valid email address format.',
+            'email.unique' => 'This email address is already registered. Please sign in or use a different email address.',
+            'phone.required' => 'Please enter your contact phone number.',
+            'password.required' => 'Please enter a password.',
+            'password.min' => 'Password must be at least 6 characters long.',
+            'password.confirmed' => 'Password confirmation does not match.',
         ]);
 
         $user = User::create([
