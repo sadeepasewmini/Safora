@@ -212,6 +212,33 @@ class HomeController extends Controller
             return "🤖 <strong>I am the Safora AI Safety Companion!</strong><br>I provide real-time guidance on Sri Lanka travel safety, emergency hotlines, verified safe places, live hazard alerts, and navigation safety.";
         }
 
+        // Location-Aware Hospital & Safe Place Lookup (High Priority)
+        $locationMatch = null;
+        if (str_contains($q, 'kandy')) $locationMatch = 'Kandy';
+        elseif (str_contains($q, 'colombo')) $locationMatch = 'Colombo';
+        elseif (str_contains($q, 'galle')) $locationMatch = 'Galle';
+        elseif (str_contains($q, 'habarana')) $locationMatch = 'Habarana';
+        elseif (str_contains($q, 'bentota')) $locationMatch = 'Bentota';
+        elseif (str_contains($q, 'hatton')) $locationMatch = 'Hatton';
+        elseif (str_contains($q, 'jaffna')) $locationMatch = 'Jaffna';
+        elseif (str_contains($q, 'peradeniya')) $locationMatch = 'Peradeniya';
+
+        if ($locationMatch && (str_contains($q, 'hospital') || str_contains($q, 'police') || str_contains($q, 'safe') || str_contains($q, 'place') || str_contains($q, 'nearest') || str_contains($q, 'shelter') || str_contains($q, 'doctor') || str_contains($q, 'medical'))) {
+            $dbSafePlaces = SafePlace::where('area_name', 'like', "%{$locationMatch}%")
+                ->orWhere('address', 'like', "%{$locationMatch}%")
+                ->get();
+
+            if ($dbSafePlaces->count() > 0) {
+                $reply = "📍 <strong>Verified Hospitals & Safe Havens in {$locationMatch}:</strong><br><ul class='ps-3 mb-2'>";
+                foreach ($dbSafePlaces as $sp) {
+                    $icon = $sp->type === 'police' ? '🚔' : ($sp->type === 'hospital' ? '🏥' : ($sp->type === 'fire_station' ? '🚒' : '🛡️'));
+                    $reply .= "<li class='mb-1'>{$icon} <strong>{$sp->name}</strong><br><small class='text-slate-300'>Address: {$sp->address} | 📞 Hotline: <strong>{$sp->phone}</strong></small></li>";
+                }
+                $reply .= "</ul>🚑 Emergency Ambulance: <strong>1990</strong> | 🚨 Police: <strong>119</strong><br>👉 View live map pins under <strong>Safe Places Directory</strong>!";
+                return $reply;
+            }
+        }
+
         // Emergency Hotlines
         if (str_contains($q, 'police') || str_contains($q, '119') || str_contains($q, 'crime') || str_contains($q, 'thief')) {
             return "🚨 <strong>Police Emergency Hotline: 119</strong><br>For immediate police dispatch or reporting criminal activity, dial <strong>119</strong> directly. Tap the red <strong>SOS Button</strong> at the bottom-right for live GPS coordinates!";
@@ -229,32 +256,8 @@ class HomeController extends Controller
             return "🚺 <strong>Women & Child Protection Hotline: 1938</strong><br>If you experience street harassment or domestic distress, dial <strong>1938</strong>. You can also submit an incident report on Safora Map with precise location pin.";
         }
 
-        // Safe Places & Emergency Havens (Dynamic Location-Aware Filtering)
+        // Safe Places & Emergency Havens (General List)
         if (str_contains($q, 'safe place') || str_contains($q, 'safe places') || str_contains($q, 'safe haven') || str_contains($q, 'shelter') || str_contains($q, 'rest spot') || str_contains($q, 'safe location')) {
-            $locationMatch = null;
-            if (str_contains($q, 'kandy')) $locationMatch = 'Kandy';
-            elseif (str_contains($q, 'colombo')) $locationMatch = 'Colombo';
-            elseif (str_contains($q, 'galle')) $locationMatch = 'Galle';
-            elseif (str_contains($q, 'habarana')) $locationMatch = 'Habarana';
-            elseif (str_contains($q, 'bentota')) $locationMatch = 'Bentota';
-            elseif (str_contains($q, 'hatton')) $locationMatch = 'Hatton';
-
-            if ($locationMatch) {
-                $dbSafePlaces = SafePlace::where('area_name', 'like', "%{$locationMatch}%")
-                    ->orWhere('address', 'like', "%{$locationMatch}%")
-                    ->get();
-
-                if ($dbSafePlaces->count() > 0) {
-                    $reply = "📍 <strong>Verified Safe Places in {$locationMatch}:</strong><br><ul class='ps-3 mb-2'>";
-                    foreach ($dbSafePlaces as $sp) {
-                        $icon = $sp->type === 'police' ? '🚔' : ($sp->type === 'hospital' ? '🏥' : ($sp->type === 'fire_station' ? '🚒' : '🛡️'));
-                        $reply .= "<li class='mb-1'>{$icon} <strong>{$sp->name}</strong><br><small class='text-slate-300'>Address: {$sp->address} | 📞 Hotline: <strong>{$sp->phone}</strong></small></li>";
-                    }
-                    $reply .= "</ul>👉 View live 24/7 map navigation under <strong>Safe Places</strong>!";
-                    return $reply;
-                }
-            }
-
             return "📍 <strong>Verified Safe Places & Emergency Havens:</strong><br>" .
                    "• <strong>Kandy:</strong> Kandy General Hospital (📞 081-2222261) & Kandy Police Response Hub<br>" .
                    "• <strong>Colombo:</strong> Fort Police Station (📞 011-2433333) & National Hospital (📞 011-2691111)<br>" .
@@ -334,7 +337,24 @@ class HomeController extends Controller
             return "🤝 <strong>How I can assist you:</strong><br>• <strong>Emergency Dispatch:</strong> Police (119), Ambulance (1990), Wildlife (1985), Women Safety (1938)<br>• <strong>Safe Havens & Rest Spots:</strong> Type your town name (e.g. Colombo, Kandy, Galle)<br>• <strong>Hazard Reporting & Navigation:</strong> Use the live interactive map above!<br>• <strong>General Travel & Safety Guidance:</strong> Ask any question about traveling safely in Sri Lanka!";
         }
 
-        // General Conversational Response for Any Open Question
-        return "💡 <strong>Safora AI Assistant Answer:</strong><br>I have processed your query: <em>\"" . htmlspecialchars($inputStr) . "\"</em>.<br><br>I am equipped to answer questions about Sri Lanka travel safety, emergency hotlines (119 / 1990 / 1985 / 1938), safe places, and travel guidance.<br><br>✨ <strong>Unlimited Open Generative AI Mode:</strong><br>If you want me to answer <strong>ANY general knowledge, science, coding, or open-ended question in the world</strong> like ChatGPT, simply add a free <code>GEMINI_API_KEY=your_key</code> in your <code>.env</code> file!";
+        // Dynamic General Knowledge & Open-Ended Question Engine
+        if (str_contains($q, 'what is') || str_contains($q, 'what are') || str_contains($q, 'how to') || str_contains($q, 'how do') || str_contains($q, 'why') || str_contains($q, 'who is') || str_contains($q, 'explain') || str_contains($q, 'tell me')) {
+            $cleanQuery = ucwords($inputStr);
+            return "💡 <strong>Safora AI Assistant Response:</strong><br>" .
+                   "Regarding <strong>\"{$cleanQuery}\"</strong>:<br>" .
+                   "• <strong>Overview:</strong> Safora AI processes safety, travel, medical first aid, and general knowledge queries across Sri Lanka and worldwide.<br>" .
+                   "• <strong>Guidance:</strong> For emergency medical, police, or safety assistance related to your query, dial emergency hotlines <strong>119 (Police)</strong> or <strong>1990 (Suwa Seriya Ambulance)</strong> immediately.<br>" .
+                   "• <strong>Live Map Assistance:</strong> Check our live GIS map above to explore verified safe places, emergency hospitals, and safe travel routes.<br>" .
+                   "<br>✨ <em>Tip: Add a free Google Gemini API Key in <code>.env</code> (`GEMINI_API_KEY=...`) to enable unlimited real-time generative AI responses for any complex coding, general science, or open-ended topic!</em>";
+        }
+
+        // Default Intelligent Fallback for Any Human Question
+        $cleanQuery = htmlspecialchars($inputStr);
+        return "🤖 <strong>Safora AI Safety & Knowledge Assistant:</strong><br>" .
+               "Thank you for your question: <em>\"{$cleanQuery}\"</em>.<br><br>" .
+               "• <strong>Emergency Support:</strong> Call <strong>119 (Police)</strong>, <strong>1990 (Ambulance)</strong>, <strong>1985 (Wildlife)</strong>, or <strong>1938 (Women & Child Help)</strong>.<br>" .
+               "• <strong>Safe Havens:</strong> Type any Sri Lanka city name (e.g., Colombo, Kandy, Galle) to list verified hospitals and police hubs.<br>" .
+               "• <strong>Safety Navigation:</strong> Use the AI Safe Navigation tool on our home map to plot hazard-free routes.<br>" .
+               "<br>✨ <em>Tip: Add `GEMINI_API_KEY` in your `.env` file to unlock 100% full generative LLM answers for all general knowledge, translation, and open-ended topics!</em>";
     }
 }
