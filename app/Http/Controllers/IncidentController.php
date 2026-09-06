@@ -92,16 +92,29 @@ class IncidentController extends Controller
         } elseif (Str::contains($text, ['leopard', 'diviya', 'cheetah', 'spot'])) {
             $matchedCategory = $categories->where('name', 'Leopard Sighting')->first();
             $confidence = 94;
-        } elseif (Str::contains($text, ['crocodile', 'kimbula', 'river', 'alligator'])) {
+        } elseif (Str::contains($text, ['crocodile', 'kimbula', 'alligator', 'mugger'])) {
             $matchedCategory = $categories->where('name', 'Crocodile Sighting')->first();
             $confidence = 95;
-        } elseif (Str::contains($text, ['stolen', 'steal', 'snatch', 'purse', 'bag', 'phone', 'thief', 'horaa'])) {
+        } elseif (Str::contains($text, ['stolen', 'steal', 'snatch', 'purse', 'bag', 'phone', 'thief', 'horaa', 'pickpocket'])) {
             $matchedCategory = $categories->where('name', 'Theft / Snatching')->first();
             $confidence = 92;
-        } elseif (Str::contains($text, ['flood', 'water', 'wathura', 'rain', 'inundated'])) {
+        } elseif (Str::contains($text, ['flood', 'water', 'wathura', 'rain', 'inundated', 'riverbank', 'overflow'])) {
             $matchedCategory = $categories->where('name', 'Flood Warning')->first();
-            $confidence = 91;
-        } elseif (Str::contains($text, ['accident', 'car', 'bike', 'crash', 'collision'])) {
+            $confidence = 93;
+        } elseif (Str::contains($text, ['tree', 'fallen tree', 'branch', 'pole'])) {
+            $matchedCategory = $categories->where('name', 'Fallen Trees')->first();
+            $confidence = 94;
+        } elseif (Str::contains($text, ['traffic', 'traffic block', 'road block', 'jam', 'breakdown', 'congestion'])) {
+            $matchedCategory = $categories->where('name', 'Traffic Block')->first();
+            $confidence = 95;
+        } elseif (Str::contains($text, ['landslide', 'mud slip', 'earth slip', 'rock fall', 'slope'])) {
+            $matchedCategory = $categories->where('name', 'Landslide Risk')->first();
+            $confidence = 94;
+
+        } elseif (Str::contains($text, ['harass', 'catcall', 'stalk', 'unlit', 'dark alley', 'unsafe'])) {
+            $matchedCategory = $categories->where('name', 'Harassment Zone')->first();
+            $confidence = 92;
+        } elseif (Str::contains($text, ['accident', 'car', 'bike', 'crash', 'collision', 'hit'])) {
             $matchedCategory = $categories->where('name', 'Road Accident')->first();
             $confidence = 93;
         }
